@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/umd/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/bootstrap-select.min.css">
+    <script src="~/Scripts/bootstrap-select.min.js"></script>
+    <link rel="icon" href="/Images/icon-site.png" type="image/x-icon">
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <link href="~/Content/CSS/StylesAdmin.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="cover">
+        <div class="left-column">
+            <div class="column-in">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="title"><span class="nav-ico ico0"></span> <span class="text-menu">Navigation</span> </div>
+                    <ul class="list-unstyled">
+
+                        <li><span class="menu-ico ico1"></span><span class="text-menu"> @Html.RouteLink("Home", "AdminItem", new { Action = "Admin" })</span></li>
+                        @if (User.IsInRole("Root Admin") || User.IsInRole("Admin"))
+                        {
+                            <li><span class="menu-ico ico2"></span><span class="text-menu"> @Html.RouteLink("Products", "AdminItem", new { Action = "List", type = "Product" }) </span></li>
+                            <li><span class="menu-ico ico3"></span><span class="text-menu"> @Html.RouteLink("TemplateOptions", "AdminItem", new { Action = "List", type = "TemplateOption" }) </span></li>
+                            <li class="dropdown">
+                                <span class="menu-ico ico4"></span>
+                                <span class="text-menu"><a>Catalog</a></span>
+                                <ul class="dropdown-menu">
+                                    <li><span class="menu-ico ico4-1"></span><span class="text-menu"> @Html.RouteLink("Product Games", "AdminItem", new { Action = "List", type = "ProductGame" })</span></li>
+                                    <li><span class="menu-ico ico4-2"></span><span class="text-menu"> @Html.RouteLink("Product Category", "AdminItem", new { Action = "List", type = "ProductCategory" })</span></li>
+                                    <li><span class="menu-ico ico4-3"></span><span class="text-menu"> @Html.RouteLink("Product SubCategory", "AdminItem", new { Action = "List", type = "ProductSubCategory" })</span></li>
+                                </ul>
+                            </li>
+                            <li><span class="menu-ico ico5"></span><span class="text-menu"> @Html.RouteLink("Html Blocks", "AdminItem", new { Action = "List", type = "HtmlBlocks" }) </span></li>
+                            <li><span class="menu-ico ico6"></span><span class="text-menu"> @Html.RouteLink("SEO", "AdminItem", new { Action = "List", type = "SEO" }) </span></li>
+                            <li><span class="menu-ico ico7"></span><span class="text-menu"><a> Coupons</a> </span></li>
+                            <li><span class="menu-ico ico8"></span><span class="text-menu">@Html.RouteLink("Orders", "AdminItem", new { Action = "List", type = "Orders" })</span></li>
+                            <li><span class="menu-ico ico9"></span><span class="text-menu">@Html.RouteLink("Users", "AdminItem", new { Action = "List", type = "Users" }) </span></li>
+                            <li><span class="menu-ico ico10"></span><span class="text-menu">@Html.RouteLink("Ranks", "AdminItem", new { Action = "List", type = "Ranks" }) </span></li>
+                            <li><span class="menu-ico ico11"></span><span class="text-menu">@Html.RouteLink("Customers", "AdminItem", new { Action = "List", type = "Customers" })</span></li>
+                            <li><span class="menu-ico ico12"></span><span class="text-menu">@Html.RouteLink("Roles", "AdminItem", new { Action = "List", type = "Roles" })</span></li>
+                            <li><span class="menu-ico ico13"></span><span class="text-menu">@Html.RouteLink("Article", "AdminItem", new { Action = "List", type = "Article" })</span></li>
+                            
+
+                        }
+                        else if (User.IsInRole("Price Admin"))
+                        {
+                            <li><span class="menu-ico ico2"></span><span class="text-menu"> @Html.RouteLink("Products", "AdminItem", new { Action = "List", type = "Product" }) </span></li>
+                        }
+                    </ul>
+                }
+            </div>
+                
+        </div>
+        <div class="content">
+            <div class="head-block">
+                <div class="logo-head"><a href="/"><img src="/Images/logo.svg" alt="logo"></a></div>
+                <div class="site-link"><a href="/"></a></div>
+                <div class="login-user">Hello @User.Identity.Name @Html.ActionLink("Logout", "Logout", "Login")</div>
+                <div class="clear"></div>
+            </div>
+            <div class="content-block">
+                @RenderBody()
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <footer>
+    </footer>
+    <script src="~/Scripts/admin-script.js"></script>
+</body>
+</html>
+
