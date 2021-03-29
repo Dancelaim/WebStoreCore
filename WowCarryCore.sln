@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WowCarryCore", "WowCarryCore.csproj", "{55F03F94-9425-4FE4-B278-3FE368786AFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55F03F94-9425-4FE4-B278-3FE368786AFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55F03F94-9425-4FE4-B278-3FE368786AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55F03F94-9425-4FE4-B278-3FE368786AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55F03F94-9425-4FE4-B278-3FE368786AFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {703FD6DB-204F-460C-A478-A8F6A2A751E3}
+	EndGlobalSection
+EndGlobal

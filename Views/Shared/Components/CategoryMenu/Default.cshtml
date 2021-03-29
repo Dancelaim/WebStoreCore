@@ -1,0 +1,8 @@
+﻿@model  List<string>
+
+    @foreach (var cat in Model)
+    {
+        <li>
+            @Html.RouteLink(cat, "Sorted",new{selectedGame= ViewData["SelectedGame"],categoryName = cat})        
+        </li>
+    }

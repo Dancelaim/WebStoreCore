@@ -1,0 +1,13 @@
+﻿@model ProductGame
+<div id="product-games" class="container">
+    <h1>@Model.GameName</h1>
+    @*@Html.Action("SiteBlock", "SiteBlock", new { title = Model.GameName + " HtmlBlock" })*@
+    <h2>Popular Products Today</h2>
+    @*@Html.Action("RecommendedProducts", "HomePage", new { game = Model.GameName })*@
+    @if (@Model.GameDescription != null)
+    {
+        <div class="description">
+            @Html.Raw(HttpUtility.HtmlDecode(@Model.GameDescription))
+        </div>
+    }
+</div>

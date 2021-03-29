@@ -1,0 +1,14 @@
+﻿@model List<HtmlBlock>
+
+@foreach (var pb in Model)
+{
+<div class=@pb.ParentCssclass>
+    <h2>@pb.ParentTitle</h2>
+    <div class=@pb.ChildCssclass>
+        @foreach (var b in pb.HtmlBlocksChildren)
+        {
+            @await  Html.PartialAsync("SiteBlockChild", b)
+        }
+    </div>
+</div>
+}

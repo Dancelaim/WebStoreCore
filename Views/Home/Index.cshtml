@@ -1,0 +1,156 @@
+﻿
+<div id="common-home" class="container">
+    <div class="row">
+        @await Component.InvokeAsync("GameCategoryMenu")
+        @await Component.InvokeAsync("SiteBlock", new { requestedPage = "HomePage" })
+        <div class="featured-block">
+            <div class="featured_title">Featured Products</div>
+            <div class="featured-links">
+                @*@if (Request.Browser.IsMobileDevice)
+                {<div class="featured-links-mobile">
+                        <div class="mobile-title">Choose the game:</div>
+                        <div class="featured-links_in mobile-list">
+                            <div class="title-list">
+                                <div class="title-item">WoW Shadowlands</div>
+                                <div class="title-item">World of Warcraft Classic</div>
+                                <div class="title-item">Path Of Exile Boosting</div>
+                            </div>
+                            <div class="cat-list">
+                                <span class="best_wow_shadowlands_deals">WoW Shadowlands</span>
+                                <span class="best_world_of_warcraft_classic_deals">World of Warcraft Classic</span>
+                                <span class="best_path_of_exile_boosting_deals">Path Of Exile Boosting</span>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                else
+                {*@
+                <div class="featured-links_in desktop-list">
+                    <span class="best_wow_shadowlands_deals">WoW Shadowlands</span>
+                    <span class="best_world_of_warcraft_classic_deals">World of Warcraft Classic</span>
+                    <span class="best_path_of_exile_boosting_deals">Path Of Exile Boosting</span>
+                    <div id="magic-bg" style="left: 195.062px; width: 187px;"></div>
+                </div>
+                @*}*@
+            </div>
+            <div class="featured_box" id="best_wow_shadowlands_deals">
+                @await Component.InvokeAsync("RecommendedProducts", new { game = "World of Warcraft" })
+            </div>
+            <div class="featured_box" id="best_path_of_exile_boosting_deals">
+                @await Component.InvokeAsync("RecommendedProducts", new { game = "Path Of Exile" })
+            </div>
+            <div class="featured_box" id="best_world_of_warcraft_classic_deals">
+                @await Component.InvokeAsync("RecommendedProducts", new { game = "World of Warcraft Classic" })
+            </div>
+        </div>
+        @*@await Component.InvokeAsync("SiteBlock", new { requestedPage = "HomePage" })
+   TO DO:+     @Html.Action("LatestPosts", "Blog")
+        @await Component.InvokeAsync("SiteBlock", new { requestedPage = "HomePage" })*@
+    </div>
+</div>
+<script>
+    $('.review_block_in').slick({
+        dots: false,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 5,
+        slidesToScroll: 5,
+        responsive: [
+            {
+                breakpoint: 1440,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    infinite: false,
+                    dots: false
+                }
+            },
+            {
+                breakpoint: 1025,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: false,
+                    dots: false
+                }
+            },
+            {
+                breakpoint: 980,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 700,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
+
+    //bb-title
+    $(document).ready(function () {
+        // initially reset
+        var posLeft = $('.featured-links_in.desktop-list span:first-child').position().left;
+        var posWidth = $('.featured-links_in.desktop-list span:first-child').width();
+        $('#magic-bg').css({ 'left': posLeft, 'width': posWidth });
+
+        // sliding
+        $('.featured-links_in.desktop-list span').click(function () {
+            var posLeft = $(this).position().left;
+            var posWidth = $(this).width();
+
+            $('#magic-bg').stop().animate({
+                'left': posLeft,
+                'width': posWidth
+            });
+        });
+    });
+    //active tab recommended
+    $(document).ready(function () {
+        var firstTab = $('.featured-links span:first').attr("class");
+        var tabFirstText = $('.featured-links span:first').text();
+        $('.title-item').text(tabFirstText);
+
+        $('#' + firstTab).addClass('active');
+        $('.featured-links span:first').addClass('active');
+        $('.featured-links .title-item:first').addClass('active-title');
+
+        $(".featured-links span").on("click", function () {
+            var tabName = $(this).attr("class");
+
+            if ($('.featured_box').hasClass('active')) {
+
+                if (!$(this).hasClass('active')) {
+                    $('.featured_box').removeClass('active');
+                    $('.featured-links span').removeClass('active');
+                }
+                $('#' + tabName).addClass('active');
+                $('span.' + tabName).addClass('active');
+                $('.mobile-list').removeClass('active-menu');
+            }
+            else {
+                $('#' + tabName).addClass('active');
+                $('span.' + tabName).addClass('active');
+                $('.mobile-list').removeClass('active-menu');
+            }
+            var tabText = $(this).text();
+            $('.title-item').text(tabText);
+        });
+
+        $('.title-list').on("click", function () {
+
+            if ($('.mobile-list').hasClass('active-menu')) {
+                $('.mobile-list').removeClass('active-menu');
+            } else {
+                $('.mobile-list').addClass('active-menu');
+            }
+
+        });
+
+    });
+</script>
