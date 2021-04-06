@@ -31,31 +31,33 @@ namespace WowCarryCore.Controllers
             
             return View();
         }
+        [Route("Privacy")]
         public IActionResult Privacy()
         {
             return View();
         }
+        [Route("AboutUs")]
         public ViewResult AboutUs()
         {
             return View();
 
         }
+        [Route("Contacts")]
         public ViewResult Contacts()
         {
             return View();
         }
+        [Route("FAQ")]
         public ViewResult FAQ()
         {
             return View();
         }
-        public ViewResult PrivacyPolicy()
-        {
-            return View();
-        }
+        [Route("Terms")]
         public ViewResult Terms()
         {
             return View();
         }
+        [Route("CarryCoins")]
         public ViewResult CarryCoins()
         {
             return View();
