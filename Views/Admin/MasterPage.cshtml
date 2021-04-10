@@ -22,14 +22,14 @@
     <div class="cover">
         <div class="left-column">
             <div class="column-in">
-                @if (User.Identity.IsAuthenticated)
-                {
+                @*@if (User.Identity.IsAuthenticated)
+                {*@
                     <div class="title"><span class="nav-ico ico0"></span> <span class="text-menu">Navigation</span> </div>
                     <ul class="list-unstyled">
 
                         <li><span class="menu-ico ico1"></span><span class="text-menu"> @Html.RouteLink("Home", "AdminItem", new { Action = "Admin" })</span></li>
-                        @if (User.IsInRole("Root Admin") || User.IsInRole("Admin"))
-                        {
+                        @*@if (User.IsInRole("Root Admin") || User.IsInRole("Admin"))
+                        {*@
                             <li><span class="menu-ico ico2"></span><span class="text-menu"> @Html.RouteLink("Products", "AdminItem", new { Action = "List", type = "Product" }) </span></li>
                             <li><span class="menu-ico ico3"></span><span class="text-menu"> @Html.RouteLink("TemplateOptions", "AdminItem", new { Action = "List", type = "TemplateOption" }) </span></li>
                             <li class="dropdown">
@@ -52,13 +52,13 @@
                             <li><span class="menu-ico ico13"></span><span class="text-menu">@Html.RouteLink("Article", "AdminItem", new { Action = "List", type = "Article" })</span></li>
                             
 
-                        }
+                        @*}
                         else if (User.IsInRole("Price Admin"))
                         {
                             <li><span class="menu-ico ico2"></span><span class="text-menu"> @Html.RouteLink("Products", "AdminItem", new { Action = "List", type = "Product" }) </span></li>
-                        }
+                        }*@
                     </ul>
-                }
+                @*}*@
             </div>
                 
         </div>
