@@ -1,0 +1,71 @@
+﻿@model List<Article>
+
+<div class="blog-tags">
+    <h1>Tags</h1>
+    <aside>
+        <ul class="tags-list">
+            @foreach (var tag in ViewBag.resultTags)
+            {
+            <li>
+                @tag
+                @*@Html.ActionLink(tag, "TagSearch", "Blog", new { Tag = tag })*@
+            </li> 
+            }
+        </ul>
+    </aside>
+    <div class="articles-list">
+        @foreach (var art in Model)
+        {
+            var tags = art.Tags.Split(',');
+            <div class="post-item">
+                <div class="post-image">
+                    <a href="@Url.Action("Article","Blog",new {articleId = art.ArticleId})">
+                        <img src="@Url.Content(string.Format("~/" + art.ImagePath))" alt="@art.Title" title="@art.Title" class="img-responsive">
+                    </a>
+                </div>
+
+                <div class="post-text">
+                    <div class="post-heading">
+                        <div class="tag">
+                            @foreach (var tag in tags)
+                            {
+                                @Html.ActionLink(tag, "TagSearch", new { Tag = tag })
+                            }
+                        </div>
+                        <h3 class="title"><a href="@Url.Action("Article", "Blog", new { articleId = art.ArticleId })">@art.Title </a></h3>
+
+                    </div>
+                    <div class="post-body">
+                        <span class="date">@art.ArticlePostTime.ToString("MMMM dd, yyyy") </span>
+                        <span class="readtime_thumb">@art.ReadTime</span>
+                        <div class="clear"></div>
+                        <div class="short-description">
+                            @art.ShortDescription
+                        </div>
+                        <div class="tag mob-tag">
+                            @foreach (var tag in tags)
+                            {
+                                @Html.ActionLink(tag, "TagSearch", new { Tag = tag })
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        }
+    </div>
+    <div class="clear"></div>
+</div>
+<script>
+    $(function () {
+        var location = window.location.href;
+        $('.tags-list li a').each(function () {
+            var link = $(this).attr('href');
+            if (location.indexOf(link) !== -1) {
+                $(this).addClass('active');
+            }
+        });
+    });
+</script>
+

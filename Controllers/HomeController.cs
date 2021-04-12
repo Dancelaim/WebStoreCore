@@ -27,8 +27,6 @@ namespace WowCarryCore.Controllers
         public IActionResult Index()
         {
             HttpContext.Session.Remove("SelectedGame");
-
-            
             return View();
         }
         [Route("Privacy")]

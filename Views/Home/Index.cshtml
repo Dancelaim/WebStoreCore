@@ -2,7 +2,7 @@
 <div id="common-home" class="container">
     <div class="row">
         @await Component.InvokeAsync("GameCategoryMenu")
-        @await Component.InvokeAsync("SiteBlock", new { requestedPage = "HomePage" })
+        @await Component.InvokeAsync("SiteBlock", new { requestedPage = "Reviews" })
         <div class="featured-block">
             <div class="featured_title">Featured Products</div>
             <div class="featured-links">
@@ -44,9 +44,9 @@
                 @await Component.InvokeAsync("RecommendedProducts", new { game = "World of Warcraft Classic" })
             </div>
         </div>
-        @*@await Component.InvokeAsync("SiteBlock", new { requestedPage = "HomePage" })
-   TO DO:+     @Html.Action("LatestPosts", "Blog")
-        @await Component.InvokeAsync("SiteBlock", new { requestedPage = "HomePage" })*@
+        @await Component.InvokeAsync("SiteBlock", new { requestedPage = "purchase_block" })
+        @await Component.InvokeAsync("Blog")
+        @await Component.InvokeAsync("SiteBlock", new { requestedPage = "description" })
     </div>
 </div>
 <script>
