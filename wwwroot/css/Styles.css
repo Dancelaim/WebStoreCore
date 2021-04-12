@@ -17,7 +17,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Me5Q.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Me5Q.ttf) format('truetype');
 }
 a {
   color: #6D94C4;
@@ -2162,7 +2162,7 @@ footer .disc_link:hover img {
 }
 .select-games-block.category-games {
   position: relative;
-  background: url(/Images/games-bg1.jpg) 50% 0 no-repeat;
+  background: url(/Images/homePage/games-bg1.jpg) 50% 0 no-repeat;
   padding: 30px 20px 0;
   text-align: center;
   overflow: hidden;
