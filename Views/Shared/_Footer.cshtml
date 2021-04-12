@@ -14,19 +14,19 @@
                 <div class="col-sm-3 foot_menu">
                     <div class="title">Information</div>
                     <ul class="list-unstyled">
-                        <li> @Html.ActionLink("ABOUT US", "AboutUs", "Home")</li>
-                        <li> @Html.ActionLink("CONTACTS", "Contacts", "Home")</li>
+                        <li> @Html.ActionLink("About Us", "AboutUs", "Home")</li>
+                        <li> @Html.ActionLink("Contacts", "Contacts", "Home")</li>
                         <li> @Html.ActionLink("F.A.Q", "FAQ", "Home")</li>
-                        <li> @Html.ActionLink("PRIVACY POLICY", "Privacy", "Home")</li>
-                        <li> @Html.ActionLink("TERMS & CONDITIONS", "Terms", "Home")</li>
-                        <li> @Html.ActionLink("CARRYCOINS", "CarryCoins", "Home")</li>
+                        <li> @Html.ActionLink("Privacy Policy", "Privacy", "Home")</li>
+                        <li> @Html.ActionLink("Terms & Conditions", "Terms", "Home")</li>
+                        <li> @Html.ActionLink("CarryCoins", "CarryCoins", "Home")</li>
                     </ul>
                 </div>
 
                 <div class="col-sm-3 footer_category">
                     <div class="title">Games</div>
                     <ul class="list-unstyled">
-                        @*@Html.Action("GameMenu", "Navigation")*@
+                        @await Component.InvokeAsync("GameMenu")
                     </ul>
                 </div>
                 <div class="social_footer">
@@ -63,7 +63,7 @@
         </div>
     </div>
 </footer>
-<script src="~/Scripts/accardeon.js"></script>
+<script src="~/js/accardeon.js" asp-append-version="true"></script>
 <script>
     //discord copy link
     function hideText() {
