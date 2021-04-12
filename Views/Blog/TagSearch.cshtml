@@ -6,10 +6,11 @@
         <ul class="tags-list">
             @foreach (var tag in ViewBag.resultTags)
             {
-            <li>
-                @tag
-                @*@Html.ActionLink(tag, "TagSearch", "Blog", new { Tag = tag })*@
-            </li> 
+                <li>
+                    <a href="@Url.Action("TagSearch","Blog",new {Tag = tag})">
+                        @tag
+                    </a>
+                </li> 
             }
         </ul>
     </aside>
