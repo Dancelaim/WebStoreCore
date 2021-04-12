@@ -27,7 +27,7 @@ namespace HtmlHelpers
         public static string IsSelected(this IHtmlHelper html, string category)
         {
             const string cssClass = "active";
-            var currentCategory = html.ViewContext.RouteData.Values["categoryName"].ToString();
+            var currentCategory = html.ViewContext.HttpContext.Request.Query["categoryName"];
 
             return category == currentCategory ? cssClass : String.Empty;
         }
