@@ -24,16 +24,17 @@ namespace WowCarry.WebUI.Controllers
             Article result = _context.Articles.Where(a => a.ArticleId == articleId).FirstOrDefault();
             return View(result);
         }
-        [Route("blogs")]
+        
         public ViewResult Articles(string game)
         {
             List<Article> result = _context.Articles.Where(a => game == null || a.ProductGame.GameName == game).ToList();
             ViewData["GameName"] = game;
             return View(result);
         }
+        [Route("blogs")]
         public ViewResult Blog()
         {
-            List<Article> result = _context.Articles.ToList();
+            List<Article> result = _context.Articles.Include(a => a.ProductGame).ToList();
             return View(result);
         }
         public ViewResult TagSearch(string Tag)

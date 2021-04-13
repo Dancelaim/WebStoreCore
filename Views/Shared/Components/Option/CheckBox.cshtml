@@ -1,4 +1,12 @@
 ﻿@model ProductOption
-
-<h1>CHECKBOX</h1>
-
+@foreach (var OptionParams in Model.ProductOptionParams.Where(p => p.ParentOptionId == Model.OptionId))
+{
+<div class="checkbox">
+    <label>
+        <input class="input-checkbox" type="checkbox" name="option" value="" id="option">
+        <span class="name-opt"> @OptionParams.ParameterName </span>
+        <span class="opt-price">+(<span>@OptionParams.ParameterPrice</span>)</span>
+        <span class="option_text"><span>@OptionParams.ParameterTooltip</span></span>
+    </label>
+</div>
+}

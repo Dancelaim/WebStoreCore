@@ -17,28 +17,33 @@
                     <div class="options">
                         @foreach (var ParentOption in Model.ProductOptions.Where(o => o.OptionParentId == null))
                         {
-                            @await Component.InvokeAsync("Option", new { OptionId = ParentOption.OptionId })
+                        <div class="option">
+                            <label class="control-label"> @ParentOption.OptionName </label>
+                            <div class="parent-box">
+                                @await Component.InvokeAsync("Option", new { OptionId = ParentOption.OptionId })
+                            </div>
 
-                                @foreach (var childOption in @Model.ProductOptions.Where(o => o.OptionParentId == ParentOption.OptionId))
-                                {
-                                    <div style="margin-left:25px">
-                                        @await Component.InvokeAsync("Option", new { OptionId = childOption.OptionId })
-                                    </div>
-                                }
-                        }
-                    </div>
-                    <div class="price-info">
-                        <div class="price"></div>
+                            @foreach (var childOption in @Model.ProductOptions.Where(o => o.OptionParentId == ParentOption.OptionId))
+                            {
+                                <div class="child-box" style="margin-left:15px;">
+                                    @await Component.InvokeAsync("Option", new { OptionId = childOption.OptionId })
+                                </div>
+                            }
+                        </div>
+                         }
+                            </div>
+                            <div class="price-info">
+                                <div class="price"></div>
 
-                        <div class="coins_info"> 2.30 <a href="/CarryCoins" target="_blank"><b>Carrycoins</b></a> and discounted price for registered users* </div>
-                        <div class="reg_info"><a href="#" data-toggle="modal" data-target="#loginModal"><b>Sign In</b></a> or <a href="#" data-toggle="modal" data-target="#registerModal"><b>Register</b></a> to start saving. </div>
-                    </div>
-                    <div class="buttons">
-                        @Html.HiddenFor(x => x.ProductId)
-                        <button type="button" id="button-cart" class="btn btn-primary">Add to Cart</button>
-                        <button type="button" id="button-tocart" data-loading-text="Loading..." href="/checkout" class="btn btn-primary btn-lg btn-block">QUICK PURCHASE</button>
-                    </div>
-                </div>
+                                <div class="coins_info"> 2.30 <a href="/CarryCoins" target="_blank"><b>Carrycoins</b></a> and discounted price for registered users* </div>
+                                <div class="reg_info"><a href="#" data-toggle="modal" data-target="#loginModal"><b>Sign In</b></a> or <a href="#" data-toggle="modal" data-target="#registerModal"><b>Register</b></a> to start saving. </div>
+                            </div>
+                            <div class="buttons">
+                                @Html.HiddenFor(x => x.ProductId)
+                                <button type="button" id="button-cart" class="btn btn-primary">Add to Cart</button>
+                                <button type="button" id="button-tocart" data-loading-text="Loading..." href="/checkout" class="btn btn-primary btn-lg btn-block">QUICK PURCHASE</button>
+                            </div>
+                        </div>
                 <div class="info-product-coins">
                     * With each purchase registered users get 5% of the price added to their account as <a href="/CarryCoins" target="_blank"><b>Carrycoins</b></a> as well as increasing <a href="/CarryCoins" target="_blank"><b>discounts</b></a> for regular buyers.
                 </div>
@@ -146,4 +151,10 @@
 
 	});
 
+    //$(".parent-box").on('click', function () {
+    //    var checkedProp = $(this).find("input").prop('checked');
+    //    if (checkedProp == true) {
+    //        $(this).closest(".option").find(".child-box")
+    //    }
+    //});
 </script>
