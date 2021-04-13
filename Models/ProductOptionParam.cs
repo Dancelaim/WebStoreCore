@@ -33,6 +33,9 @@ namespace WowCarryCore.Models
         [ForeignKey(nameof(ParameterParentId))]
         [InverseProperty(nameof(ProductOptionParam.InverseParameterParent))]
         public virtual ProductOptionParam ParameterParent { get; set; }
+        [ForeignKey(nameof(ParentOptionId))]
+        [InverseProperty(nameof(ProductOption.ProductOptionParams))]
+        public virtual ProductOption ParentOption { get; set; }
         [InverseProperty(nameof(ProductOptionParam.ParameterParent))]
         public virtual ICollection<ProductOptionParam> InverseParameterParent { get; set; }
     }

@@ -15,8 +15,17 @@
                 <div class="added-alert">@Model.ProductName added to cart</div>
                 <div class="product_info">
                     <div class="options">
-                    @*TODO : OPTIONS *@
-                        @*@Html.Action("Options", "Options", new { ProductId = @Model.ProductId })*@
+                        @foreach (var ParentOption in Model.ProductOptions.Where(o => o.OptionParentId == null))
+                        {
+                            @await Component.InvokeAsync("Option", new { OptionId = ParentOption.OptionId })
+
+                                @foreach (var childOption in @Model.ProductOptions.Where(o => o.OptionParentId == ParentOption.OptionId))
+                                {
+                                    <div style="margin-left:25px">
+                                        @await Component.InvokeAsync("Option", new { OptionId = childOption.OptionId })
+                                    </div>
+                                }
+                        }
                     </div>
                     <div class="price-info">
                         <div class="price"></div>

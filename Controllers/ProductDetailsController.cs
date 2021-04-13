@@ -24,7 +24,7 @@ public class ProductDetailsController : Controller
     }
     public ViewResult Details(string productUrl)
         {
-            Product product = _context.Products.Where(p => p.ProductSeo.UrlKeyWord == productUrl).Include(p=>p.ProductDescription).FirstOrDefault();
+            Product product = _context.Products.Where(p => p.ProductSeo.UrlKeyWord == productUrl).Include(p=>p.ProductDescription).Include(p=>p.ProductOptions).FirstOrDefault();
             return View(product);
         }
         //[httppost]

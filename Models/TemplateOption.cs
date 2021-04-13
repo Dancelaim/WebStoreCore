@@ -10,6 +10,11 @@ namespace WowCarryCore.Models
 {
     public partial class TemplateOption
     {
+        public TemplateOption()
+        {
+            TempOptionParams = new HashSet<TempOptionParam>();
+        }
+
         [Key]
         public Guid OptionId { get; set; }
         [StringLength(55)]
@@ -17,5 +22,8 @@ namespace WowCarryCore.Models
         [StringLength(10)]
         public string OptionType { get; set; }
         public Guid? OptionParentId { get; set; }
+
+        [InverseProperty(nameof(TempOptionParam.ParentOption))]
+        public virtual ICollection<TempOptionParam> TempOptionParams { get; set; }
     }
 }

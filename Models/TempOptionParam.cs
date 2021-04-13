@@ -33,6 +33,9 @@ namespace WowCarryCore.Models
         [ForeignKey(nameof(Delete))]
         [InverseProperty(nameof(TempOptionParam.InverseDeleteNavigation))]
         public virtual TempOptionParam DeleteNavigation { get; set; }
+        [ForeignKey(nameof(ParentOptionId))]
+        [InverseProperty(nameof(TemplateOption.TempOptionParams))]
+        public virtual TemplateOption ParentOption { get; set; }
         [InverseProperty(nameof(TempOptionParam.DeleteNavigation))]
         public virtual ICollection<TempOptionParam> InverseDeleteNavigation { get; set; }
     }
