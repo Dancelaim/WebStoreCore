@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Customer>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Customers</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "CreateEdit", new { type = "Customers" }, new { @class = "btn" })
+    </p>
+    <table class="table">
+        <thead>
+            <tr class="title">
+                <th>Название</th>
+                <th class="text-center">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td> @Html.ActionLink(item.Name, "CreateEdit", new { Id = item.CustomerId, type = item.GetType().BaseType.Name })</td>
+                <td class="text-center">
+                    <a href="@Url.Action("Remove", new { Id = item.CustomerId, type = item.GetType().BaseType.Name })">Remove</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TemplateOption>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminOptions</title>
+</head>
+<body>
+    <div class="panel-heading">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        <div class="save-btns">
+            @Html.ActionLink("Create New", "CreateEdit", new { type = "TemplateOptions" }, new { @class = "btn" })
+        </div>
+    </div>
+
+
+    <table class="table">
+        <thead>
+            <tr class="title">
+                <th>Название</th>
+                <th class="text-center">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+
+                <td> @Html.ActionLink(item.OptionName, "CreateEdit", new { Id = item.OptionId, type = item.GetType().BaseType.Name })</td>
+                <td class="text-center">
+                    @Html.ActionLink("Remove", "Remove", new { Id = item.OptionId, type = item.GetType().BaseType.Name })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
