@@ -218,6 +218,11 @@ namespace WowCarryCore.Models
                     .WithMany(p => p.InverseParameterParent)
                     .HasForeignKey(d => d.ParameterParentId)
                     .HasConstraintName("FK_ProductOptionParams_ProductOptionParams");
+
+                entity.HasOne(d => d.ParentOption)
+                    .WithMany(p => p.ProductOptionParams)
+                    .HasForeignKey(d => d.ParentOptionId)
+                    .HasConstraintName("FK_ProductOptionParams_ProductOptions");
             });
 
             modelBuilder.Entity<ProductPrice>(entity =>
@@ -282,6 +287,11 @@ namespace WowCarryCore.Models
                     .WithMany(p => p.InverseDeleteNavigation)
                     .HasForeignKey(d => d.Delete)
                     .HasConstraintName("FK_TempOptionParams_TempOptionParams");
+
+                entity.HasOne(d => d.ParentOption)
+                    .WithMany(p => p.TempOptionParams)
+                    .HasForeignKey(d => d.ParentOptionId)
+                    .HasConstraintName("FK_TempOptionParams_TemplateOptions");
             });
 
             modelBuilder.Entity<TemplateOption>(entity =>
