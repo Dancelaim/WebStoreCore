@@ -17,21 +17,9 @@
                     <div class="options">
                         @foreach (var ParentOption in Model.ProductOptions.Where(o => o.OptionParentId == null))
                         {
-                        <div class="option">
-                            <label class="control-label"> @ParentOption.OptionName </label>
-                            <div class="parent-box">
-                                @await Component.InvokeAsync("Option", new { OptionId = ParentOption.OptionId })
-                            </div>
-
-                            @foreach (var childOption in @Model.ProductOptions.Where(o => o.OptionParentId == ParentOption.OptionId))
-                            {
-                                <div class="child-box" style="margin-left:15px;">
-                                    @await Component.InvokeAsync("Option", new { OptionId = childOption.OptionId })
-                                </div>
-                            }
-                        </div>
-                         }
-                            </div>
+                            @await Component.InvokeAsync("Option", new { OptionId = ParentOption.OptionId })
+                        }
+                    </div>
                             <div class="price-info">
                                 <div class="price"></div>
 

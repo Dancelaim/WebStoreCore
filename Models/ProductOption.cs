@@ -12,6 +12,7 @@ namespace WowCarryCore.Models
     {
         public ProductOption()
         {
+            InverseOptionParent = new HashSet<ProductOption>();
             ProductOptionParams = new HashSet<ProductOptionParam>();
         }
 
@@ -23,19 +24,15 @@ namespace WowCarryCore.Models
         public Guid? OptionParentId { get; set; }
         public Guid? OptionProductId { get; set; }
 
+        [ForeignKey(nameof(OptionParentId))]
+        [InverseProperty(nameof(ProductOption.InverseOptionParent))]
+        public virtual ProductOption OptionParent { get; set; }
         [ForeignKey(nameof(OptionProductId))]
         [InverseProperty(nameof(Product.ProductOptions))]
         public virtual Product OptionProduct { get; set; }
+        [InverseProperty(nameof(ProductOption.OptionParent))]
+        public virtual ICollection<ProductOption> InverseOptionParent { get; set; }
         [InverseProperty(nameof(ProductOptionParam.ParentOption))]
         public virtual ICollection<ProductOptionParam> ProductOptionParams { get; set; }
-    }
-    public enum OptionType
-    {
-        CheckBox = 0,
-        RadioButton = 1,
-        TextArea = 2,
-        DropDownList = 3,
-        Slider = 4,
-        TwoSideSlider = 5
     }
 }

@@ -22,19 +22,23 @@ namespace WowCarryCore
             _logger = logger;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(Guid OptionId)
+        public async Task<IViewComponentResult> InvokeAsync(Guid OptionId, Guid? ParamParentId = null)
         {
-            var Option = await _context.ProductOptions.Where(a => a.OptionId == OptionId).Include(o => o.ProductOptionParams).FirstOrDefaultAsync();
-
-            return Option switch
+            var Options = new OptionViewModel()
             {
-                { OptionType: (int)OptionType.CheckBox } => View(OptionType.CheckBox.ToString(), Option),
-                { OptionType: (int)OptionType.RadioButton } => View(OptionType.RadioButton.ToString(), Option),
-                { OptionType: (int)OptionType.TextArea } => View(OptionType.TextArea.ToString(), Option),
-                { OptionType: (int)OptionType.DropDownList } => View(OptionType.DropDownList.ToString(), Option),
-                { OptionType: (int)OptionType.Slider } => View(OptionType.Slider.ToString(), Option),
-                { OptionType: (int)OptionType.TwoSideSlider } => View(OptionType.TwoSideSlider.ToString(), Option),
-                _ => View(Option),
+                ParentOption = await _context.ProductOptions.Where(a => a.OptionId == OptionId).Include(o => o.ProductOptionParams).FirstOrDefaultAsync(),
+                ChildOption = await _context.ProductOptions.Where(a => a.OptionParentId == OptionId).Include(o => o.ProductOptionParams).FirstOrDefaultAsync()
+            };
+
+            return Options.ParentOption switch
+            {
+                { OptionType: (int)OptionType.CheckBox } => View(OptionType.CheckBox.ToString(), Options),
+                { OptionType: (int)OptionType.RadioButton } => View(OptionType.RadioButton.ToString(), Options),
+                { OptionType: (int)OptionType.TextArea } => View(OptionType.TextArea.ToString(), Options),
+                { OptionType: (int)OptionType.DropDownList } => View(OptionType.DropDownList.ToString(), Options),
+                { OptionType: (int)OptionType.Slider } => View(OptionType.Slider.ToString(), Options),
+                { OptionType: (int)OptionType.TwoSideSlider } => View(OptionType.TwoSideSlider.ToString(), Options),
+                _ => View(Options),
             };
         }
     }

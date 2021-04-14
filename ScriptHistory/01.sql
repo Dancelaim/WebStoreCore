@@ -13,6 +13,11 @@ ADD CONSTRAINT FK_TempOptionParams_TemplateOptions
 FOREIGN KEY (ParentOptionId) REFERENCES TemplateOptions(OptionId)
 
 ALTER TABLE ProductOptions
+ADD CONSTRAINT FK_ProductOptions_ProductOptions
+FOREIGN KEY (OptionParentId) REFERENCES ProductOptions(OptionId)
+
+
+ALTER TABLE ProductOptions
 ALTER COLUMN OptionType int
 
 --update ProductOptions 

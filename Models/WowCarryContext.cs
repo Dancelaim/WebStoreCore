@@ -201,6 +201,11 @@ namespace WowCarryCore.Models
 
                 entity.Property(e => e.OptionId).ValueGeneratedNever();
 
+                entity.HasOne(d => d.OptionParent)
+                    .WithMany(p => p.InverseOptionParent)
+                    .HasForeignKey(d => d.OptionParentId)
+                    .HasConstraintName("FK_ProductOptions_ProductOptions");
+
                 entity.HasOne(d => d.OptionProduct)
                     .WithMany(p => p.ProductOptions)
                     .HasForeignKey(d => d.OptionProductId)
