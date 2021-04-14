@@ -1,23 +1,22 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<TemplateOption>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Admin Products</title>
+    <title>AdminOptions</title>
 </head>
-<body>   
+<body>
     <div class="panel-heading">
-        <h1>Admin Products</h1>
         @if (TempData["message"] != null)
         {
             <div class="alert alert-success">@TempData["message"]</div>
         }
         <div class="save-btns">
-            @Html.ActionLink("Create New", "CreateEdit", new { type = "Product" }, new { @class = "btn" })
+            @Html.ActionLink("Create New", "CreateEdit", new { type = "TemplateOptions" }, new { @class = "btn" })
         </div>
     </div>
-    
 
-    <table class="table products-list-table">
+
+    <table class="table">
         <thead>
             <tr class="title">
                 <th>Название</th>
@@ -29,10 +28,9 @@
             {
             <tr>
 
-                <td> @Html.ActionLink(item.ProductName, "CreateEdit", new { Id = item.ProductId, type = item.GetType().BaseType.Name })</td>
+                <td> @Html.ActionLink(item.OptionName, "CreateEdit", new { Id = item.OptionId, type = item.GetType().BaseType.Name })</td>
                 <td class="text-center">
-                    @Html.ActionLink("Remove", "Remove", new { Id = item.ProductId, type = item.GetType().BaseType.Name })
-                    @Html.ActionLink("Product Options", "ProductOptionsEdit", new { productId = item.ProductId }, new { @class = "btn" })
+                    @Html.ActionLink("Remove", "Remove", new { Id = item.OptionId, type = item.GetType().BaseType.Name })
                 </td>
             </tr>
             }
