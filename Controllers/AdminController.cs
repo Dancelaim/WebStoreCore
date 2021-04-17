@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WowCarryCore.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 //    [Authorize(Roles = "Root Admin,Agent,Admin,Price Admin")]
 public class AdminController : Controller
@@ -61,12 +62,13 @@ public class AdminController : Controller
     }
 
     //[Authorize(Roles = "Root Admin,Admin,Price Admin")]
+    [Route("CreateEdit")]
     public ViewResult CreateEdit(Guid? Id, string type, string game = null)
     {
         switch (type)
         {
             case "Product":
-                Product prod = _context.Products.Where(p => p.ProductId == Id).FirstOrDefault();
+                Product prod = _context.Products.Where(p => p.ProductId == Id).Include(p=>p.ProductGame).FirstOrDefault();
                 if (prod != null)
                 {
                     ViewBag.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), prod?.ProductGame.GameName ?? "Select Game");

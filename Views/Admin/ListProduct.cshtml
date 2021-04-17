@@ -12,7 +12,7 @@
             <div class="alert alert-success">@TempData["message"]</div>
         }
         <div class="save-btns">
-            @Html.ActionLink("Create New", "CreateEdit", new { type = "Product" }, new { @class = "btn" })
+            @Html.ActionLink("Create New", "CreateEdit", "Admin", new { type = "Product" }, new { @class = "btn" })
         </div>
     </div>
     
@@ -29,10 +29,10 @@
             {
             <tr>
 
-                <td> @Html.ActionLink(item.ProductName, "CreateEdit", new { Id = item.ProductId, type = item.GetType().BaseType.Name })</td>
+                <td> @Html.ActionLink(item.ProductName, "CreateEdit", "Admin", new { Id = item.ProductId, type = "Product" })</td>
                 <td class="text-center">
-                    @Html.ActionLink("Remove", "Remove", new { Id = item.ProductId, type = item.GetType().BaseType.Name })
-                    @Html.ActionLink("Product Options", "ProductOptionsEdit", new { productId = item.ProductId }, new { @class = "btn" })
+                    @Html.ActionLink("Remove", "Remove", "Admin", new { Id = item.ProductId, type = item.GetType().BaseType.Name })
+                    @Html.ActionLink("Product Options", "ProductOptionsEdit", "Admin", new { productId = item.ProductId }, new { @class = "btn" })
                 </td>
             </tr>
             }

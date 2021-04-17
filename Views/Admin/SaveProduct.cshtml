@@ -23,8 +23,8 @@
             </div>
             @Html.ValidationSummary()
         </div>
-        if (User.IsInRole("Root Admin") || User.IsInRole("Admin"))
-        {
+        //if (User.IsInRole("Root Admin") || User.IsInRole("Admin"))
+        //{
             <div class="panel-body">
                 <div class="tabs">
                     <div id="tab1" class="tab-title active-title">Product Info</div>
@@ -118,7 +118,8 @@
                     </div>
                 </div>
             </div>
-        }
+        //}
+        #region else if (User.IsInRole("Price Admin")) 
         @*else if (User.IsInRole("Price Admin"))
         {
             <div class="panel-body">
@@ -236,6 +237,7 @@
             </div>
 
         }*@
+        #endregion
         <div class="panel-footer">
             <div class="save-btns">
 
