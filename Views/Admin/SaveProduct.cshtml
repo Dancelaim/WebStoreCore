@@ -1,0 +1,255 @@
+﻿@model Product
+<div class="panel">
+
+    @*@using (Html.BeginForm("SaveImage", "Admin",new { type = "Product" , game =Model.Product.ProductGame.GameName,  category = Model.Product.ProductCategory.ProductCategoryName , RequireFileName = Model.ProductName }, FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))*@
+    
+
+    
+
+    @using (Html.BeginForm("SaveProduct", "Admin", new { navigateToProdOpt = false }, FormMethod.Post))
+    {
+
+        <div class="panel-heading">
+            <h3> @(@Model.ProductName ?? "Create product")</h3>
+            <div class="save-btns">
+
+                <input type="submit" value="Save" class="btn" id="SubmitProduct" />
+                <input type="submit" value="Save and go to Product Options" class="btn btn-save" id="goToProdOptions" />
+                @Html.ActionLink("Undo and Exit", "Admin", null, new
+           {
+               @class = "btn btn-default"
+           })
+            </div>
+            @Html.ValidationSummary()
+        </div>
+        //if (User.IsInRole("Root Admin") || User.IsInRole("Admin"))
+        //{
+            <div class="panel-body">
+                <div class="tabs">
+                    <div id="tab1" class="tab-title active-title">Product Info</div>
+                    <div id="tab2" class="tab-title">Descriptions</div>
+                </div>
+                @Html.HiddenFor(m => m.ProductId)
+                <div class="tabs-desc">
+                    <div class="tab1 active-tab">
+                        @foreach (var property in ViewData.ModelMetadata.Properties.Where(p => !p.PropertyName.ToLower().Contains("description") & !p.PropertyName.ToLower().Contains("option")))
+                        {
+                            string[] toIgnore = { "ProductId", "GamesList", "CategoriesList", "MetaTagTitleList", "productGameNames", "productCategoryNames", "MetaTagTitleNames", "Product" };
+                            if (!toIgnore.Contains(property.PropertyName))
+                            {
+                        <div class="input-block">
+                            <label>@(property.DisplayName ?? property.PropertyName):</label>
+                            @if (property.PropertyName.Contains("SelectedGame"))
+                            {
+                                @Html.DropDownList("ProductGameId",ViewBag.GamesList as SelectList , htmlAttributes : new { @class = "TestClass"})
+                                @Html.HiddenFor(m => m.ProductGameId)
+                            }
+                            else if (property.PropertyName.Contains("SelectedCategory"))
+                            {
+                                @Html.DropDownListFor(m => m.ProductCategoryId, ViewBag.CategoriesList as SelectList, htmlAttributes: new { @class = "TestClass" })
+                                @Html.HiddenFor(m => m.ProductCategoryId)
+                            }
+                            else if (property.PropertyName.Contains("SelectedMetaTagTitle"))
+                            {
+                                @Html.DropDownListFor(m => m.ProductSeoid, ViewBag.MetaTagTitleList as SelectList, htmlAttributes: new { @class = "TestClass" })
+                                @Html.HiddenFor(m => m.ProductSeoid)
+                            }
+                            else if (property.PropertyName.Contains("ProductImageThumb"))
+                            {
+                                <div class="imageBlock">
+                                    <div class="upload-box">
+                                        <label for="Thumbfile">Upload Image:</label>
+                                        <label for="Thumbfile" class="upload-btn btn">Upload</label>
+                                        <input type="file" name="file" id="Thumbfile" class="ImageUpload" style="display:none;" />
+                                    </div>
+                                    <div class="img-prew">
+                                        <label for="file">Product Image Thumb</label>
+                                        <div class="imgPrewIn">
+                                            <img class="imgThumb" src="@Model.ProductImageThumb" />
+                                        </div>
+                                        @Html.HiddenFor(m => m.ProductImageThumb, new { @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                            }
+                            else if (property.PropertyName.Contains("ProductImage"))
+                            {
+                                <div class="imageBlock">
+
+                                    <div class="upload-box">
+                                        <label for="Largefile">Upload Image:</label>
+                                        <label for="Largefile" class="upload-btn btn">Upload</label>
+                                        <input type="file" name="file" id="Largefile" class="ImageUpload" style="display:none;" />
+                                    </div>
+                                    <div class="img-prew">
+                                        <label for="file">Product Image</label>
+                                        <div class="imgPrewIn">
+                                            <img class="imgLarge" src="@Model.ProductImage" />
+                                        </div>
+                                        @Html.HiddenFor(m => m.ProductImage, new { @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.Editor(property.PropertyName, new { @class = "form-control", rows = 5 })
+                            }
+                        </div>
+                            }
+                        }
+                        
+                    </div>
+                    <div class="tab2">
+                        @foreach (var property in ViewData.ModelMetadata.Properties.Where(p => p.PropertyName.ToLower().Contains("description")))
+                        {
+                            <div class="description-block">
+                                <label>@(property.DisplayName ?? property.PropertyName):</label>
+                                @if (!property.PropertyName.Contains("Title"))
+                                {
+                                    @Html.TextArea(property.PropertyName, null, new { @class = "textarea-desc", rows = 3 })
+                                }
+                                else
+                                {
+                                    @Html.Editor(property.PropertyName, new { @class = "form-control", rows = 5 })
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        //}
+        #region else if (User.IsInRole("Price Admin")) 
+        @*else if (User.IsInRole("Price Admin"))
+        {
+            <div class="panel-body">
+                <div class="tabs">
+                    <div id="tab1" class="tab-title active-title">Product Info</div>
+                    <div id="tab2" class="tab-title">Descriptions</div>
+                </div>
+                @Html.HiddenFor(m => m.ProductId)
+                <div class="tabs-desc">
+                    <div class="tab1 active-tab">
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.ProductName)
+                            @Html.TextBoxFor(m => m.ProductName, new { @readonly = "readonly" })
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.InStock)
+                            @Html.CheckBoxFor(m => m.InStock, new { @onclick = "return false" })
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.PreOrder)
+                            @Html.CheckBoxFor(m => m.PreOrder, new { @onclick = "return false" })
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.ProductEnabled)
+                            @Html.CheckBoxFor(m => m.ProductEnabled, new { @onclick = "return false" })
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.ProductQuantity)
+                            @Html.TextBoxFor(m => m.ProductQuantity, new { @readonly = "readonly" })
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.ProductImageThumb)
+                            @Html.TextBoxFor(m => m.ProductImageThumb, new { @readonly = "readonly" })
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.ProductImage)
+                            @Html.TextBoxFor(m => m.ProductImage, new { @readonly = "readonly" })
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.SelectedGame)
+                            @Html.TextBoxFor(m => m.SelectedGame, new { @readonly = "readonly" })
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.SelectedCategory)
+                            @Html.TextBoxFor(m => m.SelectedCategory, new { @readonly = "readonly" })
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.SelectedMetaTagTitle)
+                            @Html.TextBoxFor(m => m.SelectedMetaTagTitle, new { @readonly = "readonly" })
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.ProductPriceEU)
+                            @Html.EditorFor(m => m.ProductPriceEU)
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.ProductPriceUS)
+                            @Html.EditorFor(m => m.ProductPriceUS)
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.ProductSaleEU)
+                            @Html.EditorFor(m => m.ProductSaleEU)
+                        </div>
+                        <div class="input-block">
+                            @Html.LabelFor(m => m.ProductSaleUS)
+                            @Html.EditorFor(m => m.ProductSaleUS)
+                        </div>
+                    </div>
+                    <div class="tab2">
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.Description)
+                            @Html.TextAreaFor(m => m.Description, new { @readonly = "readonly" })
+                        </div>
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.SubDescriptionTitle1)
+                            @Html.TextBoxFor(m => m.SubDescriptionTitle1, new { @readonly = "readonly" })
+                        </div>
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.SubDescription1)
+                            @Html.TextAreaFor(m => m.SubDescription1, new { @readonly = "readonly" })
+                        </div>
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.SubDescriptionTitle2)
+                            @Html.TextBoxFor(m => m.SubDescriptionTitle2, new { @readonly = "readonly" })
+                        </div>
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.SubDescription2)
+                            @Html.TextAreaFor(m => m.SubDescription2, new { @readonly = "readonly" })
+                        </div>
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.SubDescriptionTitle3)
+                            @Html.TextBoxFor(m => m.SubDescriptionTitle3, new { @readonly = "readonly" })
+                        </div>
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.SubDescription3)
+                            @Html.TextAreaFor(m => m.SubDescription3, new { @readonly = "readonly" })
+                        </div>
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.SubDescriptionTitle4)
+                            @Html.TextBoxFor(m => m.SubDescriptionTitle4, new { @readonly = "readonly" })
+                        </div>
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.SubDescription4)
+                            @Html.TextAreaFor(m => m.SubDescription4, new { @readonly = "readonly" })
+                        </div>
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.SubDescriptionTitle5)
+                            @Html.TextBoxFor(m => m.SubDescriptionTitle5, new { @readonly = "readonly" })
+                        </div>
+                        <div class="description-block">
+                            @Html.LabelFor(m => m.SubDescription5)
+                            @Html.TextAreaFor(m => m.SubDescription5, new { @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }*@
+        #endregion
+        <div class="panel-footer">
+            <div class="save-btns">
+
+                <input type="submit" value="Save" class="btn" id="SubmitProduct" />
+                <input type="submit" value="Save and go to Product Options" class="btn btn-save" id="goToProdOptions" />
+                @Html.ActionLink("Undo and Exit", "Admin", null, new
+           {
+               @class = "btn btn-default"
+           })
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    }
+</div>

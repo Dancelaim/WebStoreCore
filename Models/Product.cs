@@ -24,7 +24,7 @@ namespace WowCarryCore.Models
         public string ProductName { get; set; }
         public Guid ProductCategoryId { get; set; }
         [Required]
-        public bool? InStock { get; set; }
+        public bool InStock { get; set; }
         public bool PreOrder { get; set; }
         public int? ProductQuantity { get; set; }
         [StringLength(255)]
