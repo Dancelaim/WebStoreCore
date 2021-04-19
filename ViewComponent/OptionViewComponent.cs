@@ -24,20 +24,22 @@ namespace WowCarryCore
 
         public async Task<IViewComponentResult> InvokeAsync(Guid OptionId, Guid? ParamParentId = null)
         {
-            var Options = new OptionViewModel()
+            OptionViewModel Options = new OptionViewModel()
             {
-                ParentOption = await _context.ProductOptions.Where(a => a.OptionId == OptionId).Include(o => o.ProductOptionParams).FirstOrDefaultAsync(),
+                ParentOption = await _context.ProductOptions.Where(a => a.OptionId == OptionId && a.ProductOptionParams.Any(p => p.ParameterParentId == ParamParentId)).Include(o => o.ProductOptionParams).FirstOrDefaultAsync(),
                 ChildOption = await _context.ProductOptions.Where(a => a.OptionParentId == OptionId).Include(o => o.ProductOptionParams).FirstOrDefaultAsync()
             };
 
-            return Options.ParentOption switch
+            var switchResult = Options.ParentOption != null ? Options.ParentOption.OptionType : Options.ChildOption.OptionType;
+
+            return switchResult  switch
             {
-                { OptionType: (int)OptionType.CheckBox } => View(OptionType.CheckBox.ToString(), Options),
-                { OptionType: (int)OptionType.RadioButton } => View(OptionType.RadioButton.ToString(), Options),
-                { OptionType: (int)OptionType.TextArea } => View(OptionType.TextArea.ToString(), Options),
-                { OptionType: (int)OptionType.DropDownList } => View(OptionType.DropDownList.ToString(), Options),
-                { OptionType: (int)OptionType.Slider } => View(OptionType.Slider.ToString(), Options),
-                { OptionType: (int)OptionType.TwoSideSlider } => View(OptionType.TwoSideSlider.ToString(), Options),
+                (int)OptionType.CheckBox  => View(OptionType.CheckBox.ToString(), Options),
+                (int)OptionType.RadioButton  => View(OptionType.RadioButton.ToString(), Options),
+                (int)OptionType.TextArea  => View(OptionType.TextArea.ToString(), Options),
+                (int)OptionType.DropDownList  => View(OptionType.DropDownList.ToString(), Options),
+                (int)OptionType.Slider  => View(OptionType.Slider.ToString(), Options),
+                (int)OptionType.TwoSideSlider  => View(OptionType.TwoSideSlider.ToString(), Options),
                 _ => View(Options),
             };
         }
