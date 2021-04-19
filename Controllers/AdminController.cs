@@ -88,7 +88,7 @@ public class AdminController : Controller
                     };
                 }
             case "TemplateOption":
-                TemplateOption templateOption = _context.TemplateOptions.Where(p => p.OptionId == Id).FirstOrDefault();
+                TemplateOption templateOption = _context.TemplateOptions.Where(p => p.OptionId == Id).Include(p=>p.TempOptionParams).FirstOrDefault();
                 if (templateOption != null)
                 {
                     return View("Save" + type, templateOption);

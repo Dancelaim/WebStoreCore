@@ -6,7 +6,7 @@
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "CreateEdit", new { type = "HtmlBlocks" }, new { @class = "btn" })
+        @Html.ActionLink("Create New", "CreateEdit", "Admin", new { type = "HtmlBlocks" }, new { @class = "btn" })
     </p>
     <table class="table">
         <thead>
@@ -19,9 +19,9 @@
             @foreach (var item in Model)
             {
             <tr>
-                <td> @Html.ActionLink(item.ParentTitle ?? "ERROR", "CreateEdit", new { Id = item.SiteBlockId, type = item.GetType().BaseType.Name })</td>
+                <td> @Html.ActionLink(item.ParentTitle ?? "ERROR", "CreateEdit", "Admin", new { Id = item.SiteBlockId, type = "HtmlBlocks" })</td>
                 <td class="text-center">
-                    @Html.ActionLink("Remove", "Remove", new { Id = item.SiteBlockId, type = item.GetType().BaseType.Name })
+                    @Html.ActionLink("Remove", "Remove", "Admin", new { Id = item.SiteBlockId, type = item.GetType().BaseType.Name })
                 </td>
             </tr>
             }
