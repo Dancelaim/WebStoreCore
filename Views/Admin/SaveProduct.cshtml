@@ -1,15 +1,9 @@
 ﻿@model Product
 <div class="panel">
-
     @*@using (Html.BeginForm("SaveImage", "Admin",new { type = "Product" , game =Model.Product.ProductGame.GameName,  category = Model.Product.ProductCategory.ProductCategoryName , RequireFileName = Model.ProductName }, FormMethod.Post,
                             new { enctype = "multipart/form-data" }))*@
-    
-
-    
-
     @using (Html.BeginForm("SaveProduct", "Admin", new { navigateToProdOpt = false }, FormMethod.Post))
     {
-
         <div class="panel-heading">
             <h3> @(@Model.ProductName ?? "Create product")</h3>
             <div class="save-btns">
@@ -33,72 +27,74 @@
                 @Html.HiddenFor(m => m.ProductId)
                 <div class="tabs-desc">
                     <div class="tab1 active-tab">
-                        @foreach (var property in ViewData.ModelMetadata.Properties.Where(p => !p.PropertyName.ToLower().Contains("description") & !p.PropertyName.ToLower().Contains("option")))
-                        {
-                            string[] toIgnore = { "ProductId", "GamesList", "CategoriesList", "MetaTagTitleList", "productGameNames", "productCategoryNames", "MetaTagTitleNames", "Product" };
-                            if (!toIgnore.Contains(property.PropertyName))
-                            {
                         <div class="input-block">
-                            <label>@(property.DisplayName ?? property.PropertyName):</label>
-                            @if (property.PropertyName.Contains("SelectedGame"))
-                            {
-                                @Html.DropDownList("ProductGameId",ViewBag.GamesList as SelectList , htmlAttributes : new { @class = "TestClass"})
-                                @Html.HiddenFor(m => m.ProductGameId)
-                            }
-                            else if (property.PropertyName.Contains("SelectedCategory"))
-                            {
-                                @Html.DropDownListFor(m => m.ProductCategoryId, ViewBag.CategoriesList as SelectList, htmlAttributes: new { @class = "TestClass" })
-                                @Html.HiddenFor(m => m.ProductCategoryId)
-                            }
-                            else if (property.PropertyName.Contains("SelectedMetaTagTitle"))
-                            {
-                                @Html.DropDownListFor(m => m.ProductSeoid, ViewBag.MetaTagTitleList as SelectList, htmlAttributes: new { @class = "TestClass" })
-                                @Html.HiddenFor(m => m.ProductSeoid)
-                            }
-                            else if (property.PropertyName.Contains("ProductImageThumb"))
-                            {
-                                <div class="imageBlock">
-                                    <div class="upload-box">
-                                        <label for="Thumbfile">Upload Image:</label>
-                                        <label for="Thumbfile" class="upload-btn btn">Upload</label>
-                                        <input type="file" name="file" id="Thumbfile" class="ImageUpload" style="display:none;" />
-                                    </div>
-                                    <div class="img-prew">
-                                        <label for="file">Product Image Thumb</label>
-                                        <div class="imgPrewIn">
-                                            <img class="imgThumb" src="@Model.ProductImageThumb" />
-                                        </div>
-                                        @Html.HiddenFor(m => m.ProductImageThumb, new { @readonly = "readonly" })
-                                    </div>
-                                </div>
-
-                            }
-                            else if (property.PropertyName.Contains("ProductImage"))
-                            {
-                                <div class="imageBlock">
-
-                                    <div class="upload-box">
-                                        <label for="Largefile">Upload Image:</label>
-                                        <label for="Largefile" class="upload-btn btn">Upload</label>
-                                        <input type="file" name="file" id="Largefile" class="ImageUpload" style="display:none;" />
-                                    </div>
-                                    <div class="img-prew">
-                                        <label for="file">Product Image</label>
-                                        <div class="imgPrewIn">
-                                            <img class="imgLarge" src="@Model.ProductImage" />
-                                        </div>
-                                        @Html.HiddenFor(m => m.ProductImage, new { @readonly = "readonly" })
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                @Html.Editor(property.PropertyName, new { @class = "form-control", rows = 5 })
-                            }
+                            <label>Product Name:</label>
+                            @Html.TextBox("ProductName")
                         </div>
-                            }
-                        }
-                        
+                        <div class="input-block">
+                            <label>InStock:</label>
+                            @Html.TextBox("InStock")
+                        </div>
+                        <div class="input-block">
+                            <label>PreOrder:</label>
+                            @Html.TextBox("PreOrder")
+                        </div>
+                        <div class="input-block">
+                            <label>Product Quanity:</label>
+                            @Html.TextBox("ProductQuanity")
+                        </div>
+                        <div class="input-block">
+                            <label>Product Enabled:</label>
+                            @Html.CheckBox("ProductEnabled")
+                        </div>
+                        <div class="input-block">
+                            <label>Select Game:</label>
+                            @Html.DropDownList("ProductGameId", ViewBag.GamesList as SelectList, htmlAttributes: new { @class = "TestClass" })
+                            @Html.HiddenFor(m => m.ProductGameId)
+                        </div>
+                        <div class="input-block">
+                            <label>Select Category:</label>
+                            @Html.DropDownListFor(m => m.ProductCategoryId, ViewBag.CategoriesList as SelectList, htmlAttributes: new { @class = "TestClass" })
+                            @Html.HiddenFor(m => m.ProductCategoryId)
+                        </div>
+                        <div class="input-block">
+                            <label>Select Meta tag title from List:</label>
+                            @Html.DropDownListFor(m => m.ProductSeoid, ViewBag.MetaTagTitleList as SelectList, htmlAttributes: new { @class = "TestClass" })
+                            @Html.HiddenFor(m => m.ProductSeoid)
+                        </div>
+                            <div class="imageBlock">
+                                <div class="upload-box">
+                                    <label for="Thumbfile">Upload Image:</label>
+                                    <label for="Thumbfile" class="upload-btn btn">Upload</label>
+                                    <input type="file" name="file" id="Thumbfile" class="ImageUpload" style="display:none;" />
+                                </div>
+                                <div class="img-prew">
+                                    <label for="file">Product Image Thumb</label>
+                                    <div class="imgPrewIn">
+                                        <img class="imgThumb" src="@Model.ProductImageThumb" />
+                                    </div>
+                                    @Html.HiddenFor(m => m.ProductImageThumb, new { @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="imageBlock">
+
+                                <div class="upload-box">
+                                    <label for="Largefile">Upload Image:</label>
+                                    <label for="Largefile" class="upload-btn btn">Upload</label>
+                                    <input type="file" name="file" id="Largefile" class="ImageUpload" style="display:none;" />
+                                </div>
+                                <div class="img-prew">
+                                    <label for="file">Product Image</label>
+                                    <div class="imgPrewIn">
+                                        <img class="imgLarge" src="@Model.ProductImage" />
+                                    </div>
+                                    @Html.HiddenFor(m => m.ProductImage, new { @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
                     <div class="tab2">
                         @foreach (var property in ViewData.ModelMetadata.Properties.Where(p => p.PropertyName.ToLower().Contains("description")))
@@ -117,7 +113,6 @@
                         }
                     </div>
                 </div>
-            </div>
         //}
         #region else if (User.IsInRole("Price Admin")) 
         @*else if (User.IsInRole("Price Admin"))
