@@ -9,9 +9,15 @@
             @*TODO: Заменить на ScriptTagHelper и linkTagHelper*@
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
             <script src="~/lib/jquery/dist/jquery.min.js"></script>
-            <script src="~/lib/slick-carousel/slick.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+            <script src="~/lib/slick-carousel/slick.min.js"></script>
+
+
             <script src="~/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
 
             <link rel="icon" href="~/images/icon-site.png" type="image/x-icon">
@@ -165,14 +171,14 @@
             data['TimeZone'] = Intl.DateTimeFormat().resolvedOptions().timeZone;
             data['Region'] = 'US';
 
-            $.ajax({
+            @*$.ajax({
                 cache: false,
                 type: "POST",
                 url: "@Url.Action("SetSessionData", "HomePage")",
                 data: {
                     dict: data
                 }
-            });
+            });*@
         </script>
 </body>
     </html>

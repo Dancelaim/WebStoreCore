@@ -1,23 +1,26 @@
 ﻿@model OptionViewModel
 <div class="option">
     <label class="control-label"> @Model.ParentOption.OptionName </label>
-    <div class="parent-box">
+
         @foreach (var OptionParams in Model.ParentOption.ProductOptionParams)
         {
-            <div class="checkbox">
-                <label>
-                    <input class="input-checkbox" type="checkbox" name="option" value="" id="option">
-                    <span class="name-opt"> @OptionParams.ParameterName </span>
-                    <span class="opt-price">+(<span>@OptionParams.ParameterPrice</span>)</span>
-                    <span class="option_text"><span>@OptionParams.ParameterTooltip</span></span>
-                </label>
-            </div>
-            if (Model.ChildOption != null)
-            {
-                <div class="child-box" style="margin-left:15px;">
+            <div class="parent-box">
+                <div class="checkbox">
+                    <label>
+                        <input class="input-checkbox" type="checkbox" name="option" value="" id="option">
+                        <span class="name-opt"> @OptionParams.ParameterName </span>
+                        <span class="opt-price">+(<span>@OptionParams.ParameterPrice</span>)</span>
+                        <span class="option_text"><span>@OptionParams.ParameterTooltip</span></span>
+                    </label>
+                </div>
+                @if (Model.ChildOption != null)
+                {
+                <div class="child-box" style="margin: 15px 0 0 15px;">
                     @await Component.InvokeAsync("Option", new { OptionId = Model.ChildOption.OptionId, ParamParentId = OptionParams.ParameterId })
                 </div>
-            }
-        }
-    </div>
-</div>
+                }
+            </div>
+         }
+        </div>
+   
+
