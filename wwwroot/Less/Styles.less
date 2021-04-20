@@ -660,10 +660,6 @@ header {
             background: @color6;
         }
 
-        .dropdown-menu {
-            display: block;
-        }
-
         .fa:before {
             transform: rotate(180deg);
         }
@@ -681,6 +677,16 @@ header {
     text-align: left;
     line-height: 20px;
     transition: all 0.3s ease;
+    cursor: pointer;
+    background: none;
+    border: 0 none;
+    outline: none;
+
+    &:hover, &:active {
+        background: @color6;
+        border: 0 none;
+        outline: none;
+    }
 
     .fa {
         font-size: 14px;

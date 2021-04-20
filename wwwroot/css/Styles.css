@@ -694,16 +694,11 @@ header .bottom {
 .games-top-menu-block:hover .hover-button {
   background: #161828;
 }
-.top_curr:hover .dropdown-menu,
-.games-top-menu-block:hover .dropdown-menu {
-  display: block;
-}
 .top_curr:hover .fa:before,
 .games-top-menu-block:hover .fa:before {
   transform: rotate(180deg);
 }
 .hover-button {
-  cursor: pointer;
   padding: 22px 32px 22px 12px;
   font-size: 14px;
   font-family: 'Open Sans', sans-serif;
@@ -712,6 +707,16 @@ header .bottom {
   text-align: left;
   line-height: 20px;
   transition: all 0.3s ease;
+  cursor: pointer;
+  background: none;
+  border: 0 none;
+  outline: none;
+}
+.hover-button:hover,
+.hover-button:active {
+  background: #161828;
+  border: 0 none;
+  outline: none;
 }
 .hover-button .fa {
   font-size: 14px;

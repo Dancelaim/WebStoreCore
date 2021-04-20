@@ -232,12 +232,7 @@ $(document).on("click", ".param-add", function () {
             }
         });
 })
-//Activate LiveSearch for dropdowns
-$(function () {
-    $('select').selectpicker({
-        liveSearch: true
-    });
-});
+
 //left menu collapsed script
 $(document).on("click", ".left-column .title span.nav-ico", function () {
     if ($(".left-column").hasClass("collapsed")) {

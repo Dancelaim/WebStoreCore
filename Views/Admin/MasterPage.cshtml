@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+
     <script src="~/js/admin-script.js" asp-append-version="true"></script>
     @*<script src="~/Scripts/ckeditor/ckeditor.js"></script>*@
     <link rel="icon" href="~/images/icon-site.png" type="image/x-icon">
@@ -19,7 +22,14 @@
     <link href="~/css/StylesAdmin.css" rel="stylesheet" asp-append-version="true" />
 
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" asp-fallback-href="~/css/font-awesome.min.css" asp-fallback-test-class="fa" rel="stylesheet" />
-
+    <script>
+        //Activate LiveSearch for dropdowns
+        $(function () {
+            $('select').selectpicker({
+                liveSearch: true
+            });
+        });
+    </script>
 </head>
 <body>
 
