@@ -24,23 +24,27 @@ namespace WowCarryCore
 
         public async Task<IViewComponentResult> InvokeAsync(Guid OptionId, Guid? ParamParentId = null)
         {
-            OptionViewModel Options = new OptionViewModel()
-            {
-                ParentOption = await _context.ProductOptions.Where(a => a.OptionId == OptionId && a.ProductOptionParams.Any(p => p.ParameterParentId == ParamParentId)).Include(o => o.ProductOptionParams).FirstOrDefaultAsync(),
-                ChildOption = await _context.ProductOptions.Where(a => a.OptionParentId == OptionId).Include(o => o.ProductOptionParams).FirstOrDefaultAsync()
-            };
+            //TO DO: Should be fixed later to look it more appropriate
+            ProductOption Option = await _context.ProductOptions.Where(a => a.OptionId == OptionId)
+               .Include(o => o.ProductOptionParams).FirstOrDefaultAsync();
 
-            var switchResult = Options.ParentOption != null ? Options.ParentOption.OptionType : Options.ChildOption.OptionType;
-
-            return switchResult  switch
+            if (ParamParentId != null)
             {
-                (int)OptionType.CheckBox  => View(OptionType.CheckBox.ToString(), Options),
-                (int)OptionType.RadioButton  => View(OptionType.RadioButton.ToString(), Options),
-                (int)OptionType.TextArea  => View(OptionType.TextArea.ToString(), Options),
-                (int)OptionType.DropDownList  => View(OptionType.DropDownList.ToString(), Options),
-                (int)OptionType.Slider  => View(OptionType.Slider.ToString(), Options),
-                (int)OptionType.TwoSideSlider  => View(OptionType.TwoSideSlider.ToString(), Options),
-                _ => View(Options),
+                Option.ProductOptionParams.Clear();
+                Option.ProductOptionParams = _context.ProductOptionParams.Where(p => p.ParameterParentId == ParamParentId).ToList();
+            }
+
+            ViewBag.ChildOptionId = await _context.ProductOptions.Where(a => a.OptionParentId == OptionId).Select(o => o.OptionId).FirstOrDefaultAsync();
+
+            return Option switch
+            {
+                { OptionType: (int)OptionType.CheckBox } => View(OptionType.CheckBox.ToString(), Option),
+                { OptionType: (int)OptionType.RadioButton } => View(OptionType.RadioButton.ToString(), Option),
+                { OptionType: (int)OptionType.TextArea } => View(OptionType.TextArea.ToString(), Option),
+                { OptionType: (int)OptionType.DropDownList } => View(OptionType.DropDownList.ToString(), Option),
+                { OptionType: (int)OptionType.Slider } => View(OptionType.Slider.ToString(), Option),
+                { OptionType: (int)OptionType.TwoSideSlider } => View(OptionType.TwoSideSlider.ToString(), Option),
+                _ => View(Option),
             };
         }
     }
