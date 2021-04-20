@@ -4,22 +4,12 @@
 
     <!DOCTYPE html>
     <html>
-    <cache>
+    
         <head>
             @*TODO: Заменить на ScriptTagHelper и linkTagHelper*@
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-            <script src="~/lib/jquery/dist/jquery.min.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
-
-            <script src="~/lib/slick-carousel/slick.min.js"></script>
-
-
-            <script src="~/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
-
+             
             <link rel="icon" href="~/images/icon-site.png" type="image/x-icon">
             <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet" />
             <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -28,7 +18,7 @@
 
             <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" asp-fallback-href="~/css/font-awesome.min.css" asp-fallback-test-class="fa" rel="stylesheet" />
         </head>
-    </cache>
+    
 <body>
     @*@(Request.Browser.IsMobileDevice ? "cover mobile-cover" : "cover")*@
     <div class="cover">
@@ -44,15 +34,15 @@
                         {*@
                     <div id="logo"><a href="/"> <img src="~/images/logo.svg" alt="logo" /> </a></div>
                     <div class="games-top-menu-block">
-                        <div class="hover-button">
+                        <button class="hover-button" type="button" id="dropdownmenuTop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
 
                             <div class="no-category" style="display: inline-block;">@selectedItem</div>
 
 
                             <i class="fa"></i>
-                        </div>
-                        <ul class="dropdown-menu">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownmenuTop">
                             @await Component.InvokeAsync("GameMenu")
                         </ul>
                     </div>
