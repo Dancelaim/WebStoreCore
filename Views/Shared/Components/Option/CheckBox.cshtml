@@ -1,9 +1,10 @@
 ﻿@model ProductOption
 <div class="option">
     <label class="control-label"> @Model.OptionName </label>
-    <div class="parent-box">
-        @foreach (var OptionParams in Model.ProductOptionParams)
-        {
+
+    @foreach (var OptionParams in Model.ProductOptionParams)
+    {
+        <div class="parent-box">
             <div class="checkbox">
                 <label>
                     <input class="input-checkbox" type="checkbox" name="option" value="" id="option">
@@ -12,14 +13,15 @@
                     <span class="option_text"><span>@OptionParams.ParameterTooltip</span></span>
                 </label>
             </div>
-            if (ViewBag.ChildOptionId != Guid.Empty)
+            @if (ViewBag.ChildOptionId != Guid.Empty)
             {
-                <div class="child-box" style="margin-left:15px;">
-                    @await Component.InvokeAsync("Option", new { OptionId = ViewBag.ChildOptionId, ParamParentId = OptionParams.ParameterId })
-                </div>
-                }
+            <div class="child-box" style="margin-left:15px;">
+                @await Component.InvokeAsync("Option", new { OptionId = ViewBag.ChildOptionId, ParamParentId = OptionParams.ParameterId })
             </div>
-         }
+            }
         </div>
+    }
+</div>
    
+
 
