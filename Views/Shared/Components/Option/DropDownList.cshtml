@@ -3,10 +3,10 @@
 
 
 <div class="option">
-    <label class="control-label"> @Model.ParentOption.OptionName </label>
+    <label class="control-label"> @Model.OptionName </label>
     <div class="parent-box">
         <select class="form-control">
-            @foreach (var OptionParams in Model.ParentOption.ProductOptionParams)
+            @foreach (var OptionParams in Model.ProductOptionParams)
             {
                 <option>
                     @OptionParams.ParameterName
