@@ -198,6 +198,7 @@ display: block;
 
 .form-control, .form-control.bootstrap-select, .form-group .bootstrap-select {
     background: none !important;
+    border-radius: 100px;
 
     input, select, textarea {
         &::placeholder {
@@ -225,6 +226,12 @@ display: block;
         border: 1px solid @color4;
         color: @color2;
         transition: inherit;
+        padding: 13px 16px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 22px;
+        border-radius: 100px;
 
         &:hover, &:active, &:focus {
             background: @color6;
@@ -2459,6 +2466,9 @@ footer .disc_link {
 }
 .parent-box{
     margin-bottom:13px;
+}
+.child-box {
+    display: none;
 }
 //Category list main page
 .select-games-block.category-games {

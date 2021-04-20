@@ -1,0 +1,44 @@
+﻿@model   HtmlBlock
+
+@using (Html.BeginForm("SaveHtmlBlock", "Admin", FormMethod.Post))
+{
+    <div class="panel-heading">
+        <div class="save-btns">
+
+            <input type="submit" value="Save" class="btn" id="SubmitOption" />
+            @Html.ActionLink("Exit", "Admin", null, new { @class = "btn btn-default exitBtn" })
+        </div>
+    </div>
+    <div class="panel-body">
+        @Html.HiddenFor(x => Model.SiteBlockId)
+        @Html.ValidationSummary()
+        @foreach (var property in ViewData.ModelMetadata.Properties)
+        {
+
+            if (property.PropertyName != "SiteBlockId" && property.PropertyName != "HtmlBlockChildDetailsCollection")
+            {
+            <div class="input-block">
+                <label>@(property.DisplayName ?? property.PropertyName):</label>
+                @Html.Editor(property.PropertyName, new { @class = "form-control" })
+            </div>
+            }
+         }
+    <div class="childblock-list">
+        @if (Model.HtmlBlocksChildren != null)
+        {
+            foreach (var child in Model.HtmlBlocksChildren)
+            {
+               Html.RenderPartial("AdminSiteBlockChild", child);
+            }
+        }
+    </div>
+        </div>
+        <div class="siteblock-add btn">Add</div>
+        <div class="panel-footer">
+        <div class="save-btns">
+            <input type="submit" value="Save" class="btn" id="SubmitOption" />
+            @Html.ActionLink("Exit", "Admin", null, new { @class = "btn btn-default exitBtn" })
+        </div>
+    </div>
+}
+

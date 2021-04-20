@@ -137,12 +137,17 @@
 			$('#tab-description').addClass('longText');
 		}
 
-	});
+    });
 
-    //$(".parent-box").on('click', function () {
-    //    var checkedProp = $(this).find("input").prop('checked');
-    //    if (checkedProp == true) {
-    //        $(this).closest(".option").find(".child-box")
-    //    }
-    //});
+    //childs show script
+        //checkbox
+    $('.parent-box .checkbox').on('click', function () {
+        if ($(this).find("input").is(':checked')) {
+            $(this).closest('.parent-box').find('.child-box').show();
+        } else {
+            $(this).closest('.parent-box').find('.child-box').hide();
+        }
+    });
+
+    $('select').selectpicker();
 </script>

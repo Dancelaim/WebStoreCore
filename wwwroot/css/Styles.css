@@ -184,6 +184,7 @@ label {
 .form-control.bootstrap-select,
 .form-group .bootstrap-select {
   background: none !important;
+  border-radius: 100px;
 }
 .form-control input::placeholder,
 .form-control.bootstrap-select input::placeholder,
@@ -231,6 +232,12 @@ label {
   border: 1px solid #6A7687;
   color: #eeeeee;
   transition: inherit;
+  padding: 13px 16px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  border-radius: 100px;
 }
 .form-control button:hover,
 .form-control.bootstrap-select button:hover,
@@ -2238,6 +2245,9 @@ footer .disc_link:hover img {
 }
 .parent-box {
   margin-bottom: 13px;
+}
+.child-box {
+  display: none;
 }
 .select-games-block.category-games {
   position: relative;

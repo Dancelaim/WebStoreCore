@@ -1,3 +1,25 @@
-﻿@model ProductOption
-    <h1>DropDownList</h1>
+﻿@model OptionViewModel
 
+
+
+<div class="option">
+    <label class="control-label"> @Model.ParentOption.OptionName </label>
+    <div class="parent-box">
+        <select class="form-control">
+            @foreach (var OptionParams in Model.ParentOption.ProductOptionParams)
+            {
+                <option>
+                    @OptionParams.ParameterName
+                    <span class="opt-price">+(<span>@OptionParams.ParameterPrice</span>)</span>
+                </option>
+            }
+        </select>
+    </div>
+    @*@if (Model.ChildOption != null)
+    {
+        <div class="child-box" style="margin-left:15px;">
+            @await Component.InvokeAsync("Option", new { OptionId = Model.ChildOption.OptionId, ParamParentId = OptionParams.ParameterId })
+        </div>
+    }*@
+</div>
+        

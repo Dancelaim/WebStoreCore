@@ -1,0 +1,69 @@
+﻿@model ProductSubCategory
+@using (Html.BeginForm("SaveProductSubCategory", "Admin", FormMethod.Post))
+{
+    <div class="panel-heading">
+        <div class="save-btns">
+            <input type="submit" value="Save" class="btn" id="SubmitOption" />
+            @Html.ActionLink("Exit", "Admin", null, new { @class = "btn btn-default exitBtn" })
+        </div>
+    </div>
+    <div class="panel-body">
+        @Html.HiddenFor(x => Model.ProductSubCategoryId)
+        @{string[] toIgnore = { "ProductSubCategoryId", "SubCategorySeoId", "ProductCategoryId", "MetaTagTitleList", "CategoryList", "", "", "" };
+
+            foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+
+                if (!toIgnore.Contains(property.PropertyName))
+                {
+
+                    if (property.PropertyName.Contains("SelectedCategoryName"))
+                    {
+                        <div class="input-block">
+                            <label>Category Name:</label>
+                            @Html.DropDownListFor(m => m.ProductCategoryId, ViewBag.CategoriesList as SelectList, htmlAttributes: new { @class = "TestClass" })
+                            @Html.HiddenFor(m => m.ProductCategoryId)
+                        </div>
+                    }
+                    else if (property.PropertyName.Contains("CategoryDescription"))
+                    {
+                        <div class="input-block">
+                            <label>Category Description:</label>
+                            @Html.Editor(property.PropertyName, new { @class = "form-control" })
+                        </div>
+                    }
+                    else if (property.PropertyName.Contains("ProductCategoryName"))
+                    {
+                        <div class="input-block">
+                            <label>Product Category Name:</label>
+                            @Html.Editor(property.PropertyName, new { @class = "form-control" })
+                        </div>
+                    }
+                    else if (property.PropertyName.Contains("SelectedMetaTagTitle"))
+                    {
+                        <div class="input-block">
+                            <label>Meta tag title:</label>
+                            @Html.DropDownListFor(m => m.SubCategorySeoId, ViewBag.MetaTagTitleList as SelectList, htmlAttributes: new { @class = "TestClass" })
+                            @Html.HiddenFor(m => m.SubCategorySeoId)
+                        </div>
+                    }
+
+                    else
+                    {
+                        <div class="input-block">
+                            <label>@(property.DisplayName ?? property.PropertyName):</label>
+                            @Html.Editor(property.PropertyName, new { @class = "form-control" })
+                        </div>
+                    }
+                }
+
+            }
+        }
+    </div>
+    <div class="panel-footer">
+        <div class="save-btns">
+            <input type="submit" value="Save" class="btn" id="SubmitOption" />
+            @Html.ActionLink("Exit", "Admin", null, new { @class = "btn btn-default exitBtn" })
+        </div>
+    </div>
+}

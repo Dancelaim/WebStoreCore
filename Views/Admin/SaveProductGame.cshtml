@@ -1,0 +1,90 @@
+﻿@model ProductGame
+@using (Html.BeginForm("SaveGame", "Admin", FormMethod.Post))
+{
+    <div class="panel-heading">
+        <div class="save-btns">
+
+            <input type="submit" value="Save" class="btn" id="SubmitOption" />
+            @Html.ActionLink("Exit", "Admin", null, new
+       {
+           @class = "btn btn-default exitBtn"
+       })
+        </div>
+    </div>
+     <div class="panel-body">
+        @Html.HiddenFor(x => Model.ProductGameId)
+        @{string[] toIgnore = { "ProductGameId", "GameSeoId", "ProductCategoryDetailsCollection", "MetaTagTitleList" };
+            foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+
+                if (!toIgnore.Contains(property.PropertyName))
+                {
+                    if (property.PropertyName.Contains("SelectedMetaTagTitle"))
+                    {
+                 <div class="input-block">
+                     <label>Meta tags:</label>
+                     @Html.DropDownListFor(m => m.GameSeoId, ViewBag.MetaTagTitleList as SelectList, htmlAttributes: new { @class = "TestClass" })
+                     @Html.HiddenFor(m => m.GameSeoId)
+                 </div>
+                    }
+                    else if (property.PropertyName.Contains("Description"))
+                    {
+                    <div class="input-block">
+                        <label>Description:</label>
+                        @Html.TextArea(property.PropertyName, null, new { @class = "textarea-desc" })
+                    </div>
+                    }
+                    else
+                    {
+                    <div class="input-block">
+                        <label>@(property.DisplayName ?? property.PropertyName):</label>
+                        @Html.Editor(property.PropertyName, new { @class = "form-control" })
+                    </div>
+                        }
+                    }
+                }
+            }
+     </div>
+    <div class="panel-footer">
+        <div class="save-btns">
+
+            <input type="submit" value="Save" class="btn" id="SubmitOption" />
+            @Html.ActionLink("Exit", "Admin", null, new
+       {
+           @class = "btn btn-default exitBtn"
+       })
+        </div>
+    </div>
+    @*<div class="childblock-list">
+
+            @if (Model.ProductCategoryDetailsCollection != null)
+            {
+                for (var i = 0; i < Model.ProductCategoryDetailsCollection.Count(); i++)
+                {
+
+                    <div class="param-fields">
+                        <h2>Category</h2>
+                        @Html.HiddenFor(x => Model.ProductCategoryDetailsCollection[i].ProductCategoryId)
+                        <div class="input-block">
+                            <label>ProductCategoryName</label>
+                            @Html.TextBoxFor(x => Model.ProductCategoryDetailsCollection[i].ProductCategoryName)
+                        </div>
+
+                        @Html.HiddenFor(x => Model.ProductCategoryDetailsCollection[i].ProductGameId)
+                        <div class="input-block">
+                            <label>CategoryDescription</label>
+                            @Html.TextAreaFor(x => Model.ProductCategoryDetailsCollection[i].CategoryDescription)
+                        </div>
+
+                        @Html.HiddenFor(x => Model.ProductCategoryDetailsCollection[i].ProductSubCategoryId)
+
+                        @Html.HiddenFor(x => Model.ProductCategoryDetailsCollection[i].CategorySeoId)
+
+                        <div><span class="remove-param"></span></div>
+                    </div>
+
+                }
+            }
+        </div>*@
+}
+

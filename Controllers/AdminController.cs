@@ -72,7 +72,8 @@ public class AdminController : Controller
                 if (prod != null)
                 {
                     ViewBag.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), prod?.ProductGame.GameName ?? "Select Game");
-
+                    ViewBag.CategoriesList = new SelectList(_context.ProductGames.Where(g => game == null || g.GameName == game).SelectMany(g => g.ProductCategories).Select(p => p.ProductCategoryName), "Select Category");
+                    ViewBag.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), "Select Meta tag title from List");
                     return View("Save" + type, prod);
                     //GamesList = new SelectList(EntityRepository.Games.Select(g => g.GameName), prod?.ProductGame.GameName ?? "Select Game"),
                     //CategoriesList = new SelectList(EntityRepository.Games.Where(g => game == null || g.GameName == game).SelectMany(g => g.ProductCategory).Select(p => p.ProductCategoryName), prod?.ProductCategory.ProductCategoryName ?? "Select Category"),
@@ -88,7 +89,7 @@ public class AdminController : Controller
                     };
                 }
             case "TemplateOption":
-                TemplateOption templateOption = _context.TemplateOptions.Where(p => p.OptionId == Id).FirstOrDefault();
+                TemplateOption templateOption = _context.TemplateOptions.Where(p => p.OptionId == Id).Include(p=>p.TempOptionParams).FirstOrDefault();
                 if (templateOption != null)
                 {
                     return View("Save" + type, templateOption);

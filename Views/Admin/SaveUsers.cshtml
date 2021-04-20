@@ -1,0 +1,26 @@
+﻿@model User
+@using (Html.BeginForm("SaveUsers", "Admin", FormMethod.Post))
+{
+    <div class="panel-heading">
+        <div class="save-btns">
+
+            <input type="submit" value="Save" class="btn" id="SubmitOption" />
+            @Html.ActionLink("Exit", "Admin", null, new
+       {
+           @class = "btn btn-default exitBtn"
+       })
+        </div>
+    </div>
+    foreach (var property in ViewData.ModelMetadata.Properties)
+    {
+        @Html.HiddenFor(x => Model.UserId)
+        if (property.PropertyName != "UserId" && property.PropertyName != "RoleId" && property.PropertyName != "RankId")
+        {
+        <div class="input-block">
+            <label>@(property.DisplayName ?? property.PropertyName):</label>
+            @Html.Editor(property.PropertyName, new { @class = "form-control" })
+        </div>
+        }
+
+    }
+ }
