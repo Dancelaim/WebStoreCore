@@ -19,9 +19,9 @@
             @foreach (var item in Model)
             {
             <tr>
-                <td> @Html.ActionLink(item.Title, "CreateEdit","Admin", new { Id = item.ArticleId, type = item.GetType().BaseType.Name })</td>
+                <td> @Html.ActionLink(item.Title, "CreateEdit","Admin", new { Id = item.ArticleId, type = "Article" })</td>
                 <td class="text-center">
-                    @Html.ActionLink("Remove", "Remove", "Admin", new { Id = item.ArticleId, type = item.GetType().BaseType.Name })
+                    @Html.ActionLink("Remove", "Remove", "Admin", new { Id = item.ArticleId, type = "Article" })
                 </td>
             </tr>
             }

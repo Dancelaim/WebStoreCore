@@ -68,25 +68,22 @@ public class AdminController : Controller
         switch (type)
         {
             case "Product":
-                Product prod = _context.Products.Where(p => p.ProductId == Id).Include(p=>p.ProductGame).FirstOrDefault();
-                if (prod != null)
+                Product prod = _context.Products.Where(p => p.ProductId == Id).
+                    Include(p => p.ProductGame).Include(p => p.ProductDescription).Include(p => p.ProductPrices).
+                    Include(p=>p.ProductCategory).Include(p => p.ProductSeo).FirstOrDefault();
+                if(prod != null)
                 {
-                    ViewBag.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), prod?.ProductGame.GameName ?? "Select Game");
-                    ViewBag.CategoriesList = new SelectList(_context.ProductGames.Where(g => game == null || g.GameName == game).SelectMany(g => g.ProductCategories).Select(p => p.ProductCategoryName), "Select Category");
-                    ViewBag.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), "Select Meta tag title from List");
+                    ViewBag.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), prod.ProductGame.GameName ?? "Select Game");
+                    ViewBag.CategoriesList = new SelectList(_context.ProductCategories.Where(c=>c.ProductGame.GameName == prod.ProductGame.GameName).Select(c => c.ProductCategoryName), prod.ProductCategory.ProductCategoryName ?? "Select Category");
+                    ViewBag.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), prod.ProductSeo.MetaTagTitle ?? "Select Meta tag title");
                     return View("Save" + type, prod);
-                    //GamesList = new SelectList(EntityRepository.Games.Select(g => g.GameName), prod?.ProductGame.GameName ?? "Select Game"),
-                    //CategoriesList = new SelectList(EntityRepository.Games.Where(g => game == null || g.GameName == game).SelectMany(g => g.ProductCategory).Select(p => p.ProductCategoryName), prod?.ProductCategory.ProductCategoryName ?? "Select Category"),
-                    //MetaTagTitleList = new SelectList(EntityRepository.SEOs.Select(s => s.MetaTagTitle), prod?.SEO.MetaTagTitle ?? "Select Meta tag title from List"),
                 }
                 else
                 {
-                    return View("Save" + type, prod);
-                    {
-                        ViewBag.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), prod?.ProductGame.GameName ?? "Select Game");
-                        ViewBag.CategoriesList = new SelectList(_context.ProductGames.Where(g => game == null || g.GameName == game).SelectMany(g => g.ProductCategories).Select(p => p.ProductCategoryName), "Select Category");
-                        ViewBag.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), "Select Meta tag title from List");
-                    };
+                    ViewBag.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName),"Select Game");
+                    ViewBag.CategoriesList = new SelectList(_context.ProductCategories.Select(c => c.ProductCategoryName), "Select Category");
+                    ViewBag.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), "Select Meta tag title");
+                    return View("Save" + type, new Product());
                 }
             case "TemplateOption":
                 TemplateOption templateOption = _context.TemplateOptions.Where(p => p.OptionId == Id).Include(p=>p.TempOptionParams).FirstOrDefault();
@@ -113,7 +110,7 @@ public class AdminController : Controller
                     };
                 }
             case "HtmlBlocks":
-                HtmlBlock siteBlock = _context.HtmlBlocks.Where(p => p.SiteBlockId == Id).FirstOrDefault();
+                HtmlBlock siteBlock = _context.HtmlBlocks.Where(p => p.SiteBlockId == Id).Include(p=>p.HtmlBlocksChildren).FirstOrDefault();
                 if (siteBlock != null)
                 {
                     return View("Save" + type, siteBlock);
@@ -179,6 +176,8 @@ public class AdminController : Controller
                 Article article = _context.Articles.Where(p => p.ArticleId == Id).FirstOrDefault();
                 if (article != null)
                 {
+                    ViewBag.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), "Select Meta tag title from List");
+                    ViewBag.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), "Select Game");
                     return View("Save" + type, article);
                 }
                 else
@@ -204,6 +203,8 @@ public class AdminController : Controller
                 ProductCategory productCategory = _context.ProductCategories.Where(p => p.ProductCategoryId == Id).FirstOrDefault();
                 if (productCategory != null)
                 {
+                    ViewBag.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), "Select Meta tag title from List");
+                    ViewBag.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), "Select Game");
                     return View("Save" + type, productCategory);
                 }
                 else
