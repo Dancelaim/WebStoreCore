@@ -23,18 +23,14 @@ public class ProductDetailsController : Controller
         _context = context;
     }
     public ViewResult Details(string productUrl)
-        {
-            Product product = _context.Products.Where(p => p.ProductSeo.UrlKeyWord == productUrl).Include(p=>p.ProductDescription).Include(p=>p.ProductOptions).FirstOrDefault();
-            return View(product);
-        }
-        //[httppost]
-        //public decimal addtocart(cart cart, guid productid)
-        //{
-        //    product product = _context.products.where(p => p.productid == productid).firstordefault();
-
-        //    cart.additem(product);
-        //    //to do: add mvc filter to update qty 
-        //    return cart.totalqty();
-        //}
+    {
+        Product product = _context.Products.Where(p => p.ProductSeo.UrlKeyWord == productUrl).Include(p => p.ProductDescription).Include(p => p.ProductOptions).FirstOrDefault();
+        return View(product);
     }
+    [HttpPost]
+    public void AddToCart(Product product)
+    {
+
+    }
+}
 
