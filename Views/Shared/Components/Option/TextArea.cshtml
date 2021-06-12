@@ -1,2 +1,16 @@
 ﻿@model ProductOption
-    <h1>TextArea</h1>
+<h1>TextArea</h1>
+<div class="option">
+    <label class="control-label"> @Model.OptionName </label>
+
+    @foreach (var OptionParams in Model.ProductOptionParams)
+    {
+        <div class="parent-box">
+            <div class="textarea">
+                <textarea rows="5" placeholder="@OptionParams.ParameterName" class="form-control">
+                </textarea>
+            </div>
+        </div>
+    }
+</div>
+

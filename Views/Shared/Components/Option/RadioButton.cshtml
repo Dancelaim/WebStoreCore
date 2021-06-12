@@ -1,3 +1,27 @@
 ﻿@model ProductOption
 
-<h1>RadioButton</h1>
+@model ProductOption
+<div class="option">
+    <label class="control-label"> @Model.OptionName </label>
+
+    @foreach (var OptionParams in Model.ProductOptionParams)
+    {
+        <div class="parent-box">
+            <div class="radio">
+                <label>
+                    <input class="input-radio" type="radio" value="">
+                    <span class="name-opt"> @OptionParams.ParameterName </span>
+                    <span class="opt-price">+(<span>@OptionParams.ParameterPrice</span>)</span>
+                    <span class="option_text"><span>@OptionParams.ParameterTooltip</span></span>
+                </label>
+            </div>
+            @if (ViewBag.ChildOptionId != Guid.Empty)
+            {
+                <div class="child-box" style="margin-left:15px;">
+                    @await Component.InvokeAsync("Option", new { OptionId = ViewBag.ChildOptionId, ParamParentId = OptionParams.ParameterId })
+                </div>
+            }
+        </div>
+    }
+</div>
+
