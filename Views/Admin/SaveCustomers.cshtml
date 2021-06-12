@@ -1,6 +1,6 @@
 ﻿@model  Customer
-using (Html.BeginForm("SaveCustomers", "Admin", FormMethod.Post))
-{
+@*using (Html.BeginForm("SaveCustomers", "Admin", FormMethod.Post))
+{*@
     <div class="panel-heading">
         <div class="save-btns">
 
@@ -13,18 +13,14 @@ using (Html.BeginForm("SaveCustomers", "Admin", FormMethod.Post))
     </div>
     <div class="panel-body">
         @Html.HiddenFor(x => Model.CustomerId)
-        @foreach (var property in ViewData.ModelMetadata.Properties)
-        {
-            if (property.PropertyName != "CustomerId" && property.PropertyName != "RankId")
-            {
-                <div class="input-block">
-                    <label>@(property.DisplayName ?? property.PropertyName):</label>
-                    @Html.Editor(property.PropertyName, new { @class = "form-control" })
-                </div>
-            }
-
-        }
-        }
+        <div class="input-block">
+            <label>Name:</label>
+            @Html.TextBox(Model.Name)
+        </div>
+        <div class="input-block">
+            <label>Password:</label>
+            @Html.Password(Model.Password)
+        </div>
     </div>
     <div class="panel-footer">
         <div class="save-btns">

@@ -1,4 +1,4 @@
-﻿@model   HtmlBlock
+﻿@model HtmlBlock
 
 @using (Html.BeginForm("SaveHtmlBlock", "Admin", FormMethod.Post))
 {
@@ -12,27 +12,31 @@
     <div class="panel-body">
         @Html.HiddenFor(x => Model.SiteBlockId)
         @Html.ValidationSummary()
-        @foreach (var property in ViewData.ModelMetadata.Properties)
-        {
-
-            if (property.PropertyName != "SiteBlockId" && property.PropertyName != "HtmlBlockChildDetailsCollection")
-            {
-            <div class="input-block">
-                <label>@(property.DisplayName ?? property.PropertyName):</label>
-                @Html.Editor(property.PropertyName, new { @class = "form-control" })
-            </div>
-            }
-         }
-    <div class="childblock-list">
-        @if (Model.HtmlBlocksChildren != null)
-        {
-            foreach (var child in Model.HtmlBlocksChildren)
-            {
-               Html.RenderPartial("AdminSiteBlockChild", child);
-            }
-        }
-    </div>
+        <div class="ParentTitlek">
+            <label>Parent Title:</label>
+            @Html.TextBox(Model.ParentTitle, null, new { @class = "textarea-desc", maxlength = 10 })
         </div>
+        <div class="input-block">
+            <label>Parent Css Class:</label>
+            @Html.TextArea(Model.ParentCssclass, null, new { @class = "textarea-desc", maxlength = 10 })
+        </div>
+        <div class="input-block">
+            <label>Child Css Class:</label>
+            @Html.TextArea(Model.ChildCssclass, null, new { @class = "textarea-desc", maxlength = 10 })
+        </div>
+        <div class="input-block">
+            <label>Site Page:</label>
+            @Html.TextBox(Model.SitePage, null, new { @class = "textarea-desc", maxlength = 10 })
+        </div>
+        <div class="childblock-list">
+            @if (Model.HtmlBlocksChildren != null)
+            {
+                foreach (var child in Model.HtmlBlocksChildren)
+                {
+                }
+            }
+        </div>
+    </div>
         <div class="siteblock-add btn">Add</div>
         <div class="panel-footer">
         <div class="save-btns">

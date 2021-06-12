@@ -17,7 +17,7 @@
                     <div class="options">
                         @foreach (var ParentOption in Model.ProductOptions.Where(o => o.OptionParentId == null))
                         {
-                            @await Component.InvokeAsync("Option", new { OptionId = ParentOption.OptionId })
+                                @await Component.InvokeAsync("Option", new { OptionId = ParentOption.OptionId })
                         }
                     </div>
                             <div class="price-info">
@@ -35,6 +35,7 @@
                 <div class="info-product-coins">
                     * With each purchase registered users get 5% of the price added to their account as <a href="/CarryCoins" target="_blank"><b>Carrycoins</b></a> as well as increasing <a href="/CarryCoins" target="_blank"><b>discounts</b></a> for regular buyers.
                 </div>
+
                 <div class="product-tags">
                     Tags:
 
