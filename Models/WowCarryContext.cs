@@ -23,6 +23,7 @@ namespace WowCarryCore.Models
         public virtual DbSet<HtmlBlocksChild> HtmlBlocksChildren { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderCustomField> OrderCustomFields { get; set; }
+        public virtual DbSet<OrderProduct> OrderProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductDescription> ProductDescriptions { get; set; }
@@ -123,6 +124,21 @@ namespace WowCarryCore.Models
                     .HasName("PK__OrderCus__4174ADEDDCAB73CD");
 
                 entity.Property(e => e.OrderCustomFieldsId).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<OrderProduct>(entity =>
+            {
+                entity.Property(e => e.OrderProductId).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.OrderProducts)
+                    .HasForeignKey(d => d.OrderId)
+                    .HasConstraintName("FK__OrderProd__Order__2116E6DF");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.OrderProducts)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK__OrderProd__Produ__220B0B18");
             });
 
             modelBuilder.Entity<Product>(entity =>

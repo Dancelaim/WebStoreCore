@@ -10,6 +10,11 @@ namespace WowCarryCore.Models
 {
     public partial class Order
     {
+        public Order()
+        {
+            OrderProducts = new HashSet<OrderProduct>();
+        }
+
         [Key]
         public Guid OrderId { get; set; }
         public Guid? CustomerId { get; set; }
@@ -54,5 +59,7 @@ namespace WowCarryCore.Models
         [ForeignKey(nameof(OrderCustomFieldsId))]
         [InverseProperty(nameof(OrderCustomField.Orders))]
         public virtual OrderCustomField OrderCustomFields { get; set; }
+        [InverseProperty(nameof(OrderProduct.Order))]
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

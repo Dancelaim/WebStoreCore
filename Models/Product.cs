@@ -13,6 +13,7 @@ namespace WowCarryCore.Models
     {
         public Product()
         {
+            OrderProducts = new HashSet<OrderProduct>();
             ProductOptions = new HashSet<ProductOption>();
             ProductPrices = new HashSet<ProductPrice>();
         }
@@ -24,7 +25,7 @@ namespace WowCarryCore.Models
         public string ProductName { get; set; }
         public Guid ProductCategoryId { get; set; }
         [Required]
-        public bool InStock { get; set; }
+        public bool? InStock { get; set; }
         public bool PreOrder { get; set; }
         public int? ProductQuantity { get; set; }
         [StringLength(255)]
@@ -56,6 +57,8 @@ namespace WowCarryCore.Models
         [ForeignKey(nameof(ProductSubCategoryId))]
         [InverseProperty("Products")]
         public virtual ProductSubCategory ProductSubCategory { get; set; }
+        [InverseProperty(nameof(OrderProduct.Product))]
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
         [InverseProperty(nameof(ProductOption.OptionProduct))]
         public virtual ICollection<ProductOption> ProductOptions { get; set; }
         [InverseProperty(nameof(ProductPrice.Product))]

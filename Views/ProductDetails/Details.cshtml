@@ -96,10 +96,8 @@
             $.ajax({
                 cache: false,
                 type: "POST",
-                url: "@Url.Action("AddToCart", "ProductDetails")",
-                data: {
-                    productId: prodId
-                },
+                url: "@Url.Action("AddToCart", "ProductDetails",new {id = Model.ProductId })",
+                data: $('input[type=\'text\'], input[type=\'number\'], input[type=\'hidden\'], input[type=\'radio\']:checked, input[type=\'checkbox\']:checked, select, textarea'),
                 success: function (data) {
                     $("#qty").html(data);
                 },
