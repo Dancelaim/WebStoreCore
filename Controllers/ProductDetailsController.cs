@@ -28,9 +28,63 @@ public class ProductDetailsController : Controller
         return View(product);
     }
     [HttpPost]
-    public void AddToCart(Product product)
+    public async void AddToCart(Guid id)
+    {
+        //TO DO: IMPLEMENT auth check before DB save
+        var options = HttpContext.Request.Form.Where(k=>k.Key.Contains("Options"));
+        decimal totalOptPrice = 0;
+        string optCollection = string.Empty;
+        foreach (var opt in options)
+        {
+            var dbOpt = await _context.ProductOptionParams.Where(p => p.ParameterName == opt.Key).FirstOrDefaultAsync();
+            if (dbOpt.ParameterPrice != 0 )
+            {
+                optCollection += dbOpt.ParameterName;
+                totalOptPrice += dbOpt.ParameterPrice;
+            }
+        }
+        //TO DO : Get region from user location
+        decimal productPrice = await _context.ProductPrices.Where(p => p.ProductId == id && p.Region == "US&Oceania").Select(p => p.Price).FirstOrDefaultAsync();
+
+        //TO DO : fix fake user when auth is implemented
+        Order newOrder = new Order
+        {
+            OrderId = Guid.NewGuid(),
+            CustomerId = await _context.Customers.Select(c => c.CustomerId).FirstOrDefaultAsync(),
+            Discord = "TestDisc",
+            Comment = "TestComment",
+            Email = "Test@TEST.org",
+            PaymentMethod = "PayPal",
+            PaymentCode = "PayPalCode",
+            Total = CalculateProductTotal(totalOptPrice, productPrice),
+            OrderStatus = "Created",//TO DO: Create ENUM
+            Currency = "US",//TO DO: Create ENUM
+            OrderCreateTime = DateTime.Now,
+            OrderUpdateTime = DateTime.Now,
+            EmailSended = false
+        };
+
+        _context.Orders.Add(newOrder);
+
+        OrderProduct newOrderProduct = new OrderProduct
+        {
+           OrderProductId= Guid.NewGuid(),
+           OrderId = newOrder.OrderId,
+           ProductId  = id,
+           ProductOptions = optCollection,
+           ProductCheckoutPrice = productPrice,
+           TotalOptionsCheckoutPrice  = totalOptPrice,
+        };
+
+        _context.OrderProducts.Add(newOrderProduct);
+        await _context.SaveChangesAsync();
+    }
+
+    private decimal CalculateProductTotal(decimal totalOptPrice, decimal productPrice)
     {
 
+        //TO DO: Implement discount logic here
+        return totalOptPrice + productPrice;
     }
 }
 
