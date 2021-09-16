@@ -11,6 +11,8 @@
         TextArea = 2,
         DropDownList = 3,
         Slider = 4,
-        TwoSideSlider = 5
+        TwoSideSlider = 5,
+        BtnCheckBox = 6,
+        CheckBox2 = 7
     }
 }
