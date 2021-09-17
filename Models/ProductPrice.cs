@@ -13,13 +13,15 @@ namespace WowCarryCore.Models
     {
         [Key]
         public Guid ProductPriceId { get; set; }
-        [StringLength(10)]
-        public string Region { get; set; }
-        [Column(TypeName = "decimal(18, 0)")]
-        public decimal Price { get; set; }
         public Guid ProductId { get; set; }
         [Column(TypeName = "decimal(18, 1)")]
-        public decimal? ProductSale { get; set; }
+        public decimal? UsPrice { get; set; }
+        [Column(TypeName = "decimal(18, 0)")]
+        public decimal? UsSale { get; set; }
+        [Column(TypeName = "decimal(18, 1)")]
+        public decimal? EuPrice { get; set; }
+        [Column(TypeName = "decimal(18, 0)")]
+        public decimal? EuSale { get; set; }
 
         [ForeignKey(nameof(ProductId))]
         [InverseProperty("ProductPrices")]

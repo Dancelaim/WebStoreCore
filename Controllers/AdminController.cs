@@ -81,7 +81,7 @@ public class AdminController : Controller
                 {
                     productDetails = _mapper.Map<ProductDetails>(prod);
                     productDetails = _mapper.Map<ProductDetails>(prod.ProductDescription);
-                    productDetails = _mapper.Map<ProductDetails>(prod.ProductPrices);
+                    productDetails = _mapper.Map<ProductDetails>(prod.ProductPrices.FirstOrDefault());
 
 
                     productDetails.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), prod.ProductGame.GameName ?? "Select Game");
@@ -129,7 +129,7 @@ public class AdminController : Controller
                 }
                 else
                 {
-                    //TODO Children
+                    //TODO: Children
                     //var result = new HtmlBlock { SiteBlockId = Guid.NewGuid(), HtmlBlocksChildren = new List<HtmlBlock.HtmlBlocksChildren>() };
                     return View("Save" + type, siteBlock);
 

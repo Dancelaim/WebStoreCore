@@ -46,7 +46,7 @@ namespace WowCarryCore.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-E8H9F0E\\MSSQLSERVER01;initial catalog=WowCarry;Integrated Security=True;ConnectRetryCount=0");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-S1D56H0\\SQLEXPRESS;initial catalog=WowCarry;Integrated Security=True;ConnectRetryCount=0");
             }
         }
 

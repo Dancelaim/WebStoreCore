@@ -30,7 +30,7 @@ public class ProductDetailsController : Controller
     [HttpPost]
     public async void AddToCart(Guid id)
     {
-        //TO DO: IMPLEMENT auth check before DB save
+        //TODO: IMPLEMENT auth check before DB save
         var options = HttpContext.Request.Form.Where(k=>k.Key.Contains("Options"));
         decimal totalOptPrice = 0;
         string optCollection = string.Empty;
@@ -43,10 +43,10 @@ public class ProductDetailsController : Controller
                 totalOptPrice += dbOpt.ParameterPrice;
             }
         }
-        //TO DO : Get region from user location
-        decimal productPrice = await _context.ProductPrices.Where(p => p.ProductId == id && p.Region == "US&Oceania").Select(p => p.Price).FirstOrDefaultAsync();
+        //TODO : Get region from user location
+        decimal productPrice = await _context.ProductPrices.Where(p => p.ProductId == id ).Select(p => p.UsPrice).FirstOrDefaultAsync() ?? 0;
 
-        //TO DO : fix fake user when auth is implemented
+        //TODO : fix fake user when auth is implemented
         Order newOrder = new Order
         {
             OrderId = Guid.NewGuid(),
@@ -57,8 +57,8 @@ public class ProductDetailsController : Controller
             PaymentMethod = "PayPal",
             PaymentCode = "PayPalCode",
             Total = CalculateProductTotal(totalOptPrice, productPrice),
-            OrderStatus = "Created",//TO DO: Create ENUM
-            Currency = "US",//TO DO: Create ENUM
+            OrderStatus = "Created",//TODO: Create ENUM
+            Currency = "US",//TODO: Create ENUM
             OrderCreateTime = DateTime.Now,
             OrderUpdateTime = DateTime.Now,
             EmailSended = false
@@ -83,7 +83,7 @@ public class ProductDetailsController : Controller
     private decimal CalculateProductTotal(decimal totalOptPrice, decimal productPrice)
     {
 
-        //TO DO: Implement discount logic here
+        //TODO: Implement discount logic here
         return totalOptPrice + productPrice;
     }
 }

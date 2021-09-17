@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model ProductDetails
 <div class="panel">
     @*@using (Html.BeginForm("SaveImage", "Admin",new { type = "Product" , game =Model.Product.ProductGame.GameName,  category = Model.Product.ProductCategory.ProductCategoryName , RequireFileName = Model.ProductName }, FormMethod.Post,
                             new { enctype = "multipart/form-data" }))*@
@@ -45,18 +45,23 @@
                     </div>
                     <div class="input-block">
                         <label>Select Game:</label>
-                        @Html.DropDownList("ProductGameId", ViewBag.GamesList as SelectList, new { @class = "TestClass" })
-                        @Html.HiddenFor(m => m.ProductGameId)
+                        @Html.DropDownListFor(m => m.SelectedGame,Model.GamesList)
+                        @*@Html.DropDownList("ProductGameId", ViewBag.GamesList as SelectList, new { @class = "TestClass" })
+                        @Html.HiddenFor(m => m.ProductGameId)*@
                     </div>
                     <div class="input-block">
                         <label>Select Category:</label>
-                        @Html.DropDownListFor(m => m.ProductCategoryId, ViewBag.CategoriesList as SelectList)
-                        @Html.HiddenFor(m => m.ProductCategoryId)
+                        @Html.DropDownListFor(m => m.SelectedCategory, Model.CategoriesList)
+                        @Html.HiddenFor(m => m.SelectedCategory)
+                        @*@Html.DropDownListFor(m => m.ProductCategoryId, ViewBag.CategoriesList as SelectList)
+                         @Html.HiddenFor(m => m.ProductCategoryId)*@
                     </div>
                     <div class="input-block">
                         <label>Select Meta tag title from List:</label>
-                        @Html.DropDownListFor(m => m.ProductSeoid, ViewBag.MetaTagTitleList as SelectList, htmlAttributes: new { @class = "TestClass" })
-                        @Html.HiddenFor(m => m.ProductSeoid)
+                        @Html.DropDownListFor(m => m.SelectedMetaTagTitle, Model.MetaTagTitleList)
+                        @Html.HiddenFor(m => m.SelectedMetaTagTitle)
+                        @*@Html.DropDownListFor(m => m.ProductSeoid, ViewBag.MetaTagTitleList as SelectList, htmlAttributes: new { @class = "TestClass" })
+                        @Html.HiddenFor(m => m.ProductSeoid)*@
                     </div>
                     <div class="imageBlock">
                         <div class="upload-box">
@@ -92,11 +97,11 @@
                     <div class="description-block">
                         <div class="input-block">
                             <label>Product description</label>
-                            @Html.TextAreaFor(m => m.ProductDescription.Description, 3, 3, new { @class = "textarea-desc", rows = 3 })
+                            @Html.TextAreaFor(m => m.Description, 3, 3, new { @class = "textarea-desc", rows = 3 })
                         </div>
                         <div class="input-block">
                             <label>Product description</label>
-                            @Html.TextAreaFor(m => m.ProductDescription.Description, 3, 3, new { @class = "textarea-desc", rows = 3 })
+                            @Html.TextAreaFor(m => m.Description, 3, 3, new { @class = "textarea-desc", rows = 3 })
                         </div>
                         @*@if (!property.PropertyName.Contains("Title"))
         {

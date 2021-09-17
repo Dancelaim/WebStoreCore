@@ -12,7 +12,8 @@
                 <div class="caption">
                     <h4>@Product.ProductName</h4>
                     <p class="price">
-                        @Product.ProductPrices.Select(p => p.Price).FirstOrDefault()
+                        @*TODO: GET REGION*@ 
+                        @Product.ProductPrices.Select(p => p.UsPrice).FirstOrDefault()
                     </p>
                 </div>
             </a>
