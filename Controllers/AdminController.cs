@@ -10,17 +10,22 @@ using Microsoft.Extensions.Logging;
 using WowCarryCore.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 //    [Authorize(Roles = "Root Admin,Agent,Admin,Price Admin")]
 public class AdminController : Controller
 {
     private readonly ILogger<AdminController> _logger;
     private WowCarryContext _context;
+    private Mapper _mapper;
 
-    public AdminController(ILogger<AdminController> logger, WowCarryContext context)
+
+    public AdminController(ILogger<AdminController> logger, WowCarryContext context, IMapper mapper)
     {
+         _mapper = (Mapper)mapper;
         _context = context;
         _logger = logger;
+       
     }
     [Route("Admin")]
     public ViewResult Admin()
@@ -71,19 +76,33 @@ public class AdminController : Controller
                 Product prod = _context.Products.Where(p => p.ProductId == Id).
                     Include(p => p.ProductGame).Include(p => p.ProductDescription).Include(p => p.ProductPrices).
                     Include(p=>p.ProductCategory).Include(p => p.ProductSeo).FirstOrDefault();
-                if(prod != null)
-                {
-                    ViewBag.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), prod.ProductGame.GameName ?? "Select Game");
-                    ViewBag.CategoriesList = new SelectList(_context.ProductCategories.Where(c=>c.ProductGame.GameName == prod.ProductGame.GameName).Select(c => c.ProductCategoryName), prod.ProductCategory.ProductCategoryName ?? "Select Category");
-                    ViewBag.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), prod.ProductSeo.MetaTagTitle ?? "Select Meta tag title");
-                    return View("Save" + type, prod);
+                ProductDetails productDetails = new ProductDetails();
+                if (prod != null)
+                        {
+
+                    productDetails = _mapper.Map<Product, ProductDetails>(prod);
+                    productDetails = _mapper.Map<ProductDescription, ProductDetails>(prod.ProductDescription, productDetails);
+                    productDetails = _mapper.Map<ProductPrice, ProductDetails>(prod.ProductPrices.FirstOrDefault(), productDetails);
+
+
+                    //productDetails = _mapper.Map<ProductDetails>(prod);
+                    //productDetails = _mapper.Map<ProductDetails>(prod.ProductDescription);
+                    //productDetails = _mapper.Map<ProductDetails>(prod.ProductPrices.FirstOrDefault());
+
+
+
+                    productDetails.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), prod.ProductGame.GameName ?? "Select Game");
+                    productDetails.CategoriesList = new SelectList(_context.ProductCategories.Where(c => c.ProductGame.GameName == prod.ProductGame.GameName).Select(c => c.ProductCategoryName), prod.ProductCategory.ProductCategoryName ?? "Select Category");
+                    productDetails.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), prod.ProductSeo.MetaTagTitle ?? "Select Meta tag title");
+                    return View("Save" + type, productDetails);
                 }
                 else
                 {
-                    ViewBag.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName),"Select Game");
-                    ViewBag.CategoriesList = new SelectList(_context.ProductCategories.Select(c => c.ProductCategoryName), "Select Category");
-                    ViewBag.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), "Select Meta tag title");
-                    return View("Save" + type, new Product());
+                    //TODO: Вытащи все название игр,категорий и метатэгов
+                    productDetails.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), prod.ProductGame.GameName ?? "Select Game");
+                    productDetails.CategoriesList = new SelectList(_context.ProductCategories.Where(c => c.ProductGame.GameName == prod.ProductGame.GameName).Select(c => c.ProductCategoryName), prod.ProductCategory.ProductCategoryName ?? "Select Category");
+                    productDetails.MetaTagTitleList = new SelectList(_context.Seos.Select(s => s.MetaTagTitle), prod.ProductSeo.MetaTagTitle ?? "Select Meta tag title");
+                    return View("Save" + type, productDetails);
                 }
             case "TemplateOption":
                 TemplateOption templateOption = _context.TemplateOptions.Where(p => p.OptionId == Id).Include(p=>p.TempOptionParams).FirstOrDefault();
@@ -117,7 +136,7 @@ public class AdminController : Controller
                 }
                 else
                 {
-                    //TODO Children
+                    //TODO: Children
                     //var result = new HtmlBlock { SiteBlockId = Guid.NewGuid(), HtmlBlocksChildren = new List<HtmlBlock.HtmlBlocksChildren>() };
                     return View("Save" + type, siteBlock);
 

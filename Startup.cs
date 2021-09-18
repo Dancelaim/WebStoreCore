@@ -30,6 +30,8 @@ namespace WowCarryCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            
             services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(20));
             services.AddDistributedMemoryCache();
             string connection = Configuration.GetConnectionString("DefaultConnection");
@@ -41,6 +43,9 @@ namespace WowCarryCore
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                 });
 
+
+            services.AddAutoMapper(typeof(Startup));
+            services.AddDbContext<WowCarryContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
             
         }

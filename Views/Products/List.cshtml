@@ -22,7 +22,8 @@
                         <div class="caption">
                             <h4>@p.ProductName</h4>
                             <p class="price">
-                                @p.ProductPrices.Select(pr => pr.Price).FirstOrDefault()
+                                @*TODO: GET REGION FOR PRICE*@
+                                @p.ProductPrices.Select(pr => pr.UsPrice).FirstOrDefault()
                             </p>
                         </div>
                     </a>
