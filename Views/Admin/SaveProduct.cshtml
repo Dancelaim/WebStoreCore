@@ -25,23 +25,23 @@
                 <div class="tab1 active-tab">
                     <div class="input-block">
                         <label>Product Name:</label>
-                        @Html.TextBox("ProductName")
+                        @Html.TextBoxFor(m=>m.ProductName)
                     </div>
                     <div class="input-block">
                         <label>InStock:</label>
-                        @Html.CheckBox("InStock")
+                        @Html.CheckBoxFor(m => m.InStock)
                     </div>
                     <div class="input-block">
                         <label>PreOrder:</label>
-                        @Html.CheckBox("PreOrder")
+                        @Html.CheckBoxFor(m => m.PreOrder)
                     </div>
                     <div class="input-block">
                         <label>Product Enabled:</label>
-                        @Html.CheckBox("ProductEnabled")
+                        @Html.CheckBoxFor(m => m.ProductEnabled)
                     </div>
                     <div class="input-block">
-                        <label>Product Quanity:</label>
-                        @Html.TextBox("ProductQuanity")
+                        <label>Product Quantity:</label>
+                        @Html.TextBoxFor(m => m.ProductQuantity)
                     </div>
                     <div class="input-block">
                         <label>Select Game:</label>

@@ -78,10 +78,17 @@ public class AdminController : Controller
                     Include(p=>p.ProductCategory).Include(p => p.ProductSeo).FirstOrDefault();
                 ProductDetails productDetails = new ProductDetails();
                 if (prod != null)
-                {
-                    productDetails = _mapper.Map<ProductDetails>(prod);
-                    productDetails = _mapper.Map<ProductDetails>(prod.ProductDescription);
-                    productDetails = _mapper.Map<ProductDetails>(prod.ProductPrices.FirstOrDefault());
+                        {
+
+                    productDetails = _mapper.Map<Product, ProductDetails>(prod);
+                    productDetails = _mapper.Map<ProductDescription, ProductDetails>(prod.ProductDescription, productDetails);
+                    productDetails = _mapper.Map<ProductPrice, ProductDetails>(prod.ProductPrices.FirstOrDefault(), productDetails);
+
+
+                    //productDetails = _mapper.Map<ProductDetails>(prod);
+                    //productDetails = _mapper.Map<ProductDetails>(prod.ProductDescription);
+                    //productDetails = _mapper.Map<ProductDetails>(prod.ProductPrices.FirstOrDefault());
+
 
 
                     productDetails.GamesList = new SelectList(_context.ProductGames.Select(g => g.GameName), prod.ProductGame.GameName ?? "Select Game");
