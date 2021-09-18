@@ -91,17 +91,17 @@
                                 {
                                     <span class="txt_acc">@User.Identity.Name</span>
                                     <ul class="dropdown-menu">
-                                        <li> <div class="login-user"> @Html.ActionLink("Logout", "CustomerLogout", "Login")</div></li>
+                                        <li> <div class="login-user"> @Html.ActionLink("Logout", "Logout", "Account")</div></li>
                                     </ul>
                                 }
                             </li>
                         </ul>
                     </div>
                     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
-                        @*@Html.Action("Login", "Login", new { isWebView = true })*@
+                        @Html.Partial("Login")
                     </div>
                     <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
-                        @*@Html.Action("Registration", "Login")*@
+                        @Html.Partial("Register")
                     </div>
 
                     <form action="" class="search-bar">

@@ -39,7 +39,7 @@ public class ProductDetailsController : Controller
             var dbOpt = await _context.ProductOptionParams.Where(p => p.ParameterName == opt.Key).FirstOrDefaultAsync();
             if (dbOpt.ParameterPrice != 0 )
             {
-                optCollection += dbOpt.ParameterName;
+                optCollection += $",{dbOpt.ParameterName}";
                 totalOptPrice += dbOpt.ParameterPrice;
             }
         }
@@ -51,16 +51,8 @@ public class ProductDetailsController : Controller
         {
             OrderId = Guid.NewGuid(),
             CustomerId = await _context.Customers.Select(c => c.CustomerId).FirstOrDefaultAsync(),
-            Discord = "TestDisc",
-            Comment = "TestComment",
-            Email = "Test@TEST.org",
-            PaymentMethod = "PayPal",
-            PaymentCode = "PayPalCode",
             Total = CalculateProductTotal(totalOptPrice, productPrice),
             OrderStatus = "Created",//TO DO: Create ENUM
-            Currency = "US",//TO DO: Create ENUM
-            OrderCreateTime = DateTime.Now,
-            OrderUpdateTime = DateTime.Now,
             EmailSended = false
         };
 
