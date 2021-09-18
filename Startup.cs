@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,15 @@ namespace WowCarryCore
             
             services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(20));
             services.AddDistributedMemoryCache();
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<WowCarryContext>(options => options.UseSqlServer(connection));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
+
 
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<WowCarryContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -58,7 +68,8 @@ namespace WowCarryCore
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseAuthorization();
+            app.UseAuthentication();    
+            app.UseAuthorization();     
 
             app.UseSession();
             app.UseEndpoints(endpoints =>

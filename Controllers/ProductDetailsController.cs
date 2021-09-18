@@ -30,7 +30,7 @@ public class ProductDetailsController : Controller
     [HttpPost]
     public async void AddToCart(Guid id)
     {
-        //TODO: IMPLEMENT auth check before DB save
+        //TO DO: IMPLEMENT auth check before DB save
         var options = HttpContext.Request.Form.Where(k=>k.Key.Contains("Options"));
         decimal totalOptPrice = 0;
         string optCollection = string.Empty;
@@ -39,28 +39,20 @@ public class ProductDetailsController : Controller
             var dbOpt = await _context.ProductOptionParams.Where(p => p.ParameterName == opt.Key).FirstOrDefaultAsync();
             if (dbOpt.ParameterPrice != 0 )
             {
-                optCollection += dbOpt.ParameterName;
+                optCollection += $",{dbOpt.ParameterName}";
                 totalOptPrice += dbOpt.ParameterPrice;
             }
         }
-        //TODO : Get region from user location
-        decimal productPrice = await _context.ProductPrices.Where(p => p.ProductId == id ).Select(p => p.UsPrice).FirstOrDefaultAsync() ?? 0;
+        //TO DO : Get region from user location
+        decimal productPrice = await _context.ProductPrices.Where(p => p.ProductId == id && p.Region == "US&Oceania").Select(p => p.Price).FirstOrDefaultAsync();
 
-        //TODO : fix fake user when auth is implemented
+        //TO DO : fix fake user when auth is implemented
         Order newOrder = new Order
         {
             OrderId = Guid.NewGuid(),
             CustomerId = await _context.Customers.Select(c => c.CustomerId).FirstOrDefaultAsync(),
-            Discord = "TestDisc",
-            Comment = "TestComment",
-            Email = "Test@TEST.org",
-            PaymentMethod = "PayPal",
-            PaymentCode = "PayPalCode",
             Total = CalculateProductTotal(totalOptPrice, productPrice),
-            OrderStatus = "Created",//TODO: Create ENUM
-            Currency = "US",//TODO: Create ENUM
-            OrderCreateTime = DateTime.Now,
-            OrderUpdateTime = DateTime.Now,
+            OrderStatus = "Created",//TO DO: Create ENUM
             EmailSended = false
         };
 
@@ -83,7 +75,7 @@ public class ProductDetailsController : Controller
     private decimal CalculateProductTotal(decimal totalOptPrice, decimal productPrice)
     {
 
-        //TODO: Implement discount logic here
+        //TO DO: Implement discount logic here
         return totalOptPrice + productPrice;
     }
 }

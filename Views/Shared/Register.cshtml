@@ -1,0 +1,84 @@
+﻿@model WowCarryCore.ViewModels.RegisterModel
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="loginLabel">REGISTER WITH</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div id="name-box" class="form-group name-box required" data-sort="1">
+                    <label class="control-label" style="margin-left:15px" for="name-input">Name/Nickname</label>
+                    <div class="col-sm-12">
+                        @Html.TextBox("User Name", "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div id="email-box" class="form-group email-box required" data-sort="2">
+                    <label class="control-label" for="email-input">Email</label>
+                    <div class="col-sm-12">
+                        @Html.TextBox("Email", "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div id="password-box" class="form-group password-box required">
+                    <label class="control-label" for="NewPassword">Password</label>
+                    <div class="col-sm-12">
+                        @Html.TextBox("NewPassword", "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div id="confirm-box" class="form-group confirm-box required">
+                    <label class="control-label" for="PasswordConfirm">Confilm password</label>
+                    <div class="col-sm-12">
+                        @Html.TextBox("PasswordConfirm", "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div id="agree-checkbox" class="form-group agree-checkbox required">
+                    <label>
+                        <input type="checkbox" name="agree-policy" value="1">
+                        I have read and agree to the <a href="/privacy-policy" target="_blank" class="agree-policy"><b>Privacy Policy</b></a>
+                    </label>
+                </div>
+            }
+        </div>
+        <div class="modal-footer">
+            <button id="registerModalButton" type="button" data-loading-text="Register" class="btn btn-primary">Register</button>
+            <div class="loggin_link"> Have account? <a class="login_link" href="#" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Login</a> </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on("click", "#registerModalButton", function () {
+        var token = $("[name='__RequestVerificationToken']").val();
+
+        console.log($('#User_Name').val())
+
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "/Login/AjaxRegistration",
+            data: {
+                __RequestVerificationToken: token,
+                CustomerName: $('#User_Name').val(),
+                Email: $('#Email').val(),
+                Password: $('#Password').val()
+            },
+            success: function (result) {
+                if (result == "success") {
+                    $('#registerModal').modal('hide');
+                } else {
+                    //something went wrong
+                }
+
+            }
+        });
+    });
+
+</script>
+
+
+

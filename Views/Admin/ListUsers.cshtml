@@ -19,7 +19,7 @@
             @foreach (var item in Model)
             {
             <tr>
-                <td> @Html.ActionLink(item.UserName, "CreateEdit", "Admin", new { Id = item.UserId, type = "Users" })</td>
+                <td> @Html.ActionLink(item.Name, "CreateEdit", "Admin", new { Id = item.UserId, type = "Users" })</td>
                 <td class="text-center">
                     @Html.ActionLink("Remove", "Remove", "Admin", new { Id = item.UserId, type = item.GetType().BaseType.Name })
                 </td>
