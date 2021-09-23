@@ -17,12 +17,12 @@ public class AdminController : Controller
 {
     private readonly ILogger<AdminController> _logger;
     private WowCarryContext _context;
-    private Mapper _mapper;
+    private IMapper _mapper;
 
 
     public AdminController(ILogger<AdminController> logger, WowCarryContext context, IMapper mapper)
     {
-         _mapper = (Mapper)mapper;
+         _mapper = mapper;
         _context = context;
         _logger = logger;
        
@@ -252,55 +252,34 @@ public class AdminController : Controller
         }
     }
     //[ValidateInput(false)]
-    public ActionResult SaveProduct(ProductDetails productDetails, bool navigateToProdOpt = false)
+    public async Task<ActionResult> SaveProduct(ProductDetails productDetails, bool navigateToProdOpt = false)
     { 
         if (ModelState.IsValid)
         {
-            _context.(productDetails);
-            TempData["message"] = string.Format(productDetails.ProductName + " was saved");
+            var product = _mapper.Map<Product>(productDetails);
+            var productPrice = _mapper.Map<ProductPrice>(productDetails);
+            var productDescription = _mapper.Map<ProductDescription>(productDetails);
+
+            _context.Products.Update(product);
+            _context.ProductPrices.Update(productPrice);
+            _context.ProductDescriptions.Update(productDescription);
+
+
+
+            //var result = await _context.SaveChangesAsync();
+            //if(result > 0)
+            //    TempData["message"] = $"{productDetails.ProductName} entities was saved";
+
             if (navigateToProdOpt)
-            {
-                return RedirectToAction("ProductOptionsEdit", new { productId = productDetails.ProductId });
-            }
-            else
-            {
-                return RedirectToAction("List", new { type = "Product" });
-            }
+                 return RedirectToAction("ProductOptionsEdit", new { productId = productDetails.ProductId });
+            
+            return RedirectToAction("List", new { type = "Product" });
+            
         }
         else
         {
-            return View("SaveProduct", new ProductDetails
-            {
-                Product = productDetails.Product,
-                ProductId = productDetails.ProductId,
-                GamesList = new SelectList(EntityRepository.Games.Select(g => g.GameName), productDetails.SelectedGame ?? "Select Game"),
-                CategoriesList = new SelectList(EntityRepository.Games.Where(g => productDetails.SelectedGame == null || g.GameName == productDetails.SelectedGame).SelectMany(g => g.ProductCategory).Select(p => p.ProductCategoryName), productDetails.SelectedCategory ?? "Select Category"),
-                MetaTagTitleList = new SelectList(EntityRepository.SEOs.Select(s => s.MetaTagTitle), productDetails.SelectedMetaTagTitle ?? "Select Meta tag title from List"),
-                ProductOptions = productDetails.ProductOptions,
-                ProductName = productDetails.ProductName,
-                InStock = productDetails.InStock,
-                PreOrder = productDetails.PreOrder,
-                ProductEnabled = productDetails.ProductEnabled,
-                ProductQuantity = productDetails.ProductQuantity,
-                ProductImageThumb = productDetails.ProductImageThumb,
-                ProductImage = productDetails.ProductImage,
-                ProductPriority = productDetails.ProductPriority,
-                ProductPriceEU = productDetails.ProductPriceEU,
-                ProductPriceUS = productDetails.ProductPriceUS,
-                ProductSaleEU = productDetails.ProductSaleEU,
-                ProductSaleUS = productDetails.ProductSaleUS,
-                Description = productDetails.Description,
-                SubDescriptionTitle1 = productDetails.SubDescriptionTitle1,
-                SubDescription1 = productDetails.SubDescription1,
-                SubDescriptionTitle2 = productDetails.SubDescriptionTitle2,
-                SubDescription2 = productDetails.SubDescription2,
-                SubDescriptionTitle3 = productDetails.SubDescriptionTitle3,
-                SubDescription3 = productDetails.SubDescription3,
-                SubDescriptionTitle4 = productDetails.SubDescriptionTitle4,
-                SubDescription4 = productDetails.SubDescription4,
-                SubDescriptionTitle5 = productDetails.SubDescriptionTitle5,
-                SubDescription5 = productDetails.SubDescription5,
-            });
+
+            return View("SaveProduct", productDetails);
         }
     }
 }

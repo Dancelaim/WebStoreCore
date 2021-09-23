@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using WowCarryCore.Helpers;
 using WowCarryCore.Models;
 
 namespace WowCarryCore
@@ -36,7 +36,6 @@ namespace WowCarryCore
             services.AddDistributedMemoryCache();
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<WowCarryContext>(options => options.UseSqlServer(connection));
-
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {
