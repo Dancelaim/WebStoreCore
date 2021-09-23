@@ -256,13 +256,13 @@ public class AdminController : Controller
     { 
         if (ModelState.IsValid)
         {
-            var product = _mapper.Map<Product>(productDetails);
-            var productPrice = _mapper.Map<ProductPrice>(productDetails);
-            var productDescription = _mapper.Map<ProductDescription>(productDetails);
+            //var product = _mapper.Map<Product>(productDetails);
+            //var productPrice = _mapper.Map<ProductPrice>(productDetails);
+            //var productDescription = _mapper.Map<ProductDescription>(productDetails);
 
-            _context.Products.Update(product);
-            _context.ProductPrices.Update(productPrice);
-            _context.ProductDescriptions.Update(productDescription);
+            //_context.Products.Update(product);
+            //_context.ProductPrices.Update(productPrice);
+            //_context.ProductDescriptions.Update(produc    tDescription);
 
 
 
