@@ -14,7 +14,6 @@ public class ProductDetails
 {
     public ProductDetails() { }
     #region Properties
-    public Product Product { get; set; }
     public Guid ProductId { get; set; }
     //public ICollection<ProductOptions> ProductOptions { get; set; }
 

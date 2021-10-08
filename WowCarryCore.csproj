@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Interfaces\" />
     <Folder Include="Views\Account\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
