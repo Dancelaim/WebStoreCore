@@ -46,6 +46,7 @@ public class ProductDetailsController : Controller
         //TO DO : Get region from user location
         decimal productPrice = await _context.ProductPrices.Where(p => p.ProductId == id).Select(p => p.UsPrice).FirstOrDefaultAsync()?? 0;
 
+
         //TO DO : fix fake user when auth is implemented
         Order newOrder = new Order
         {
