@@ -5985,28 +5985,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\13gal\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Ксю\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\13gal\\source\\repos\\Dancelaim\\WebStoreCore\\AdministrationServices\\Admin\\Admin.csproj",
+      "projectUniqueName": "C:\\Users\\Ксю\\source\\repos\\WowCarryCore\\AdministrationServices\\Admin\\Admin.csproj",
       "projectName": "Admin",
-      "projectPath": "C:\\Users\\13gal\\source\\repos\\Dancelaim\\WebStoreCore\\AdministrationServices\\Admin\\Admin.csproj",
-      "packagesPath": "C:\\Users\\13gal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\13gal\\source\\repos\\Dancelaim\\WebStoreCore\\AdministrationServices\\Admin\\obj\\",
+      "projectPath": "C:\\Users\\Ксю\\source\\repos\\WowCarryCore\\AdministrationServices\\Admin\\Admin.csproj",
+      "packagesPath": "C:\\Users\\Ксю\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ксю\\source\\repos\\WowCarryCore\\AdministrationServices\\Admin\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\13gal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ксю\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"

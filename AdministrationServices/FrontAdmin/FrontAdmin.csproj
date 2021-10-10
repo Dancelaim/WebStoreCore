@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+   
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+        <SpaRoot>ClientApp\</SpaRoot>
+      
+  </PropertyGroup>
+   
+    <ItemGroup>
+        <Content Remove="$(SpaRoot)**" />
+        <None Remove="$(SpaRoot)**" />
+        <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+      
+  </ItemGroup><ItemGroup>
+  <None Remove="ClientApp\src\app\GamesList.component.ts" />
+  <None Remove="ClientApp\src\app\ListProduct.component.ts" />
+  <None Remove="ClientApp\src\app\MainPage.component.ts" />
+  <None Remove="ClientApp\src\app\page2.component.ts" />
+</ItemGroup>
+   
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.5" /><PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.4.2">
+  <PrivateAssets>all</PrivateAssets>
+  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+</PackageReference>
+      
+  </ItemGroup><ItemGroup>
+  <TypeScriptCompile Update="ClientApp\src\app\MainPage.component.ts">
+    <SubType>Code</SubType>
+  </TypeScriptCompile>
+</ItemGroup><ItemGroup>
+  <Folder Include="ClientApp\src\Новая папка\" />
+</ItemGroup>
+   
+    <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+     
+        <ItemGroup>
+            <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+            <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+                <RelativePath>%(DistFiles.Identity)</RelativePath>
+                <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+                <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+              
+      </ResolvedFileToPublish>
+          
+    </ItemGroup>
+      
+  </Target>
+</Project>

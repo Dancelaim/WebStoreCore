@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin", "AdministrationServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WowCarry", "MarketPlaceServices\WowCarry.csproj", "{421CE5BE-AD13-459B-8CF3-6E3423241880}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontAdmin", "FrontAdmin\FrontAdmin.csproj", "{EEC1E25E-77B0-488E-8DA3-F48B557EF55C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{421CE5BE-AD13-459B-8CF3-6E3423241880}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{421CE5BE-AD13-459B-8CF3-6E3423241880}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{421CE5BE-AD13-459B-8CF3-6E3423241880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEC1E25E-77B0-488E-8DA3-F48B557EF55C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEC1E25E-77B0-488E-8DA3-F48B557EF55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEC1E25E-77B0-488E-8DA3-F48B557EF55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEC1E25E-77B0-488E-8DA3-F48B557EF55C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B2DFDDAC-D954-4775-BDDC-DDF02DE32099} = {F96BEF23-37B2-47DA-8146-61F0D692BE6C}
 		{421CE5BE-AD13-459B-8CF3-6E3423241880} = {C77D252A-9F50-4C25-893A-CD470BB518CF}
+		{EEC1E25E-77B0-488E-8DA3-F48B557EF55C} = {F96BEF23-37B2-47DA-8146-61F0D692BE6C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {703FD6DB-204F-460C-A478-A8F6A2A751E3}

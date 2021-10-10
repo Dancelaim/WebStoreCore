@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "ClientApp/src/app/app.component.css",
+    "inputFile": "ClientApp/src/app/app.component.less"
+  },
+  {
+    "outputFile": "ClientApp/src/app/assets/css/styles.css",
+    "inputFile": "ClientApp/src/app/assets/css/styles.less"
+  }
+]

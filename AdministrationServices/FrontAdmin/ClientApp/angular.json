@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "projects": {
+    "helloangularapp": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist",
+            "index": "src/index.html",
+            "assets": [
+              "src/app/assets/images/",
+              "src/app/assets/images/favicon.ico"
+            ],
+            "main": "src/main.ts",
+            "styles": [
+              "src/app/assets/css/styles.css"
+            ],
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.json",
+            "aot": true
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "helloangularapp:build"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "helloangularapp"
+}
