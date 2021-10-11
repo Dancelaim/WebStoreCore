@@ -10,8 +10,8 @@ namespace Admin.ApiModels.Request
     public class ProductRequest
     {
         [RequiredGreaterThanZero]
-        public int _skip;
+        public int Skip;
         [RequiredGreaterThanZero]
-        public int quantity;
+        public int Quantity;
     }
 }
