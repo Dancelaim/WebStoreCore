@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "EDo6/ktfMduQekQEjmpVnefyCfaME3D+2h+SRNJuJX0VmkLYLO2s7UyV+5bD+E6nMP22Sw4p48hTTA9/z5rVQw==",
+  "dgSpecHash": "zf2H57VRvOR0zyyyO5KHsy+8hPQ7pdm4RT4VHNG7uIrg9F3g/NtzVgU+YYyd1JvJv7vnpE86GgpC18zB5pF92A==",
   "success": true,
   "projectFilePath": "C:\\Users\\13gal\\source\\repos\\Dancelaim\\WebStoreCore\\AdministrationServices\\Admin\\Admin.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\13gal\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\13gal\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\13gal\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\13gal\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\13gal\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
@@ -72,7 +74,7 @@
     "C:\\Users\\13gal\\.nuget\\packages\\system.private.datacontractserialization\\4.3.0\\system.private.datacontractserialization.4.3.0.nupkg.sha512",
     "C:\\Users\\13gal\\.nuget\\packages\\system.private.uri\\4.3.2\\system.private.uri.4.3.2.nupkg.sha512",
     "C:\\Users\\13gal\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
-    "C:\\Users\\13gal\\.nuget\\packages\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
+    "C:\\Users\\13gal\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Users\\13gal\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "C:\\Users\\13gal\\.nuget\\packages\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "C:\\Users\\13gal\\.nuget\\packages\\system.reflection.extensions\\4.3.0\\system.reflection.extensions.4.3.0.nupkg.sha512",

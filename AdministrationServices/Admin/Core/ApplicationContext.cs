@@ -29,6 +29,7 @@ namespace Admin.Core
         public DbSet<TemplateOption> TemplateOptions { get; set; }
         public DbSet<TempOptionParam> TempOptionParams { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<ProductDescription> ProductDescription { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
