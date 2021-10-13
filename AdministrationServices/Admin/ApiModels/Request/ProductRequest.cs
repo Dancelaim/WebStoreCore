@@ -8,6 +8,6 @@ namespace Admin.ApiModels.Request
 {
     public class ProductRequest : BaseRequest
     {
-        public Guid ProductId;
+        public Guid ProductId { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace Admin.ApiModels.Response
 {
     public class ProductsResponse : BaseResponse
     {
-        public List<Product> Products;
+        public List<Product> Products { get; set; }
     }
 }

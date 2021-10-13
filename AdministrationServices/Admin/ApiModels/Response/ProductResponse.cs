@@ -9,29 +9,29 @@ namespace Admin.ApiModels.Response
 {
     public class ProductResponse : BaseResponse
     {
-        public string ProductName;
+        public string ProductName { get; set; }
 
-        public bool? InStock;
+        public bool? InStock { get; set; }
 
-        public bool PreOrder;
+        public bool PreOrder { get; set; }
 
-        public int? ProductQuantity;
+        public int? ProductQuantity { get; set; }
 
-        public string ProductImage;
+        public string ProductImage { get; set; }
 
-        public int? ProductPriority;
+        public int? ProductPriority { get; set; }
 
-        public bool ProductEnabled;
+        public bool ProductEnabled { get; set; }
 
-        public string ProductImageThumb;
+        public string ProductImageThumb { get; set; }
 
-        public decimal? UsPrice;
+        public decimal? UsPrice { get; set; }
 
-        public decimal? UsSale;
+        public decimal? UsSale { get; set; }
 
-        public decimal? EuPrice;
+        public decimal? EuPrice { get; set; }
 
-        public decimal? EuSale;
+        public decimal? EuSale { get; set; }
 
     }
 }

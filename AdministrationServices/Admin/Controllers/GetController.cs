@@ -25,22 +25,19 @@ namespace Admin.Controllers
             _logger = logger;
             _context = context;
         }
-        /// <summary>
-        ///  Получаем список продуктов 
-        /// </summary>
-        /// <param name="request"></param>
-        [HttpPost]
+        [HttpPost("getProducts")]
         public async Task<IActionResult> GetProducts(ProductsRequest request)
         {
                 var response = new ProductsResponse();
                 var products = await _context.Product.Skip(request.Skip).Take(request.Quantity).Select(p => new Product { ProductId = p.ProductId, ProductName = p.ProductName }).ToListAsync();
-            if ( products.Count == 0) 
-                return null;
+            if (products.Count == 0)
+            { return null; }
 
             response.Products = products;
             return Ok(response);
 
         }
+        [HttpPost("getProduct")]
         public async Task<IActionResult> GetProduct(ProductRequest request)
         {
             var product = await _context.Product.Where(p => p.ProductId == request.ProductId).FirstOrDefaultAsync();
@@ -50,7 +47,8 @@ namespace Admin.Controllers
            
             return Ok(result);
         }
-        public async Task<IActionResult>GetDescription(ProductRequest request)
+        [HttpPost("getDescriptionByProduct")]
+        public async Task<IActionResult> GetDescriptionByProduct(ProductRequest request)
         {
             var description = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => p.ProductDescription).FirstOrDefaultAsync();
 

@@ -11,9 +11,9 @@ namespace Admin.ApiModels.Request
 {
     public class ProductsRequest : BaseRequest
     {
-        [RequiredGreaterThanZero]
-        [JsonPropertyName("skip")] public int Skip;
-        [RequiredGreaterThanZero]
-        [JsonPropertyName("quantity")] public int Quantity;
+        [Required(ErrorMessage = "Данное поля обязательно для заполнения")]
+        [JsonPropertyName("Skip")] public int Skip { get; set; }
+        [RequiredGreaterThanZero(ErrorMessage = "Quantity не может быть '0' или меньше")]
+        [JsonPropertyName("Quantity")] public int Quantity { get; set; }
     }
 }

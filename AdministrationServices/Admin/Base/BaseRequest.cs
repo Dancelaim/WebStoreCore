@@ -7,6 +7,6 @@ namespace Admin.Base
 {
     public class BaseRequest
     {
-        public DateTime RequestTime;
+        public DateTime RequestTime { get; set; }
     }
 }

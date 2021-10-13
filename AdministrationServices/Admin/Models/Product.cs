@@ -7,7 +7,7 @@ namespace Admin.Models
 {
     public class Product
     {
-        public string ProductName;
-        public Guid ProductId;
+        public string ProductName { get; set; }
+        public Guid ProductId { get; set; }
     }
 }
