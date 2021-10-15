@@ -14,6 +14,7 @@ namespace Admin.Profiles
         {
             CreateMap<Product, ProductResponse>();
             CreateMap<ProductPrice, ProductResponse>();
+            CreateMap<ProductDescription, DescriptionResponse>();
 
         }
     }

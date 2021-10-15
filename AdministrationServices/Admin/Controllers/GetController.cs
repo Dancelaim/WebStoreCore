@@ -25,34 +25,52 @@ namespace Admin.Controllers
             _logger = logger;
             _context = context;
         }
+
         [HttpPost("getProducts")]
         public async Task<IActionResult> GetProducts(ProductsRequest request)
         {
-                var response = new ProductsResponse();
-                var products = await _context.Product.Skip(request.Skip).Take(request.Quantity).Select(p => new Product { ProductId = p.ProductId, ProductName = p.ProductName }).ToListAsync();
+            var result = new ProductsResponse();
+
+            var products = await _context.Product.Skip(request.Skip).Take(request.Quantity).Select(p => new Product { ProductId = p.ProductId, ProductName = p.ProductName }).ToListAsync();
             if (products.Count == 0)
-            { return null; }
+            {
+                result.Code = -100;
+                result.Message = "Can't get products with given parameters.";
+                return Ok(result);
+            }
 
-            response.Products = products;
-            return Ok(response);
-
+            result.Code = 100;
+            result.Message = "Success";
+            result.Products = products;
+            return Ok(result);
         }
+        
         [HttpPost("getProduct")]
         public async Task<IActionResult> GetProduct(ProductRequest request)
         {
-            var product = await _context.Product.Where(p => p.ProductId == request.ProductId).FirstOrDefaultAsync();
-            var price = await _context.ProductPrice.Where(p => p.ProductId == request.ProductId).FirstOrDefaultAsync();
-            var result = _mapper.Map<ProductResponse>(product);
-                result = _mapper.Map(price, result);
-           
+            var productAndPrice = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => new {p, p.ProductPrices}).FirstOrDefaultAsync();
+            var result = _mapper.Map<ProductResponse>(productAndPrice.p);
+            //Todo: Fix pricec foreign keys.
+                result = _mapper.Map(productAndPrice.ProductPrices.First(), result);
+
+            result.Code = 100;
+            result.Message = "Success";
             return Ok(result);
         }
+        
         [HttpPost("getDescriptionByProduct")]
         public async Task<IActionResult> GetDescriptionByProduct(ProductRequest request)
         {
             var description = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => p.ProductDescription).FirstOrDefaultAsync();
-
-            return Ok(description);
+            var result = _mapper.Map<DescriptionResponse>(description);
+            result.Code = 100;
+            result.Message = "Success";
+            return Ok(result);
         }
+        [HttpPost("getDescriptionByProduct")]
+        //добавить коллекции геймс, СЕОс,категории
+        //геймы все для продукта и админки
+        //Категории функция либо все либо отфильтрованнные по игре(where)
+        //Сео все
     }
 }
