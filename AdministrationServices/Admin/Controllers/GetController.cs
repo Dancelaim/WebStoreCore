@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -105,9 +106,26 @@ namespace Admin.Controllers
             result.Seo = seo;
             return Ok(result);
         }
-        //добавить коллекции геймс, СЕОс,категории
-        //геймы все для продукта и админки
+
+        [HttpPost("getProductCategory")]
+        public async Task<IActionResult> GetProductCategory (ProductCategoryRequest request)
+        {
+            var result = new ProductCategoryResponse();
+
+                var productCategory = await _context.ProductCategory.Where(p => request.ProductGameId == null || p.ProductGameId == request.ProductGameId).Select(pc => new ProductCategory { ProductCategoryId = pc.ProductCategoryId, ProductCategoryName = pc.ProductCategoryName }).ToListAsync();
+                if (productCategory.Count == 0)
+                {
+                    result.Code = -100;
+                    result.Message = "Can't get products with given parameters.";
+                    return Ok(result);
+                }
+                result.Code = 100;
+                result.Message = "Success";
+                result.ProductCategory = productCategory;
+                return Ok(result);
+        }
+        //добавить коллекции
+        //категории
         //Категории функция либо все либо отфильтрованнные по игре(where)
-        //Сео все
     }
 }
