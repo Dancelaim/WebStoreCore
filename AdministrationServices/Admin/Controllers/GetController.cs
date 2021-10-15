@@ -67,7 +67,44 @@ namespace Admin.Controllers
             result.Message = "Success";
             return Ok(result);
         }
-        [HttpPost("getDescriptionByProduct")]
+
+        [HttpPost("getProductGame")]
+        public async Task<IActionResult> GetProductGame(ProductGameRequest request)
+        {
+            var result = new ProductGameResponse();
+
+            var games = await _context.ProductGame.Select(p => new ProductGame { ProductGameId = p.ProductGameId, ProductGameName = p.GameName }).ToListAsync();
+            if (games.Count == 0)
+            {
+                result.Code = -100;
+                result.Message = "Can't get products with given parameters.";
+                return Ok(result);
+            }
+
+            result.Code = 100;
+            result.Message = "Success";
+            result.ProductGames = games;
+            return Ok(result);
+        }
+
+        [HttpPost("getSeo")]
+        public async Task<IActionResult> GetSeo(SeoRequest request)
+        {
+            var result = new SeoResponse();
+
+            var seo = await _context.Seo.Skip(request.Skip).Take(request.Quantity).Select(s => new Seo { SeoId = s.SeoId, MetaTagTitle = s.MetaTagTitle }).ToListAsync();
+            if (seo.Count == 0)
+            {
+                result.Code = -100;
+                result.Message = "Can't get products with given parameters.";
+                return Ok(result);
+            }
+
+            result.Code = 100;
+            result.Message = "Success";
+            result.Seo = seo;
+            return Ok(result);
+        }
         //добавить коллекции геймс, СЕОс,категории
         //геймы все для продукта и админки
         //Категории функция либо все либо отфильтрованнные по игре(where)
