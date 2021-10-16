@@ -49,10 +49,13 @@ namespace Admin.Controllers
         [HttpPost("getProduct")]
         public async Task<IActionResult> GetProduct(ProductRequest request)
         {
-            var productAndPrice = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => new {p, p.ProductPrices}).FirstOrDefaultAsync();
+            var productAndPrice = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => new {p, p.ProductPrices, p.ProductCategory, p.ProductSeo,p.ProductGame}).FirstOrDefaultAsync();
             var result = _mapper.Map<ProductResponse>(productAndPrice.p);
             //Todo: Fix pricec foreign keys.
                 result = _mapper.Map(productAndPrice.ProductPrices.First(), result);
+                result = _mapper.Map(productAndPrice.ProductGame, result);
+                result = _mapper.Map(productAndPrice.ProductCategory, result);
+                result = _mapper.Map(productAndPrice.ProductSeo, result);
 
             result.Code = 100;
             result.Message = "Success";
@@ -124,8 +127,5 @@ namespace Admin.Controllers
                 result.ProductCategory = productCategory;
                 return Ok(result);
         }
-        //добавить коллекции
-        //категории
-        //Категории функция либо все либо отфильтрованнные по игре(where)
     }
 }

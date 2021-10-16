@@ -33,5 +33,11 @@ namespace Admin.ApiModels.Response
 
         public decimal? EuSale { get; set; }
 
+        public string GameName { get; set; }
+
+        public string ProductcategoryName { get; set; }
+
+        public string MetaTagTitle { get; set;}
+
     }
 }

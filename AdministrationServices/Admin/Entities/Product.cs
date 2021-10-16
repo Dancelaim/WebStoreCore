@@ -45,22 +45,29 @@ namespace Admin.Entities
         [ForeignKey(nameof(ProductCategoryId))]
         [InverseProperty("Products")]
         public virtual ProductCategory ProductCategory { get; set; }
+
         [ForeignKey(nameof(ProductDescriptionId))]
         [InverseProperty("Products")]
         public virtual ProductDescription ProductDescription { get; set; }
+
         [ForeignKey(nameof(ProductGameId))]
         [InverseProperty("Products")]
         public virtual ProductGame ProductGame { get; set; }
+
         [ForeignKey(nameof(ProductSeoId))]
         [InverseProperty(nameof(Seo.Products))]
         public virtual Seo ProductSeo { get; set; }
+
         [ForeignKey(nameof(ProductSubCategoryId))]
         [InverseProperty("Products")]
         public virtual ProductSubCategory ProductSubCategory { get; set; }
+
         [InverseProperty(nameof(OrderProduct.Product))]
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+
         [InverseProperty(nameof(ProductOption.OptionProduct))]
         public virtual ICollection<ProductOption> ProductOptions { get; set; }
+
         [InverseProperty(nameof(ProductPrice.Product))]
         public virtual ICollection<ProductPrice> ProductPrices { get; set; }
     }
