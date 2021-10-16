@@ -7,9 +7,8 @@ using Admin.Base;
 
 namespace Admin.ApiModels.Request
 {
-    public class ProductRequest : BaseRequest
+    public class ProductCategoryRequest : BaseRequest
     {
-        [Required(ErrorMessage = "ProductId is required")]
-        public Guid ProductId { get; set; }
+        public Guid? ProductGameId { get; set; }
     }
 }

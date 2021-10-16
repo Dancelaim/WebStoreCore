@@ -19,6 +19,7 @@ namespace Admin.Core
         public DbSet<OrderProduct> OrderProduct { get; set; }
         public DbSet<ProductCategory> ProductCategory { get; set; }
         public DbSet<ProductOption> ProductOptions { get; set; }
+        public DbSet<ProductGame> ProductGame { get; set; }
         public DbSet<ProductOptionParam> ProductOptionParams { get; set; }
         public DbSet<ProductPrice> ProductPrice { get; set; }
         public DbSet<ProductSubCategory> ProductSubCategory { get; set; }
@@ -29,6 +30,7 @@ namespace Admin.Core
         public DbSet<TemplateOption> TemplateOptions { get; set; }
         public DbSet<TempOptionParam> TempOptionParams { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<ProductDescription> ProductDescription { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {

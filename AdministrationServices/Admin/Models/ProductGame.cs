@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Admin.Models
 {
-    public class Product
+    public class ProductGame
     {
-        public string ProductName { get; set; }
-        public Guid ProductId { get; set; }
+        public string ProductGameName { get; set; }
+        public Guid ProductGameId { get; set; }
     }
 }
