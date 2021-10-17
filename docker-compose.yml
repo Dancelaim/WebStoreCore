@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  admin:
+    image: ${DOCKER_REGISTRY-}admin
+    container_name: adminApi
+    build:
+      context: .
+      dockerfile: AdministrationServices/Admin/Dockerfile
+    ports:
+    - 4000:80
+    - 4001:443
+

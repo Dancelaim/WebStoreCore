@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 namespace Admin.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class GetController : ControllerBase
+    [Route("admin/[controller]")]
+    public class ProductController : ControllerBase
     {
-        private readonly ILogger<GetController> _logger;
+        private readonly ILogger<ProductController> _logger;
         private readonly ApplicationContext _context;
         private IMapper _mapper;
 
-        public GetController(ILogger<GetController> logger, ApplicationContext context, IMapper mapper)
+        public ProductController(ILogger<ProductController> logger, ApplicationContext context, IMapper mapper)
         {
             _mapper = mapper;
             _logger = logger;
@@ -70,62 +70,6 @@ namespace Admin.Controllers
             result.Code = 100;
             result.Message = "Success";
             return Ok(result);
-        }
-
-        [HttpPost("getProductGame")]
-        public async Task<IActionResult> GetProductGame(ProductGameRequest request)
-        {
-            var result = new ProductGameResponse();
-
-            var games = await _context.ProductGame.Select(p => new ProductGame { ProductGameId = p.ProductGameId, ProductGameName = p.GameName }).ToListAsync();
-            if (games.Count == 0)
-            {
-                result.Code = -100;
-                result.Message = "Can't get products with given parameters.";
-                return Ok(result);
-            }
-
-            result.Code = 100;
-            result.Message = "Success";
-            result.ProductGames = games;
-            return Ok(result);
-        }
-
-        [HttpPost("getSeo")]
-        public async Task<IActionResult> GetSeo(SeoRequest request)
-        {
-            var result = new SeoResponse();
-
-            var seo = await _context.Seo.Skip(request.Skip).Take(request.Quantity).Select(s => new Seo { SeoId = s.SeoId, MetaTagTitle = s.MetaTagTitle }).ToListAsync();
-            if (seo.Count == 0)
-            {
-                result.Code = -100;
-                result.Message = "Can't get products with given parameters.";
-                return Ok(result);
-            }
-
-            result.Code = 100;
-            result.Message = "Success";
-            result.Seo = seo;
-            return Ok(result);
-        }
-
-        [HttpPost("getProductCategory")]
-        public async Task<IActionResult> GetProductCategory (ProductCategoryRequest request)
-        {
-            var result = new ProductCategoryResponse();
-
-                var productCategory = await _context.ProductCategory.Where(p => request.ProductGameId == null || p.ProductGameId == request.ProductGameId).Select(pc => new ProductCategory { ProductCategoryId = pc.ProductCategoryId, ProductCategoryName = pc.ProductCategoryName }).ToListAsync();
-                if (productCategory.Count == 0)
-                {
-                    result.Code = -100;
-                    result.Message = "Can't get products with given parameters.";
-                    return Ok(result);
-                }
-                result.Code = 100;
-                result.Message = "Success";
-                result.ProductCategory = productCategory;
-                return Ok(result);
         }
     }
 }
