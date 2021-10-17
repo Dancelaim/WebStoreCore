@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,6 +26,11 @@ namespace Admin.Controllers
             _mapper = mapper;
             _logger = logger;
             _context = context;
+        }
+        [HttpGet("test")]
+        public string Test()
+        {
+            return "OCELOT test successfull";
         }
 
         [HttpPost("getProducts")]
