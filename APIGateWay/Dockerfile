@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["AdministrationServices/Admin/Admin.csproj", "AdministrationServices/Admin/"]
-RUN dotnet restore "AdministrationServices/Admin/Admin.csproj"
+COPY ["APIGateWay/APIGateWay.csproj", "APIGateWay/"]
+RUN dotnet restore "APIGateWay/APIGateWay.csproj"
 COPY . .
-WORKDIR "/src/AdministrationServices/Admin"
-RUN dotnet build "Admin.csproj" -c Release -o /app/build
+WORKDIR "/src/APIGateWay"
+RUN dotnet build "APIGateWay.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Admin.csproj" -c Release -o /app/publish
+RUN dotnet publish "APIGateWay.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Admin.dll"]
+ENTRYPOINT ["dotnet", "APIGateWay.dll"]
