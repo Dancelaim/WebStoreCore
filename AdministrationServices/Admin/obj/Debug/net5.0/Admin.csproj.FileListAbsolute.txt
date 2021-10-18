@@ -181,3 +181,5 @@ C:\Users\13gal\source\repos\Dancelaim\WebStoreCore\AdministrationServices\Admin\
 C:\Users\13gal\source\repos\Dancelaim\WebStoreCore\AdministrationServices\Admin\obj\Debug\net5.0\Admin.genruntimeconfig.cache
 C:\Users\13gal\source\repos\Dancelaim\WebStoreCore\AdministrationServices\Admin\bin\Debug\net5.0\AutoMapper.dll
 C:\Users\13gal\source\repos\Dancelaim\WebStoreCore\AdministrationServices\Admin\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\Ксю\source\repos\WowCarryCore\AdministrationServices\Admin\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\Ксю\source\repos\WowCarryCore\AdministrationServices\Admin\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

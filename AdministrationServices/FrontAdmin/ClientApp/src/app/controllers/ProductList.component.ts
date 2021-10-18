@@ -2,9 +2,9 @@
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'ListProduct',
-    templateUrl: './ListProduct.component.html'
+    selector: 'ProductList',
+    templateUrl: '../views/ProductList.component.html'
 })
-export class ListProductComponent {
+export class ProductListComponent {
     name:string="Product List page";
 }

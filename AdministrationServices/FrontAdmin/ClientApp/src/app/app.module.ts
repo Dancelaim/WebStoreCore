@@ -5,21 +5,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ListProductComponent } from './ListProduct.component';
-import { MainPageComponent } from './MainPage.component';
-import { GamesListComponent } from './GamesList.component';
+import { ProductListComponent } from './controllers/ProductList.component';
+import { MainPageComponent } from './controllers/MainPage.component';
+import { GamesListComponent } from './controllers/GamesList.component';
 
 // определение маршрутов
 const appRoutes: Routes = [
     { path: '', component: MainPageComponent },
-    { path: 'product-list', component: ListProductComponent },
+    { path: 'product-list', component: ProductListComponent },
     { path: 'games-list', component: GamesListComponent },
     { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
-    declarations: [AppComponent, MainPageComponent, ListProductComponent, GamesListComponent],
+    declarations: [AppComponent, MainPageComponent, ProductListComponent, GamesListComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
