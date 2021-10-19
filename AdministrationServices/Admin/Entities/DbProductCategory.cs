@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("ProductCategory")]
-    public partial class ProductCategory
+    public partial class DbProductCategory
     {
-        public ProductCategory()
+        public DbProductCategory()
         {
-            ProductSubCategories = new HashSet<ProductSubCategory>();
-            Products = new HashSet<Product>();
+            ProductSubCategories = new HashSet<DbProductSubCategory>();
+            Products = new HashSet<DbProduct>();
         }
 
         [Key]
@@ -28,14 +28,14 @@ namespace Admin.Entities
         public Guid? CategorySeoId { get; set; }
 
         [ForeignKey(nameof(CategorySeoId))]
-        [InverseProperty(nameof(Seo.ProductCategories))]
-        public virtual Seo CategorySeo { get; set; }
+        [InverseProperty(nameof(DbSeo.ProductCategories))]
+        public virtual DbSeo CategorySeo { get; set; }
         [ForeignKey(nameof(ProductGameId))]
         [InverseProperty("ProductCategories")]
-        public virtual ProductGame ProductGame { get; set; }
-        [InverseProperty(nameof(ProductSubCategory.ProductCategory))]
-        public virtual ICollection<ProductSubCategory> ProductSubCategories { get; set; }
-        [InverseProperty(nameof(Product.ProductCategory))]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual DbProductGame ProductGame { get; set; }
+        [InverseProperty(nameof(DbProductSubCategory.ProductCategory))]
+        public virtual ICollection<DbProductSubCategory> ProductSubCategories { get; set; }
+        [InverseProperty(nameof(DbProduct.ProductCategory))]
+        public virtual ICollection<DbProduct> Products { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("OrderProduct")]
-    public partial class OrderProduct
+    public partial class DbOrderProduct
     {
         [Key]
         public Guid OrderProductId { get; set; }
@@ -23,9 +23,9 @@ namespace Admin.Entities
 
         [ForeignKey(nameof(OrderId))]
         [InverseProperty("OrderProducts")]
-        public virtual Order Order { get; set; }
+        public virtual DbOrder Order { get; set; }
         [ForeignKey(nameof(ProductId))]
         [InverseProperty("OrderProducts")]
-        public virtual Product Product { get; set; }
+        public virtual DbProduct Product { get; set; }
     }
 }

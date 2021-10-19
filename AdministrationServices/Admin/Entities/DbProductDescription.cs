@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("ProductDescription")]
-    public partial class ProductDescription
+    public partial class DbProductDescription
     {
-        public ProductDescription()
+        public DbProductDescription()
         {
-            Products = new HashSet<Product>();
+            Products = new HashSet<DbProduct>();
         }
 
         [Key]
@@ -30,7 +30,7 @@ namespace Admin.Entities
         public string SubDescription4 { get; set; }
         public string SubDescription5 { get; set; }
 
-        [InverseProperty(nameof(Product.ProductDescription))]
-        public virtual ICollection<Product> Products { get; set; }
+        [InverseProperty(nameof(DbProduct.ProductDescription))]
+        public virtual ICollection<DbProduct> Products { get; set; }
     }
 }

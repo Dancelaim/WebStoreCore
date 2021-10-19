@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class Order
+    public partial class DbOrder
     {
-        public Order()
+        public DbOrder()
         {
-            OrderProducts = new HashSet<OrderProduct>();
+            OrderProducts = new HashSet<DbOrderProduct>();
         }
 
         [Key]
@@ -55,11 +55,11 @@ namespace Admin.Entities
 
         [ForeignKey(nameof(CustomerId))]
         [InverseProperty("Orders")]
-        public virtual Customer Customer { get; set; }
+        public virtual DbCustomer Customer { get; set; }
         [ForeignKey(nameof(OrderCustomFieldsId))]
-        [InverseProperty(nameof(OrderCustomField.Orders))]
-        public virtual OrderCustomField OrderCustomFields { get; set; }
-        [InverseProperty(nameof(OrderProduct.Order))]
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        [InverseProperty(nameof(DbOrderCustomField.Orders))]
+        public virtual DbOrderCustomField OrderCustomFields { get; set; }
+        [InverseProperty(nameof(DbOrderProduct.Order))]
+        public virtual ICollection<DbOrderProduct> OrderProducts { get; set; }
     }
 }

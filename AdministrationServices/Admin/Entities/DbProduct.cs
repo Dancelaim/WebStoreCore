@@ -9,13 +9,13 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("Product")]
-    public partial class Product
+    public partial class DbProduct
     {
-        public Product()
+        public DbProduct()
         {
-            OrderProducts = new HashSet<OrderProduct>();
-            ProductOptions = new HashSet<ProductOption>();
-            ProductPrices = new HashSet<ProductPrice>();
+            OrderProducts = new HashSet<DbOrderProduct>();
+            ProductOptions = new HashSet<DbProductOption>();
+            ProductPrices = new HashSet<DbProductPrice>();
         }
 
         [Key]
@@ -44,31 +44,31 @@ namespace Admin.Entities
 
         [ForeignKey(nameof(ProductCategoryId))]
         [InverseProperty("Products")]
-        public virtual ProductCategory ProductCategory { get; set; }
+        public virtual DbProductCategory ProductCategory { get; set; }
 
         [ForeignKey(nameof(ProductDescriptionId))]
         [InverseProperty("Products")]
-        public virtual ProductDescription ProductDescription { get; set; }
+        public virtual DbProductDescription ProductDescription { get; set; }
 
         [ForeignKey(nameof(ProductGameId))]
         [InverseProperty("Products")]
-        public virtual ProductGame ProductGame { get; set; }
+        public virtual DbProductGame ProductGame { get; set; }
 
         [ForeignKey(nameof(ProductSeoId))]
-        [InverseProperty(nameof(Seo.Products))]
-        public virtual Seo ProductSeo { get; set; }
+        [InverseProperty(nameof(DbSeo.Products))]
+        public virtual DbSeo ProductSeo { get; set; }
 
         [ForeignKey(nameof(ProductSubCategoryId))]
         [InverseProperty("Products")]
-        public virtual ProductSubCategory ProductSubCategory { get; set; }
+        public virtual DbProductSubCategory ProductSubCategory { get; set; }
 
-        [InverseProperty(nameof(OrderProduct.Product))]
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        [InverseProperty(nameof(DbOrderProduct.Product))]
+        public virtual ICollection<DbOrderProduct> OrderProducts { get; set; }
 
-        [InverseProperty(nameof(ProductOption.OptionProduct))]
-        public virtual ICollection<ProductOption> ProductOptions { get; set; }
+        [InverseProperty(nameof(DbProductOption.OptionProduct))]
+        public virtual ICollection<DbProductOption> ProductOptions { get; set; }
 
-        [InverseProperty(nameof(ProductPrice.Product))]
-        public virtual ICollection<ProductPrice> ProductPrices { get; set; }
+        [InverseProperty(nameof(DbProductPrice.Product))]
+        public virtual ICollection<DbProductPrice> ProductPrices { get; set; }
     }
 }

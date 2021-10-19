@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("Article")]
-    public partial class Article
+    public partial class DbArticle
     {
         [Key]
         public Guid ArticleId { get; set; }
@@ -38,9 +38,9 @@ namespace Admin.Entities
 
         [ForeignKey(nameof(ProductGameId))]
         [InverseProperty("Articles")]
-        public virtual ProductGame ProductGame { get; set; }
+        public virtual DbProductGame ProductGame { get; set; }
         [ForeignKey(nameof(ArticleSeoId))]
         [InverseProperty("Articles")]
-        public virtual Seo Seo { get; set; }
+        public virtual DbSeo Seo { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class Realm
+    public partial class DbRealm
     {
         [Key]
         public Guid RealmId { get; set; }
@@ -19,6 +19,6 @@ namespace Admin.Entities
 
         [ForeignKey(nameof(ProductGameId))]
         [InverseProperty("Realms")]
-        public virtual ProductGame ProductGame { get; set; }
+        public virtual DbProductGame ProductGame { get; set; }
     }
 }

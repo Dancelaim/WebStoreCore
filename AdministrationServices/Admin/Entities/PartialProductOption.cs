@@ -1,6 +1,6 @@
 ﻿namespace Admin.Entities
 {
-    public partial class ProductOption
+    public partial class DbProductOption
     {
  
     }

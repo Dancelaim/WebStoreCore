@@ -55,17 +55,25 @@ namespace Admin.Controllers
         [HttpPost("getProduct")]
         public async Task<IActionResult> GetProduct(ProductRequest request)
         {
-            var productAndPrice = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => new {p, p.ProductPrices, p.ProductCategory, p.ProductSeo,p.ProductGame}).FirstOrDefaultAsync();
-            var result = _mapper.Map<ProductResponse>(productAndPrice.p);
+            var response = new ProductResponse();
+            var result = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => new {p, p.ProductPrices, p.ProductCategory, p.ProductSeo,p.ProductGame}).FirstOrDefaultAsync();
+            if (result == null)
+            {
+                response.Code = -100;
+                response.Message = "Can't get products with given parameters.";
+                return Ok(response);
+            }
+            
+            response.Product = _mapper.Map<Product>(result.p);
             //Todo: Fix pricec foreign keys.
-                result = _mapper.Map(productAndPrice.ProductPrices.First(), result);
-                result = _mapper.Map(productAndPrice.ProductGame, result);
-                result = _mapper.Map(productAndPrice.ProductCategory, result);
-                result = _mapper.Map(productAndPrice.ProductSeo, result);
+            response.Product = _mapper.Map(result.ProductPrices.First(), response.Product);
+            response.Product = _mapper.Map(result.ProductGame, response.Product);
+            response.Product = _mapper.Map(result.ProductCategory, response.Product);
+            response.Product = _mapper.Map(result.ProductSeo, response.Product);
 
-            result.Code = 100;
-            result.Message = "Success";
-            return Ok(result);
+            response.Code = 100;
+            response.Message = "Success";
+            return Ok(response);
         }
         
         [HttpPost("getDescriptionByProduct")]

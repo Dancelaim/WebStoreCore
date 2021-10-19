@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class HtmlBlock
+    public partial class DbHtmlBlock
     {
-        public HtmlBlock()
+        public DbHtmlBlock()
         {
-            HtmlBlocksChildren = new HashSet<HtmlBlocksChild>();
+            HtmlBlocksChildren = new HashSet<DbHtmlBlocksChild>();
         }
 
         [Key]
@@ -29,7 +29,7 @@ namespace Admin.Entities
         public string SitePage { get; set; }
         public int? Order { get; set; }
 
-        [InverseProperty(nameof(HtmlBlocksChild.SiteBlock))]
-        public virtual ICollection<HtmlBlocksChild> HtmlBlocksChildren { get; set; }
+        [InverseProperty(nameof(DbHtmlBlocksChild.SiteBlock))]
+        public virtual ICollection<DbHtmlBlocksChild> HtmlBlocksChildren { get; set; }
     }
 }

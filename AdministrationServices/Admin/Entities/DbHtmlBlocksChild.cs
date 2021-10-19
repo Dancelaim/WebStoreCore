@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class HtmlBlocksChild
+    public partial class DbHtmlBlocksChild
     {
         [Key]
         public Guid SiteBlockChildsId { get; set; }
@@ -24,7 +24,7 @@ namespace Admin.Entities
         public int? ChildOrder { get; set; }
 
         [ForeignKey(nameof(SiteBlockId))]
-        [InverseProperty(nameof(HtmlBlock.HtmlBlocksChildren))]
-        public virtual HtmlBlock SiteBlock { get; set; }
+        [InverseProperty(nameof(DbHtmlBlock.HtmlBlocksChildren))]
+        public virtual DbHtmlBlock SiteBlock { get; set; }
     }
 }

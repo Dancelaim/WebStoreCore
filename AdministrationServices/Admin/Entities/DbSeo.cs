@@ -9,15 +9,15 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("Seo")]
-    public partial class Seo
+    public partial class DbSeo
     {
-        public Seo()
+        public DbSeo()
         {
-            Articles = new HashSet<Article>();
-            ProductCategories = new HashSet<ProductCategory>();
-            ProductGames = new HashSet<ProductGame>();
-            ProductSubCategories = new HashSet<ProductSubCategory>();
-            Products = new HashSet<Product>();
+            Articles = new HashSet<DbArticle>();
+            ProductCategories = new HashSet<DbProductCategory>();
+            ProductGames = new HashSet<DbProductGame>();
+            ProductSubCategories = new HashSet<DbProductSubCategory>();
+            Products = new HashSet<DbProduct>();
         }
 
         [Key]
@@ -46,15 +46,15 @@ namespace Admin.Entities
         [StringLength(55)]
         public string Seoimage { get; set; }
 
-        [InverseProperty(nameof(Article.Seo))]
-        public virtual ICollection<Article> Articles { get; set; }
-        [InverseProperty(nameof(ProductCategory.CategorySeo))]
-        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
-        [InverseProperty(nameof(ProductGame.GameSeo))]
-        public virtual ICollection<ProductGame> ProductGames { get; set; }
-        [InverseProperty(nameof(ProductSubCategory.SubCategorySeo))]
-        public virtual ICollection<ProductSubCategory> ProductSubCategories { get; set; }
-        [InverseProperty(nameof(Product.ProductSeo))]
-        public virtual ICollection<Product> Products { get; set; }
+        [InverseProperty(nameof(DbArticle.Seo))]
+        public virtual ICollection<DbArticle> Articles { get; set; }
+        [InverseProperty(nameof(DbProductCategory.CategorySeo))]
+        public virtual ICollection<DbProductCategory> ProductCategories { get; set; }
+        [InverseProperty(nameof(DbProductGame.GameSeo))]
+        public virtual ICollection<DbProductGame> ProductGames { get; set; }
+        [InverseProperty(nameof(DbProductSubCategory.SubCategorySeo))]
+        public virtual ICollection<DbProductSubCategory> ProductSubCategories { get; set; }
+        [InverseProperty(nameof(DbProduct.ProductSeo))]
+        public virtual ICollection<DbProduct> Products { get; set; }
     }
 }
