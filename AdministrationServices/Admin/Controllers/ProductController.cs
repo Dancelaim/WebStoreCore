@@ -52,11 +52,11 @@ namespace Admin.Controllers
             return Ok(result);
         }
         
-        [HttpPost("getProduct")]
-        public async Task<IActionResult> GetProduct(ProductRequest request)
+        [HttpGet("getProduct")]
+        public async Task<IActionResult> GetProduct(Guid ProductId)
         {
             var response = new ProductResponse();
-            var result = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => new {p, p.ProductPrices, p.ProductCategory, p.ProductSeo,p.ProductGame}).FirstOrDefaultAsync();
+            var result = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => new {p, p.ProductPrices, p.ProductCategory, p.ProductSeo,p.ProductGame}).FirstOrDefaultAsync();
             if (result == null)
             {
                 response.Code = -100;
@@ -77,9 +77,9 @@ namespace Admin.Controllers
         }
         
         [HttpPost("getDescriptionByProduct")]
-        public async Task<IActionResult> GetDescriptionByProduct(ProductRequest request)
+        public async Task<IActionResult> GetDescriptionByProduct(Guid ProductId)
         {
-            var description = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => p.ProductDescription).FirstOrDefaultAsync();
+            var description = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => p.ProductDescription).FirstOrDefaultAsync();
             var result = _mapper.Map<DescriptionResponse>(description);
             result.Code = 100;
             result.Message = "Success";
