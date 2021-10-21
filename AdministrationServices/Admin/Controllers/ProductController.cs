@@ -86,11 +86,11 @@ namespace Admin.Controllers
             return Ok(result);
         }
         [HttpPost("getSearchMethodForProduct")]
-        public async Task<IActionResult> GetSearchMethodForProduct(string Name)
+        public async Task<IActionResult> GetSearchMethodForProduct(string Name , int Quantity)
         {
             var result = new ProductsResponse();
 
-            var products = await _context.Product.Where(c => c.ProductName.StartsWith(Name) || c.ProductName.Contains(Name) || c.ProductName.EndsWith(Name)).Select(p => new Product { ProductId = p.ProductId, ProductName = p.ProductName }).ToListAsync();
+            var products = await _context.Product.Take(Quantity).Where(c => c.ProductName.StartsWith(Name) || c.ProductName.Contains(Name) || c.ProductName.EndsWith(Name)).Select(p => new Product { ProductId = p.ProductId, ProductName = p.ProductName }).ToListAsync();
             if (products.Count == 0)
             {
                 result.Code = -100;
