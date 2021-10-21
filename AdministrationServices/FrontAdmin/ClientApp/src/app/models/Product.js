@@ -2,12 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = void 0;
 var Product = /** @class */ (function () {
-    function Product(ProductId, ProductName, ProductPrice) {
-        this.ProductId = ProductId;
+    function Product(ProductName, ProductId) {
         this.ProductName = ProductName;
-        this.ProductPrice = ProductPrice;
+        this.ProductId = ProductId;
     }
     return Product;
 }());
 exports.Product = Product;
-//# sourceMappingURL=product.js.map
+//# sourceMappingURL=Product.js.map

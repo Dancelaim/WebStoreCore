@@ -1,15 +1,18 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RequestProducts } from '../models/Request/product';
+import { productsRequest } from '../models/Request/productsRequest';
+import { ProductsResponse } from '../models/Response/ProductsResponse';
+
 
 @Injectable()
-export class Products {
-    private url = "";
+export class ProductsService {
+    private url = "31.40.29.21:44335";
 
     constructor(private http: HttpClient) {
     }
 
-    getProducts() {
-       
+    getProducts(productsRequest: productsRequest) {
+        let response: ProductsResponse = this.http.post(this.url + '/admin​/Product​/getProducts', productsRequest);
+        return response.Products;
     }
 }

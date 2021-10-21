@@ -17,6 +17,8 @@
   <None Remove="ClientApp\src\app\ListProduct.component.ts" />
   <None Remove="ClientApp\src\app\MainPage.component.ts" />
   <None Remove="ClientApp\src\app\models\product.ts" />
+  <None Remove="ClientApp\src\app\models\Products.ts" />
+  <None Remove="ClientApp\src\app\models\Response\products.ts" />
   <None Remove="ClientApp\src\app\page2.component.ts" />
   <None Remove="ClientApp\src\app\services\product.service.ts" />
 </ItemGroup>
