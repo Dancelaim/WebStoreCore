@@ -85,5 +85,25 @@ namespace Admin.Controllers
             result.Message = "Success";
             return Ok(result);
         }
+        [HttpPost("getSearchMethodForProduct")]
+        public async Task<IActionResult> GetSearchMethodForProduct(string Name)
+        {
+            var result = new ProductsResponse();
+
+            var products = await _context.Product.Where(c => c.ProductName.StartsWith(Name) || c.ProductName.Contains(Name) || c.ProductName.EndsWith(Name)).Select(p => new Product { ProductId = p.ProductId, ProductName = p.ProductName }).ToListAsync();
+            if (products.Count == 0)
+            {
+                result.Code = -100;
+                result.Message = "Can't get products with given parameters.";
+                return Ok(result);
+            }
+
+            result.Code = 100;
+            result.Message = "Success";
+            result.Products = products;
+            return Ok(result);
+        }
+
+
     }
 }
