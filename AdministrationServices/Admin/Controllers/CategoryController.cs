@@ -8,7 +8,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,12 +29,12 @@ namespace Admin.Controllers
             _context = context;
         }
 
-        [HttpPost("getProductCategory")]
-        public async Task<IActionResult> GetProductCategory(ProductCategoryRequest request)
+        [HttpGet("getProductCategory")]
+        public async Task<IActionResult> GetProductCategory(Guid? ProductGameId)
         {
             var result = new ProductCategoryResponse();
 
-            var productCategory = await _context.ProductCategory.Where(p => request.ProductGameId == null || p.ProductGameId == request.ProductGameId).Select(pc => new ProductCategory { ProductCategoryId = pc.ProductCategoryId, ProductCategoryName = pc.ProductCategoryName }).ToListAsync();
+            var productCategory = await _context.ProductCategory.Where(p => ProductGameId == null || p.ProductGameId == ProductGameId).Select(pc => new ProductCategory { ProductCategoryId = pc.ProductCategoryId, ProductCategoryName = pc.ProductCategoryName }).ToListAsync();
             if (productCategory.Count == 0)
             {
                 result.Code = -100;

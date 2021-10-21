@@ -52,30 +52,58 @@ namespace Admin.Controllers
             return Ok(result);
         }
         
-        [HttpPost("getProduct")]
-        public async Task<IActionResult> GetProduct(ProductRequest request)
+        [HttpGet("getProduct")]
+        public async Task<IActionResult> GetProduct(Guid ProductId)
         {
-            var productAndPrice = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => new {p, p.ProductPrices, p.ProductCategory, p.ProductSeo,p.ProductGame}).FirstOrDefaultAsync();
-            var result = _mapper.Map<ProductResponse>(productAndPrice.p);
+            var response = new ProductResponse();
+            var result = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => new {p, p.ProductPrices, p.ProductCategory, p.ProductSeo,p.ProductGame}).FirstOrDefaultAsync();
+            if (result == null)
+            {
+                response.Code = -100;
+                response.Message = "Can't get products with given parameters.";
+                return Ok(response);
+            }
+            
+            response.Product = _mapper.Map<Product>(result.p);
             //Todo: Fix pricec foreign keys.
-                result = _mapper.Map(productAndPrice.ProductPrices.First(), result);
-                result = _mapper.Map(productAndPrice.ProductGame, result);
-                result = _mapper.Map(productAndPrice.ProductCategory, result);
-                result = _mapper.Map(productAndPrice.ProductSeo, result);
+            response.Product = _mapper.Map(result.ProductPrices.First(), response.Product);
+            response.Product = _mapper.Map(result.ProductGame, response.Product);
+            response.Product = _mapper.Map(result.ProductCategory, response.Product);
+            response.Product = _mapper.Map(result.ProductSeo, response.Product);
 
-            result.Code = 100;
-            result.Message = "Success";
-            return Ok(result);
+            response.Code = 100;
+            response.Message = "Success";
+            return Ok(response);
         }
         
         [HttpPost("getDescriptionByProduct")]
-        public async Task<IActionResult> GetDescriptionByProduct(ProductRequest request)
+        public async Task<IActionResult> GetDescriptionByProduct(Guid ProductId)
         {
-            var description = await _context.Product.Where(p => p.ProductId == request.ProductId).Select(p => p.ProductDescription).FirstOrDefaultAsync();
+            var description = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => p.ProductDescription).FirstOrDefaultAsync();
             var result = _mapper.Map<DescriptionResponse>(description);
             result.Code = 100;
             result.Message = "Success";
             return Ok(result);
         }
+        [HttpPost("getSearchMethodForProduct")]
+        public async Task<IActionResult> GetSearchMethodForProduct(string Name , int Quantity)
+        {
+            var result = new ProductsResponse();
+
+            var products = await _context.Product.Take(Quantity).Where(c => c.ProductName.StartsWith(Name) || c.ProductName.Contains(Name) || c.ProductName.EndsWith(Name)).Select(p => new Product { ProductId = p.ProductId, ProductName = p.ProductName }).ToListAsync();
+            if (products.Count == 0)
+            {
+                result.Code = -100;
+                result.Message = "Can't get products with given parameters.";
+                return Ok(result);
+            }
+
+            result.Code = 100;
+            result.Message = "Success";
+            result.Products = products;
+            return Ok(result);
+        }
+
+
     }
 }

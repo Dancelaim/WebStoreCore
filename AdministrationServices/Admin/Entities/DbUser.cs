@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class User
+    public partial class DbUser
     {
         [Key]
         public Guid UserId { get; set; }
@@ -24,6 +24,6 @@ namespace Admin.Entities
 
         [ForeignKey(nameof(RoleId))]
         [InverseProperty("Users")]
-        public virtual Role Role { get; set; }
+        public virtual DbRole Role { get; set; }
     }
 }

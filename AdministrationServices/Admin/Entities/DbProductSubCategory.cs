@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("ProductSubCategory")]
-    public partial class ProductSubCategory
+    public partial class DbProductSubCategory
     {
-        public ProductSubCategory()
+        public DbProductSubCategory()
         {
-            Products = new HashSet<Product>();
+            Products = new HashSet<DbProduct>();
         }
 
         [Key]
@@ -27,11 +27,11 @@ namespace Admin.Entities
 
         [ForeignKey(nameof(ProductCategoryId))]
         [InverseProperty("ProductSubCategories")]
-        public virtual ProductCategory ProductCategory { get; set; }
+        public virtual DbProductCategory ProductCategory { get; set; }
         [ForeignKey(nameof(SubCategorySeoId))]
-        [InverseProperty(nameof(Seo.ProductSubCategories))]
-        public virtual Seo SubCategorySeo { get; set; }
-        [InverseProperty(nameof(Product.ProductSubCategory))]
-        public virtual ICollection<Product> Products { get; set; }
+        [InverseProperty(nameof(DbSeo.ProductSubCategories))]
+        public virtual DbSeo SubCategorySeo { get; set; }
+        [InverseProperty(nameof(DbProduct.ProductSubCategory))]
+        public virtual ICollection<DbProduct> Products { get; set; }
     }
 }

@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class OrderCustomField
+    public partial class DbOrderCustomField
     {
-        public OrderCustomField()
+        public DbOrderCustomField()
         {
-            Orders = new HashSet<Order>();
+            Orders = new HashSet<DbOrder>();
         }
 
         [Key]
@@ -42,7 +42,7 @@ namespace Admin.Entities
         [StringLength(55)]
         public string ClassicBattleTag { get; set; }
 
-        [InverseProperty(nameof(Order.OrderCustomFields))]
-        public virtual ICollection<Order> Orders { get; set; }
+        [InverseProperty(nameof(DbOrder.OrderCustomFields))]
+        public virtual ICollection<DbOrder> Orders { get; set; }
     }
 }

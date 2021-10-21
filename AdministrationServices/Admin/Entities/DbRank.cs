@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class Rank
+    public partial class DbRank
     {
-        public Rank()
+        public DbRank()
         {
-            Customers = new HashSet<Customer>();
+            Customers = new HashSet<DbCustomer>();
         }
 
         [Key]
@@ -22,7 +22,7 @@ namespace Admin.Entities
         [StringLength(55)]
         public string Sale { get; set; }
 
-        [InverseProperty(nameof(Customer.Rank))]
-        public virtual ICollection<Customer> Customers { get; set; }
+        [InverseProperty(nameof(DbCustomer.Rank))]
+        public virtual ICollection<DbCustomer> Customers { get; set; }
     }
 }

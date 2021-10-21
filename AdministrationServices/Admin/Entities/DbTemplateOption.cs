@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class TemplateOption
+    public partial class DbTemplateOption
     {
-        public TemplateOption()
+        public DbTemplateOption()
         {
-            TempOptionParams = new HashSet<TempOptionParam>();
+            TempOptionParams = new HashSet<DbTempOptionParam>();
         }
 
         [Key]
@@ -23,7 +23,7 @@ namespace Admin.Entities
         public string OptionType { get; set; }
         public Guid? OptionParentId { get; set; }
 
-        [InverseProperty(nameof(TempOptionParam.ParentOption))]
-        public virtual ICollection<TempOptionParam> TempOptionParams { get; set; }
+        [InverseProperty(nameof(DbTempOptionParam.ParentOption))]
+        public virtual ICollection<DbTempOptionParam> TempOptionParams { get; set; }
     }
 }

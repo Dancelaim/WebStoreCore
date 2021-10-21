@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class ProductOptionParam
+    public partial class DbTempOptionParam
     {
-        public ProductOptionParam()
+        public DbTempOptionParam()
         {
-            InverseParameterParent = new HashSet<ProductOptionParam>();
+            InverseDeleteNavigation = new HashSet<DbTempOptionParam>();
         }
 
         [Key]
@@ -28,15 +28,15 @@ namespace Admin.Entities
         [Required]
         [StringLength(50)]
         public string ParameterSale { get; set; }
-        public Guid? ParameterParentId { get; set; }
+        public Guid? Delete { get; set; }
 
-        [ForeignKey(nameof(ParameterParentId))]
-        [InverseProperty(nameof(ProductOptionParam.InverseParameterParent))]
-        public virtual ProductOptionParam ParameterParent { get; set; }
+        [ForeignKey(nameof(Delete))]
+        [InverseProperty(nameof(DbTempOptionParam.InverseDeleteNavigation))]
+        public virtual DbTempOptionParam DeleteNavigation { get; set; }
         [ForeignKey(nameof(ParentOptionId))]
-        [InverseProperty(nameof(ProductOption.ProductOptionParams))]
-        public virtual ProductOption ParentOption { get; set; }
-        [InverseProperty(nameof(ProductOptionParam.ParameterParent))]
-        public virtual ICollection<ProductOptionParam> InverseParameterParent { get; set; }
+        [InverseProperty(nameof(DbTemplateOption.TempOptionParams))]
+        public virtual DbTemplateOption ParentOption { get; set; }
+        [InverseProperty(nameof(DbTempOptionParam.DeleteNavigation))]
+        public virtual ICollection<DbTempOptionParam> InverseDeleteNavigation { get; set; }
     }
 }

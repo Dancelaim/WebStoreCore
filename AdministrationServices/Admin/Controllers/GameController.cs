@@ -49,5 +49,24 @@ namespace Admin.Controllers
             result.ProductGames = games;
             return Ok(result);
         }
+
+        [HttpPost("getSearchMethodForProductGame")]
+        public async Task<IActionResult> GetSearchMethodForProductGame(string Name, int Quantity)
+        {
+            var result = new ProductGameResponse();
+
+            var games = await _context.ProductGame.Take(Quantity).Where(c => c.GameName.StartsWith(Name) || c.GameName.Contains(Name) || c.GameName.EndsWith(Name)).Select(p => new ProductGame { ProductGameId = p.ProductGameId, ProductGameName = p.GameName }).ToListAsync();
+            if (games.Count == 0)
+            {
+                result.Code = -100;
+                result.Message = "Can't get products with given parameters.";
+                return Ok(result);
+            }
+
+            result.Code = 100;
+            result.Message = "Success";
+            result.ProductGames = games;
+            return Ok(result);
+        }
     }
 }

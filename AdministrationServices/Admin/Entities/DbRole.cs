@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class Role
+    public partial class DbRole
     {
-        public Role()
+        public DbRole()
         {
-            Users = new HashSet<User>();
+            Users = new HashSet<DbUser>();
         }
 
         [Key]
@@ -20,7 +20,7 @@ namespace Admin.Entities
         [StringLength(55)]
         public string RoleName { get; set; }
 
-        [InverseProperty(nameof(User.Role))]
-        public virtual ICollection<User> Users { get; set; }
+        [InverseProperty(nameof(DbUser.Role))]
+        public virtual ICollection<DbUser> Users { get; set; }
     }
 }
