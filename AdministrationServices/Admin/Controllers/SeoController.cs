@@ -49,5 +49,24 @@ namespace Admin.Controllers
             result.Seo = seo;
             return Ok(result);
         }
+
+        [HttpPost("getSearchMethodForSeo")]
+        public async Task<IActionResult> GetSearchMethodForSeo(string Name, int Quantity)
+        {
+            var result = new SeoResponse();
+
+            var seo = await _context.Seo.Take(Quantity).Where(c => c.MetaTagTitle.StartsWith(Name) || c.MetaTagTitle.Contains(Name) || c.MetaTagTitle.EndsWith(Name)).Select(p => new Seo { SeoId = p.SeoId, MetaTagTitle = p.MetaTagTitle }).ToListAsync();
+            if (seo.Count == 0)
+            {
+                result.Code = -100;
+                result.Message = "Can't get products with given parameters.";
+                return Ok(result);
+            }
+
+            result.Code = 100;
+            result.Message = "Success";
+            result.Seo = seo;
+            return Ok(result);
+        }
     }
 }
