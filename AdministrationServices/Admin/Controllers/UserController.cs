@@ -47,5 +47,23 @@ namespace Admin.Controllers
             result.User = users;
             return Ok(result);
         }
+        [HttpPost("getSearchMethodForUsers")]
+        public async Task<IActionResult> GetSearchMethodForUsers(string Name, int Quantity)
+        {
+            var result = new UsersResponse();
+
+            var users = await _context.Users.Take(Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new User { UserId = p.UserId, Name = p.Name }).ToListAsync();
+            if (users.Count == 0)
+            {
+                result.Code = -100;
+                result.Message = "Can't get products with given parameters.";
+                return Ok(result);
+            }
+
+            result.Code = 100;
+            result.Message = "Success";
+            result.User = users;
+            return Ok(result);
+        }
     }
 }
