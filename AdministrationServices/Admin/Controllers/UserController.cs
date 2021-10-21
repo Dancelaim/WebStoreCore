@@ -28,5 +28,24 @@ namespace Admin.Controllers
             _context = context;
             _mapper = mapper;
         }
+    
+        [HttpPost("getUsers")]
+        public async Task<IActionResult> GetUsers(UsersRequest request)
+        {
+            var result = new UsersResponse();
+
+            var users = await _context.Users.Select(p => new User { UserId = p.UserId, Name = p.Name }).ToListAsync();
+            if (users.Count == 0)
+            {
+                result.Code = -100;
+                result.Message = "Can't get products with given parameters.";
+                return Ok(result);
+            }
+
+            result.Code = 100;
+            result.Message = "Success";
+            result.User = users;
+            return Ok(result);
+        }
     }
 }
