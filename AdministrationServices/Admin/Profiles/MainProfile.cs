@@ -22,6 +22,11 @@ namespace Admin.Profiles
 
             CreateMap<DbProductDescription, DescriptionResponse>();
 
+
+            CreateMap<DbOrder, Order>();
+            CreateMap<DbOrderCustomField, Order>();
+            CreateMap<DbOrderProduct, Order>();
+            CreateMap<DbCustomer, Order>();
         }
     }
 }
