@@ -2,10 +2,13 @@
 using Admin.ApiModels.Response;
 using Admin.Core;
 using Admin.Models;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,25 +18,25 @@ namespace Admin.Controllers
 {
     [ApiController]
     [Route("admin/[controller]")]
-    public class ArticleController : ControllerBase
+    public class CustomerController : Controller
     {
-        private readonly ILogger<ArticleController> _logger;
+        private readonly ILogger<CustomerController> _logger;
         private readonly ApplicationContext _context;
         private IMapper _mapper;
 
-        public ArticleController(ILogger<ArticleController> logger, ApplicationContext context, IMapper mapper)
+        public CustomerController(ILogger<CustomerController> logger, ApplicationContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;
             _mapper = mapper;
         }
-        [HttpPost("getArticles")]
-        public async Task<IActionResult> getArticles(ArticleRequest request)
+        [HttpPost("getCustomer")]
+        public async Task<IActionResult> GetCustomer(CustomerRequest request)
         {
-            var result = new ArticleResponse();
+            var result = new CustomerResponse();
 
-            var article = await _context.Article.Skip(request.Skip).Take(request.Quantity).Select(p => new Article { ArticleId = p.ArticleId, Title = p.Title }).ToListAsync();
-            if (article.Count == 0)
+            var customer = await _context.Customers.Skip(request.Skip).Take(request.Quantity).Select(s => new Customer { CustomerId = s.CustomerId, Name = s.Name }).ToListAsync();
+            if (customer.Count == 0)
             {
                 result.Code = -100;
                 result.Message = "Can't get products with given parameters.";
@@ -42,16 +45,16 @@ namespace Admin.Controllers
 
             result.Code = 100;
             result.Message = "Success";
-            result.Articles = article;
+            result.Customer = customer;
             return Ok(result);
         }
-        [HttpPost("getSearchMethodForArticles")]
-        public async Task<IActionResult> GetSearchMethodForArticles(ArticleRequest request , string Name)
+        [HttpPost("getSearchMethodForCustomer")]
+        public async Task<IActionResult> GetSearchMethodForCustomer(string Name, CustomerRequest request)
         {
-            var result = new ArticleResponse();
+            var result = new CustomerResponse();
 
-            var article = await _context.Article.Take(request.Quantity).Where(c => c.Title.StartsWith(Name) || c.Title.Contains(Name) || c.Title.EndsWith(Name)).Select(p => new Article { ArticleId = p.ArticleId, Title = p.Title }).ToListAsync();
-            if (article.Count == 0)
+            var customer = await _context.Customers.Take(request.Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new Customer { CustomerId = p.CustomerId, Name = p.Name }).ToListAsync();
+            if (customer.Count == 0)
             {
                 result.Code = -100;
                 result.Message = "Can't get products with given parameters.";
@@ -60,7 +63,7 @@ namespace Admin.Controllers
 
             result.Code = 100;
             result.Message = "Success";
-            result.Articles = article;
+            result.Customer = customer;
             return Ok(result);
         }
     }

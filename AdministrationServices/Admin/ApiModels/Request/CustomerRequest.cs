@@ -7,9 +7,8 @@ using Admin.Validators;
 
 namespace Admin.ApiModels.Request
 {
-    public class ArticleRequest : BaseRequest
+    public class CustomerRequest : BaseRequest
     {
-
         [IsPositiveValueOrZero(ErrorMessage = "Skip can't be less than 0")]
         public int Skip { get; set; }
 
