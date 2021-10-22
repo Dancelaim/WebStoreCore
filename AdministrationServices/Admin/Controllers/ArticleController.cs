@@ -28,7 +28,7 @@ namespace Admin.Controllers
             _mapper = mapper;
         }
         [HttpPost("getArticles")]
-        public async Task<IActionResult> getArticles(ArticleRequest request)
+        public async Task<IActionResult> GetArticles(ArticleRequest request)
         {
             var result = new ArticleResponse();
 
