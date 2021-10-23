@@ -16,7 +16,7 @@ namespace Admin.Controllers
 {
     [ApiController]
     [Route("admin/[controller]")]
-    public class OrderController : Controller
+    public class OrderController : ControllerBase
     {
         private readonly ILogger<OrderController> _logger;
         private readonly ApplicationContext _context;

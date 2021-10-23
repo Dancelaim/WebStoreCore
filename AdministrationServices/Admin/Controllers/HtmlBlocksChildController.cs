@@ -16,7 +16,7 @@ namespace Admin.Controllers
 {
     [ApiController]
     [Route("admin/[controller]")]
-    public class HtmlBlocksChildController : Controller
+    public class HtmlBlocksChildController : ControllerBase
     {
         private readonly ILogger<HtmlBlocksChildController> _logger;
         private readonly ApplicationContext _context;

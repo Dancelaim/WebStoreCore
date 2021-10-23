@@ -27,6 +27,14 @@ namespace Admin.Profiles
             CreateMap<DbOrderCustomField, Order>();
             CreateMap<DbOrderProduct, Order>();
             CreateMap<DbCustomer, Order>();
+
+            CreateMap<DbProductOption, ProductOption>();
+            CreateMap<DbProductOptionParam, ProductOption>();
+
+            CreateMap<DbTemplateOption, TemplateOption>();
+            CreateMap<DbTempOptionParam, TemplateOption>();
+
+            CreateMap<DbTempOptionParam, TempOptionParam>();
         }
     }
 }

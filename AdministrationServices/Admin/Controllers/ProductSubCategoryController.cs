@@ -15,7 +15,7 @@ namespace Admin.Controllers
 {
     [ApiController]
     [Route("admin/[controller]")]
-    public class ProductSubCategoryController : Controller
+    public class ProductSubCategoryController : ControllerBase
     {
         private readonly ILogger<ProductSubCategoryController> _logger;
         private readonly ApplicationContext _context;
