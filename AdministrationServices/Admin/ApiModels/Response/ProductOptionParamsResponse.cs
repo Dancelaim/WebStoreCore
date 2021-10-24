@@ -9,6 +9,6 @@ namespace Admin.ApiModels.Response
 {
     public class ProductOptionParamsResponse : BaseResponse
     {
-        public List < ProductOptionParam> productOptionParams { get; set; }
+        public List <ProductOptionParam> productOptionParams { get; set; }
     }
 }
