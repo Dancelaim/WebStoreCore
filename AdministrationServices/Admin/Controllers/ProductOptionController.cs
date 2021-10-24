@@ -27,7 +27,7 @@ namespace Admin.Controllers
             _context = context;
             _mapper = mapper;
         }
-        [HttpPost("getProductOption")]
+        [HttpPost("getProductOptions")]
         public async Task<IActionResult> GetProductOptions(ProductOptionsRequest request)
         {
             var result = new ProductOptionsResponse();

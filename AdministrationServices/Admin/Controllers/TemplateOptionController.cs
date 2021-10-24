@@ -64,6 +64,25 @@ namespace Admin.Controllers
             result.templateOptions = templateOption;
             return Ok(result);
         }
+        [HttpGet("getDependencyTemplateOption")]
+        public async Task<IActionResult> getDependencyTemplateOption(Guid TempOptionId)
+        {
+            var response = new TemplateOptionResponse();
+
+            var templateOption = await _context.TemplateOptions.Where(p => p.OptionId == TempOptionId).Select(p => new TemplateOption { OptionName = p.OptionName, OptionParentId = p.OptionParentId }).FirstOrDefaultAsync();
+            if (templateOption == null)
+            {
+                response.Code = -100;
+                response.Message = "Can't get products with given parameters.";
+                return Ok(response);
+            }
+
+
+            response.Code = 100;
+            response.Message = "Success";
+            response.templateOption = templateOption;
+            return Ok(response);
+        }
         [HttpGet("getTemplateOption")]
         public async Task<IActionResult> GetTemplateOption(Guid TempOptionId)
         {
