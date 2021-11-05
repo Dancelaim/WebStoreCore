@@ -56,7 +56,7 @@ namespace Admin.Controllers
         public async Task<IActionResult> GetProduct(Guid ProductId)
         {
             var response = new ProductResponse();
-            var result = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => new {p, p.ProductPrices, p.ProductCategory, p.ProductSeo,p.ProductGame}).FirstOrDefaultAsync();
+            var result = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => new {p,  p.ProductCategory, p.ProductSeo,p.ProductGame, p.ProductPrice}).FirstOrDefaultAsync();
             if (result == null)
             {
                 response.Code = -100;
@@ -65,8 +65,7 @@ namespace Admin.Controllers
             }
             
             response.Product = _mapper.Map<Product>(result.p);
-            //Todo: Fix pricec foreign keys.
-            response.Product = _mapper.Map(result.ProductPrices.First(), response.Product);
+            response.Product = _mapper.Map(result.ProductPrice, response.Product);
             response.Product = _mapper.Map(result.ProductGame, response.Product);
             response.Product = _mapper.Map(result.ProductCategory, response.Product);
             response.Product = _mapper.Map(result.ProductSeo, response.Product);
@@ -102,6 +101,30 @@ namespace Admin.Controllers
             result.Message = "Success";
             result.Products = products;
             return Ok(result);
+        }
+        [HttpPut("updateProduct")]
+        public async Task<IActionResult> UpdateProduct(ProductUpdateRequest request)
+        {
+            var response = new ProductUpdateResponse();
+
+            var DBProduct = await _context.Product.Where(p=> p.ProductId == request.Product.ProductId).FirstOrDefaultAsync();
+            var DBPrice = await _context.ProductPrice.Where(p => p.ProductId == request.Product.ProductId).FirstOrDefaultAsync();
+            var DBDescription = await _context.ProductDescription.Where(d => d.ProductDescriptionId == DBProduct.ProductDescriptionId).FirstOrDefaultAsync();
+      
+            DBProduct = _mapper.Map(request.Product, DBProduct);
+            DBPrice = _mapper.Map(request.Price, DBPrice);
+            DBDescription = _mapper.Map(request.Description, DBDescription);
+
+            _context.Product.Update(DBProduct);
+            _context.ProductPrice.Update(DBPrice);
+            _context.ProductDescription.Update(DBDescription);
+
+            await _context.SaveChangesAsync();
+
+            response.Code = 100;
+            response.Message = "Product Update Success";
+            return Ok(response);
+            
         }
 
 

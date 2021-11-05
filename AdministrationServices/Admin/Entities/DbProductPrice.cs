@@ -24,7 +24,7 @@ namespace Admin.Entities
         public decimal? EuSale { get; set; }
 
         [ForeignKey(nameof(ProductId))]
-        [InverseProperty("ProductPrices")]
+        [InverseProperty("ProductPrice")]
         public virtual DbProduct Product { get; set; }
     }
 }

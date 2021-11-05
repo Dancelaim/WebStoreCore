@@ -1,4 +1,5 @@
-﻿using Admin.ApiModels.Response;
+﻿using Admin.ApiModels.Request;
+using Admin.ApiModels.Response;
 using Admin.Entities;
 using Admin.Models;
 using AutoMapper;
@@ -35,6 +36,10 @@ namespace Admin.Profiles
             CreateMap<DbTempOptionParam, TemplateOption>();
 
             CreateMap<DbTempOptionParam, TempOptionParam>();
+
+            CreateMap<Product,DbProduct>();
+            CreateMap<ProductPrice,DbProduct>();
+            CreateMap<ProductDescription, DbProduct>();
         }
     }
 }

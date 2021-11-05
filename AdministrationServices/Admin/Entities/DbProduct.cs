@@ -15,7 +15,6 @@ namespace Admin.Entities
         {
             OrderProducts = new HashSet<DbOrderProduct>();
             ProductOptions = new HashSet<DbProductOption>();
-            ProductPrices = new HashSet<DbProductPrice>();
         }
 
         [Key]
@@ -69,6 +68,6 @@ namespace Admin.Entities
         public virtual ICollection<DbProductOption> ProductOptions { get; set; }
 
         [InverseProperty(nameof(DbProductPrice.Product))]
-        public virtual ICollection<DbProductPrice> ProductPrices { get; set; }
+        public virtual DbProductPrice ProductPrice { get; set; }
     }
 }

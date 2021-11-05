@@ -7,9 +7,7 @@ using Admin.Models;
 
 namespace Admin.ApiModels.Response
 {
-    public class DescriptionResponse : BaseResponse
+    public class ProductUpdateResponse : BaseResponse
     {
-          public ProductDescription Description { get; set; }
-
     }
 }
