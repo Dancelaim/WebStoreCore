@@ -56,7 +56,7 @@ namespace Admin.Controllers
         public async Task<IActionResult> GetProduct(Guid ProductId)
         {
             var response = new ProductResponse();
-            var result = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => new {p,  p.ProductCategory, p.ProductSeo,p.ProductGame, p.ProductPrice}).FirstOrDefaultAsync();
+            var result = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => new {p,  p.ProductCategory, p.ProductSeo,p.ProductGame, p.ProductPrices}).FirstOrDefaultAsync();
             if (result == null)
             {
                 response.Code = -100;
@@ -65,7 +65,7 @@ namespace Admin.Controllers
             }
             
             response.Product = _mapper.Map<Product>(result.p);
-            response.Product = _mapper.Map(result.ProductPrice, response.Product);
+            response.Product = _mapper.Map(result.ProductPrices, response.Product);
             response.Product = _mapper.Map(result.ProductGame, response.Product);
             response.Product = _mapper.Map(result.ProductCategory, response.Product);
             response.Product = _mapper.Map(result.ProductSeo, response.Product);

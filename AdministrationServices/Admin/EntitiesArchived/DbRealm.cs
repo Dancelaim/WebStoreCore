@@ -1,24 +1,24 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.ComponentModel.DataAnnotations;
-//using System.ComponentModel.DataAnnotations.Schema;
-//using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-//#nullable disable
+#nullable disable
 
-//namespace Admin.Entities
-//{
-//    public partial class DbRealm
-//    {
-//        [Key]
-//        public Guid RealmId { get; set; }
-//        public Guid ProductGameId { get; set; }
-//        [Required]
-//        [StringLength(55)]
-//        public string RealmName { get; set; }
+namespace Admin.Entities
+{
+    public partial class DbRealm
+    {
+        [Key]
+        public Guid RealmId { get; set; }
+        public Guid ProductGameId { get; set; }
+        [Required]
+        [StringLength(55)]
+        public string RealmName { get; set; }
 
-//        [ForeignKey(nameof(ProductGameId))]
-//        [InverseProperty("Realms")]
-//        public virtual DbProductGame ProductGame { get; set; }
-//    }
-//}
+        [ForeignKey(nameof(ProductGameId))]
+        [InverseProperty("Realms")]
+        public virtual DbProductGame ProductGame { get; set; }
+    }
+}
