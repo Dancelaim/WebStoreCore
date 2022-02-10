@@ -21,6 +21,7 @@ namespace Admin.Controllers
         private readonly ApplicationContext _context;
         private IMapper _mapper;
 
+
         public ProductController(ILogger<ProductController> logger, ApplicationContext context, IMapper mapper)
         {
             _mapper = mapper;
@@ -33,6 +34,8 @@ namespace Admin.Controllers
             return "OCELOT test successfull";
         }
 
+
+            
         [HttpPost("getProducts")]
         public async Task<IActionResult> GetProducts(ProductsRequest request)
         {
@@ -51,21 +54,21 @@ namespace Admin.Controllers
             result.Products = products;
             return Ok(result);
         }
-        
+
         [HttpGet("getProduct")]
         public async Task<IActionResult> GetProduct(Guid ProductId)
         {
             var response = new ProductResponse();
-            var result = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => new {p,  p.ProductCategory, p.ProductSeo,p.ProductGame, p.ProductPrices}).FirstOrDefaultAsync();
+            var result = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => new { p, p.ProductCategory, p.ProductSeo, p.ProductGame, p.ProductPrices }).FirstOrDefaultAsync();
             if (result == null)
             {
                 response.Code = -100;
                 response.Message = "Can't get products with given parameters.";
                 return Ok(response);
             }
-            
+
             response.Product = _mapper.Map<Product>(result.p);
-            response.Product = _mapper.Map(result.ProductPrices, response.Product);
+            //response.Product = _mapper.Map(result.ProductPrices, response.Product);
             response.Product = _mapper.Map(result.ProductGame, response.Product);
             response.Product = _mapper.Map(result.ProductCategory, response.Product);
             response.Product = _mapper.Map(result.ProductSeo, response.Product);
@@ -74,7 +77,7 @@ namespace Admin.Controllers
             response.Message = "Success";
             return Ok(response);
         }
-        
+
         [HttpPost("getDescriptionByProduct")]
         public async Task<IActionResult> GetDescriptionByProduct(Guid ProductId)
         {
@@ -85,7 +88,7 @@ namespace Admin.Controllers
             return Ok(result);
         }
         [HttpPost("getSearchMethodForProduct")]
-        public async Task<IActionResult> GetSearchMethodForProduct(string Name , int Quantity)
+        public async Task<IActionResult> GetSearchMethodForProduct(string Name, int Quantity)
         {
             var result = new ProductsResponse();
 
@@ -107,10 +110,10 @@ namespace Admin.Controllers
         {
             var response = new ProductUpdateResponse();
 
-            var DBProduct = await _context.Product.Where(p=> p.ProductId == request.Product.ProductId).FirstOrDefaultAsync();
+            var DBProduct = await _context.Product.Where(p => p.ProductId == request.Product.ProductId).FirstOrDefaultAsync();
             var DBPrice = await _context.ProductPrice.Where(p => p.ProductId == request.Product.ProductId).FirstOrDefaultAsync();
             var DBDescription = await _context.ProductDescription.Where(d => d.ProductDescriptionId == DBProduct.ProductDescriptionId).FirstOrDefaultAsync();
-      
+
             DBProduct = _mapper.Map(request.Product, DBProduct);
             DBPrice = _mapper.Map(request.Price, DBPrice);
             DBDescription = _mapper.Map(request.Description, DBDescription);
@@ -124,7 +127,7 @@ namespace Admin.Controllers
             response.Code = 100;
             response.Message = "Product Update Success";
             return Ok(response);
-            
+
         }
 
 

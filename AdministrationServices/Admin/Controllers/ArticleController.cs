@@ -1,5 +1,6 @@
 ﻿using Admin.ApiModels.Request;
 using Admin.ApiModels.Response;
+using Admin.Base;
 using Admin.Core;
 using Admin.Models;
 using AutoMapper;

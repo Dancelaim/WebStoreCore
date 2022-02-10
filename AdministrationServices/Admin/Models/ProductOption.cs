@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Admin.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
@@ -10,12 +11,11 @@ namespace Admin.Models
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid OptionId { get; set; }
-
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string OptionName { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public int? OptionType { get; set; }
+        public ProductOptionType OptionType { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid? OptionParentId { get; set; }

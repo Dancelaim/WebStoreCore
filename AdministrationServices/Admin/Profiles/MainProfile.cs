@@ -16,6 +16,8 @@ namespace Admin.Profiles
         public MainProfile()
         {
             CreateMap<DbProduct, Product>();
+            CreateMap<Product, DbProduct>();
+
             CreateMap<DbProductPrice, Product>();
             CreateMap<DbProductCategory, Product>();
             CreateMap<DbProductGame, Product>();
@@ -37,7 +39,7 @@ namespace Admin.Profiles
 
             CreateMap<DbTempOptionParam, TempOptionParam>();
 
-            CreateMap<Product,DbProduct>();
+          
             CreateMap<ProductPrice,DbProduct>();
             CreateMap<ProductDescription, DbProduct>();
         }
