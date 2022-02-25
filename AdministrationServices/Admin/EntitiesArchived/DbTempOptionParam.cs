@@ -8,15 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class DbTempOptionParam
+    public partial class DbTempOptionParam : Base.BaseEntity
     {
         public DbTempOptionParam()
         {
             InverseDeleteNavigation = new HashSet<DbTempOptionParam>();
         }
-
-        [Key]
-        public Guid ParameterId { get; set; }
         [StringLength(50)]
         public string ParameterName { get; set; }
         [Required]

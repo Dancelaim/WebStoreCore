@@ -9,10 +9,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("ProductPrice")]
-    public partial class DbProductPrice
+    public partial class DbProductPrice : Base.BaseEntity
     {
-        [Key]
-        public Guid ProductPriceId { get; set; }
         public Guid ProductId { get; set; }
         [Column(TypeName = "decimal(18, 1)")]
         public decimal? UsPrice { get; set; }

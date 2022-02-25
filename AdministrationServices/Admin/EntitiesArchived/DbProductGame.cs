@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("ProductGame")]
-    public partial class DbProductGame
+    public partial class DbProductGame : Base.BaseEntity
     {
         public DbProductGame()
         {
@@ -19,8 +19,6 @@ namespace Admin.Entities
             Realms = new HashSet<DbRealm>();
         }
 
-        [Key]
-        public Guid ProductGameId { get; set; }
         [StringLength(50)]
         public string GameName { get; set; }
         public string GameDescription { get; set; }

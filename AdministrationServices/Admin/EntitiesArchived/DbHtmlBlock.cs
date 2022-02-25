@@ -8,15 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class DbHtmlBlock
+    public partial class DbHtmlBlock  :Base.BaseEntity
     {
         public DbHtmlBlock()
         {
             HtmlBlocksChildren = new HashSet<DbHtmlBlocksChild>();
         }
-
-        [Key]
-        public Guid SiteBlockId { get; set; }
         [Column("ParentCSSClass")]
         [StringLength(50)]
         public string ParentCssclass { get; set; }

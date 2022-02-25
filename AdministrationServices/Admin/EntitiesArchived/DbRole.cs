@@ -8,15 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class DbRole
+    public partial class DbRole : Base.BaseEntity
     {
         public DbRole()
         {
             Users = new HashSet<DbUser>();
         }
-
-        [Key]
-        public Guid RoleId { get; set; }
         [StringLength(55)]
         public string RoleName { get; set; }
 

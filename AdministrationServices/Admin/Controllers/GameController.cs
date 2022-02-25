@@ -31,12 +31,12 @@ namespace Admin.Controllers
             _context = context;
         }
 
-        [HttpPost("getProductGame")]
-        public async Task<IActionResult> GetProductGame(ProductGameRequest request)
+        [HttpGet("getProductGame")]
+        public async Task<IActionResult> GetProductGame(Guid? ProductGameId)
         {
             var result = new ProductGameResponse();
 
-            var games = await _context.ProductGame.Select(p => new ProductGame { ProductGameId = p.ProductGameId, ProductGameName = p.GameName }).ToListAsync();
+            var games = await _context.ProductGame.Select(p => new ProductGame { ProductGameId = p.Id, ProductGameName = p.GameName }).ToListAsync();
             if (games.Count == 0)
             {
                 result.Code = -100;
@@ -55,7 +55,7 @@ namespace Admin.Controllers
         {
             var result = new ProductGameResponse();
 
-            var games = await _context.ProductGame.Take(Quantity).Where(c => c.GameName.StartsWith(Name) || c.GameName.Contains(Name) || c.GameName.EndsWith(Name)).Select(p => new ProductGame { ProductGameId = p.ProductGameId, ProductGameName = p.GameName }).ToListAsync();
+            var games = await _context.ProductGame.Take(Quantity).Where(c => c.GameName.StartsWith(Name) || c.GameName.Contains(Name) || c.GameName.EndsWith(Name)).Select(p => new ProductGame { ProductGameId = p.Id, ProductGameName = p.GameName }).ToListAsync();
             if (games.Count == 0)
             {
                 result.Code = -100;

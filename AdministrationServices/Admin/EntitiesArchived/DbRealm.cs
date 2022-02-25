@@ -8,10 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class DbRealm
+    public partial class DbRealm : Base.BaseEntity
     {
-        [Key]
-        public Guid RealmId { get; set; }
         public Guid ProductGameId { get; set; }
         [Required]
         [StringLength(55)]

@@ -33,7 +33,7 @@ namespace Admin.Controllers
         {
             var result = new ArticleResponse();
 
-            var article = await _context.Article.Skip(request.Skip).Take(request.Quantity).Select(p => new Article { ArticleId = p.ArticleId, Title = p.Title }).ToListAsync();
+            var article = await _context.Article.Skip(request.Skip).Take(request.Quantity).Select(p => new Article { ArticleId = p.Id, Title = p.Title }).ToListAsync();
             if (article.Count == 0)
             {
                 result.Code = -100;
@@ -51,7 +51,7 @@ namespace Admin.Controllers
         {
             var result = new ArticleResponse();
 
-            var article = await _context.Article.Take(request.Quantity).Where(c => c.Title.StartsWith(Name) || c.Title.Contains(Name) || c.Title.EndsWith(Name)).Select(p => new Article { ArticleId = p.ArticleId, Title = p.Title }).ToListAsync();
+            var article = await _context.Article.Take(request.Quantity).Where(c => c.Title.StartsWith(Name) || c.Title.Contains(Name) || c.Title.EndsWith(Name)).Select(p => new Article { ArticleId = p.Id, Title = p.Title }).ToListAsync();
             if (article.Count == 0)
             {
                 result.Code = -100;

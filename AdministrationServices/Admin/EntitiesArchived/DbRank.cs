@@ -8,15 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class DbRank
+    public partial class DbRank : Base.BaseEntity
     {
         public DbRank()
         {
             Customers = new HashSet<DbCustomer>();
         }
-
-        [Key]
-        public Guid RankId { get; set; }
         [StringLength(55)]
         public string Name { get; set; }
         [StringLength(55)]

@@ -8,15 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class DbTemplateOption
+    public partial class DbTemplateOption : Base.BaseEntity
     {
         public DbTemplateOption()
         {
             TempOptionParams = new HashSet<DbTempOptionParam>();
         }
 
-        [Key]
-        public Guid OptionId { get; set; }
         [StringLength(55)]
         public string OptionName { get; set; }
         [StringLength(10)]

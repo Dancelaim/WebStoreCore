@@ -8,16 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class DbProductOption
+    public partial class DbProductOption : Base.BaseEntity
     {
         public DbProductOption()
         {
             InverseOptionParent = new HashSet<DbProductOption>();
             ProductOptionParams = new HashSet<DbProductOptionParam>();
         }
-
-        [Key]
-        public Guid OptionId { get; set; }
         [StringLength(55)]
         public string OptionName { get; set; }
         public int? OptionType { get; set; }

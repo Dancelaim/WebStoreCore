@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("ProductSubCategory")]
-    public partial class DbProductSubCategory
+    public partial class DbProductSubCategory : Base.BaseEntity
     {
         public DbProductSubCategory()
         {

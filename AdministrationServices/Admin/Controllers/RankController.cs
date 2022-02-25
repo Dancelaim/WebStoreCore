@@ -32,7 +32,7 @@ namespace Admin.Controllers
         {
             var result = new RankResponse();
 
-            var rank = await _context.Ranks.Skip(request.Skip).Take(request.Quantity).Select(p => new Ranks { RankId = p.RankId, Name = p.Name }).ToListAsync();
+            var rank = await _context.Ranks.Skip(request.Skip).Take(request.Quantity).Select(p => new Ranks { RankId = p.Id, Name = p.Name }).ToListAsync();
             if (rank.Count == 0)
             {
                 result.Code = -100;
@@ -50,7 +50,7 @@ namespace Admin.Controllers
         {
             var result = new RankResponse();
 
-            var rank = await _context.Ranks.Take(request.Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new Ranks { RankId = p.RankId, Name = p.Name }).ToListAsync();
+            var rank = await _context.Ranks.Take(request.Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new Ranks { RankId = p.Id, Name = p.Name }).ToListAsync();
             if (rank.Count == 0)
             {
                 result.Code = -100;

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("Product")]
-    public partial class DbProduct
+    public partial class DbProduct : Base.BaseEntity
     {
         public DbProduct()
         {
@@ -17,9 +17,7 @@ namespace Admin.Entities
             ProductOptions = new HashSet<DbProductOption>();
             ProductPrices = new HashSet<DbProductPrice>();
         }
-
-        [Key]
-        public Guid ProductId { get; set; }
+         
         [Required]
         [StringLength(50)]
         public string ProductName { get; set; }
@@ -30,8 +28,6 @@ namespace Admin.Entities
         public int? ProductQuantity { get; set; }
         [StringLength(255)]
         public string ProductImage { get; set; }
-        public DateTime ProductCreateDate { get; set; }
-        public DateTime ProductUpdateDate { get; set; }
         public Guid? ProductDescriptionId { get; set; }
         [Column("ProductSeoId")]
         public Guid? ProductSeoId { get; set; }

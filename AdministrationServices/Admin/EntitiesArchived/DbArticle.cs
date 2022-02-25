@@ -9,10 +9,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("Article")]
-    public partial class DbArticle
+    public partial class DbArticle : Base.BaseEntity
     {
-        [Key]
-        public Guid ArticleId { get; set; }
         [StringLength(100)]
         public string Title { get; set; }
         [StringLength(1000)]
@@ -29,12 +27,6 @@ namespace Admin.Entities
         public string ImagePath { get; set; }
         public bool Enabled { get; set; }
         public int? Rating { get; set; }
-        [Column(TypeName = "datetime")]
-        public DateTime? ArticleCreateTime { get; set; }
-        [Column(TypeName = "datetime")]
-        public DateTime? ArticleUpdateTime { get; set; }
-        [Column(TypeName = "datetime")]
-        public DateTime ArticlePostTime { get; set; }
 
         [ForeignKey(nameof(ProductGameId))]
         [InverseProperty("Articles")]

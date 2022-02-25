@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("Seo")]
-    public partial class DbSeo
+    public partial class DbSeo : Base.BaseEntity
     {
-        public DbSeo()
+        public DbSeo() 
         {
             Articles = new HashSet<DbArticle>();
             ProductCategories = new HashSet<DbProductCategory>();
@@ -20,9 +20,9 @@ namespace Admin.Entities
             Products = new HashSet<DbProduct>();
         }
 
-        [Key]
-        [Column("SeoId")]
-        public Guid SeoId { get; set; }
+        //[Key]
+        //[Column("SeoId")]
+        //public Guid SeoId { get; set; }
         [StringLength(255)]
         public string MetaTagTitle { get; set; }
         public string MetaTagDescription { get; set; }

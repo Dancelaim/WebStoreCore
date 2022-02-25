@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("ProductCategory")]
-    public partial class DbProductCategory
+    public partial class DbProductCategory : Base.BaseEntity
     {
         public DbProductCategory()
         {
@@ -17,8 +17,6 @@ namespace Admin.Entities
             Products = new HashSet<DbProduct>();
         }
 
-        [Key]
-        public Guid ProductCategoryId { get; set; }
         [Required]
         [StringLength(50)]
         public string ProductCategoryName { get; set; }

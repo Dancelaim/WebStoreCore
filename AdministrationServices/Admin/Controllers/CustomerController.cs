@@ -35,7 +35,7 @@ namespace Admin.Controllers
         {
             var result = new CustomerResponse();
 
-            var customer = await _context.Customers.Skip(request.Skip).Take(request.Quantity).Select(s => new Customer { CustomerId = s.CustomerId, Name = s.Name }).ToListAsync();
+            var customer = await _context.Customers.Skip(request.Skip).Take(request.Quantity).Select(s => new Customer { CustomerId = s.Id, Name = s.Name }).ToListAsync();
             if (customer.Count == 0)
             {
                 result.Code = -100;
@@ -53,7 +53,7 @@ namespace Admin.Controllers
         {
             var result = new CustomerResponse();
 
-            var customer = await _context.Customers.Take(request.Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new Customer { CustomerId = p.CustomerId, Name = p.Name }).ToListAsync();
+            var customer = await _context.Customers.Take(request.Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new Customer { CustomerId = p.Id, Name = p.Name }).ToListAsync();
             if (customer.Count == 0)
             {
                 result.Code = -100;
