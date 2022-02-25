@@ -33,6 +33,12 @@ namespace Admin
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo() { Title = "Admin API", Version = "v1" });
@@ -48,13 +54,14 @@ namespace Admin
                 app.UseDeveloperExceptionPage();
 
             }
+
             app.UseSwagger();
             app.UseSwaggerUI(config =>
             {
                 config.SwaggerEndpoint("/swagger/v1/swagger.json", "Admin API");
             });
             app.UseHttpsRedirection();
-
+            app.UseCors("MyPolicy");//enable CORSE policy for every request
             app.UseRouting();
 
             app.UseAuthorization();
