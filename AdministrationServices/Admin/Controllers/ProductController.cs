@@ -41,7 +41,7 @@ namespace Admin.Controllers
         {
             var result = new ProductsResponse();
 
-            var products = await _context.Product.Skip(request.Skip).Take(request.Quantity).Select(p => new Product { ProductId = p.ProductId, ProductName = p.ProductName }).ToListAsync();
+            var products = await _context.Product.Skip(request.Skip).Take(request.Quantity).Select(p => new Product { ProductId = p.Id, ProductName = p.ProductName }).ToListAsync();
             if (products.Count == 0)
             {
                 result.Code = -100;
@@ -59,7 +59,7 @@ namespace Admin.Controllers
         public async Task<IActionResult> GetProduct(Guid ProductId)
         {
             var response = new ProductResponse();
-            var result = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => new { p, p.ProductCategory, p.ProductSeo, p.ProductGame, p.ProductPrices }).FirstOrDefaultAsync();
+            var result = await _context.Product.Where(p => p.Id == ProductId).Select(p => new { p, p.ProductCategory, p.ProductSeo, p.ProductGame, p.ProductPrices }).FirstOrDefaultAsync();
             if (result == null)
             {
                 response.Code = -100;
@@ -81,7 +81,7 @@ namespace Admin.Controllers
         [HttpPost("getDescriptionByProduct")]
         public async Task<IActionResult> GetDescriptionByProduct(Guid ProductId)
         {
-            var description = await _context.Product.Where(p => p.ProductId == ProductId).Select(p => p.ProductDescription).FirstOrDefaultAsync();
+            var description = await _context.Product.Where(p => p.Id == ProductId).Select(p => p.ProductDescription).FirstOrDefaultAsync();
             var result = _mapper.Map<DescriptionResponse>(description);
             result.Code = 100;
             result.Message = "Success";
@@ -92,7 +92,7 @@ namespace Admin.Controllers
         {
             var result = new ProductsResponse();
 
-            var products = await _context.Product.Take(Quantity).Where(c => c.ProductName.StartsWith(Name) || c.ProductName.Contains(Name) || c.ProductName.EndsWith(Name)).Select(p => new Product { ProductId = p.ProductId, ProductName = p.ProductName }).ToListAsync();
+            var products = await _context.Product.Take(Quantity).Where(c => c.ProductName.StartsWith(Name) || c.ProductName.Contains(Name) || c.ProductName.EndsWith(Name)).Select(p => new Product { ProductId = p.Id, ProductName = p.ProductName }).ToListAsync();
             if (products.Count == 0)
             {
                 result.Code = -100;
@@ -110,9 +110,9 @@ namespace Admin.Controllers
         {
             var response = new ProductUpdateResponse();
 
-            var DBProduct = await _context.Product.Where(p => p.ProductId == request.Product.ProductId).FirstOrDefaultAsync();
+            var DBProduct = await _context.Product.Where(p => p.Id == request.Product.ProductId).FirstOrDefaultAsync();
             var DBPrice = await _context.ProductPrice.Where(p => p.ProductId == request.Product.ProductId).FirstOrDefaultAsync();
-            var DBDescription = await _context.ProductDescription.Where(d => d.ProductDescriptionId == DBProduct.ProductDescriptionId).FirstOrDefaultAsync();
+            var DBDescription = await _context.ProductDescription.Where(d => d.Id == DBProduct.ProductDescriptionId).FirstOrDefaultAsync();
 
             DBProduct = _mapper.Map(request.Product, DBProduct);
             DBPrice = _mapper.Map(request.Price, DBPrice);

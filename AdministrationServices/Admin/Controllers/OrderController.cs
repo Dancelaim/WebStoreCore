@@ -33,7 +33,7 @@ namespace Admin.Controllers
         {
             var result = new OrdersResponse();
 
-            var orders = await _context.Orders.Skip(request.Skip).Take(request.Quantity).Select(p => new Order { OrderId = p.OrderId, Email = p.Email }).ToListAsync();
+            var orders = await _context.Orders.Skip(request.Skip).Take(request.Quantity).Select(p => new Order { OrderId = p.Id, Email = p.Email }).ToListAsync();
             if (orders.Count == 0)
             {
                 result.Code = -100;
@@ -51,7 +51,7 @@ namespace Admin.Controllers
         {
             var result = new OrdersResponse();
 
-            var orders = await _context.Orders.Take(request.Quantity).Where(c => c.Email.StartsWith(Email) || c.Email.Contains(Email) || c.Email.EndsWith(Email)).Select(p => new Order { OrderId = p.OrderId, Email = p.Email }).ToListAsync();
+            var orders = await _context.Orders.Take(request.Quantity).Where(c => c.Email.StartsWith(Email) || c.Email.Contains(Email) || c.Email.EndsWith(Email)).Select(p => new Order { OrderId = p.Id, Email = p.Email }).ToListAsync();
             if (orders.Count == 0)
             {
                 result.Code = -100;
@@ -68,7 +68,7 @@ namespace Admin.Controllers
         public async Task<IActionResult> GetOrder(Guid Id)
         {
             var result = new OrderResponse();
-            var order = await _context.Orders.Where(p => p.OrderId == Id).Select(p => new {p, p.Customer, p.OrderCustomFields, p.OrderProducts}).FirstOrDefaultAsync();
+            var order = await _context.Orders.Where(p => p.Id == Id).Select(p => new {p, p.Customer, p.OrderCustomFields, p.OrderProducts}).FirstOrDefaultAsync();
             if (result == null)
             {
                 result.Code = -100;

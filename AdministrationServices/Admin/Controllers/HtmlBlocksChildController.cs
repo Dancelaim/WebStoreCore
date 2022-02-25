@@ -33,7 +33,7 @@ namespace Admin.Controllers
         {
             var result = new HtmlBlocksChildResponse();
 
-            var htmlBlockChild = await _context.HtmlBlocksChildren.Skip(request.Skip).Take(request.Quantity).Select(p => new HtmlBlocksChild { SiteBlockChildsId = p.SiteBlockChildsId, Title = p.Title }).ToListAsync();
+            var htmlBlockChild = await _context.HtmlBlocksChildren.Skip(request.Skip).Take(request.Quantity).Select(p => new HtmlBlocksChild { SiteBlockChildsId = p.Id, Title = p.Title }).ToListAsync();
             if (htmlBlockChild.Count == 0)
             {
                 result.Code = -100;
@@ -51,7 +51,7 @@ namespace Admin.Controllers
         {
             var result = new HtmlBlocksChildResponse();
 
-            var htmlBlockChild = await _context.HtmlBlocksChildren.Take(request.Quantity).Where(c => c.Title.StartsWith(Name) || c.Title.Contains(Name) || c.Title.EndsWith(Name)).Select(p => new HtmlBlocksChild { SiteBlockChildsId = p.SiteBlockChildsId, Title = p.Title }).ToListAsync();
+            var htmlBlockChild = await _context.HtmlBlocksChildren.Take(request.Quantity).Where(c => c.Title.StartsWith(Name) || c.Title.Contains(Name) || c.Title.EndsWith(Name)).Select(p => new HtmlBlocksChild { SiteBlockChildsId = p.Id, Title = p.Title }).ToListAsync();
             if (htmlBlockChild.Count == 0)
             {
                 result.Code = -100;

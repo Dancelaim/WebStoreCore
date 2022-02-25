@@ -36,7 +36,7 @@ namespace Admin.Controllers
         {
             var result = new SeoResponse();
 
-            var seo = await _context.Seo.Skip(request.Skip).Take(request.Quantity).Select(s => new Seo { SeoId = s.SeoId, MetaTagTitle = s.MetaTagTitle }).ToListAsync();
+            var seo = await _context.Seo.Skip(request.Skip).Take(request.Quantity).Select(s => new Seo { SeoId = s.Id, MetaTagTitle = s.MetaTagTitle }).ToListAsync();
             if (seo.Count == 0)
             {
                 result.Code = -100;
@@ -55,7 +55,7 @@ namespace Admin.Controllers
         {
             var result = new SeoResponse();
 
-            var seo = await _context.Seo.Take(Quantity).Where(c => c.MetaTagTitle.StartsWith(Name) || c.MetaTagTitle.Contains(Name) || c.MetaTagTitle.EndsWith(Name)).Select(p => new Seo { SeoId = p.SeoId, MetaTagTitle = p.MetaTagTitle }).ToListAsync();
+            var seo = await _context.Seo.Take(Quantity).Where(c => c.MetaTagTitle.StartsWith(Name) || c.MetaTagTitle.Contains(Name) || c.MetaTagTitle.EndsWith(Name)).Select(p => new Seo { SeoId = p.Id, MetaTagTitle = p.MetaTagTitle }).ToListAsync();
             if (seo.Count == 0)
             {
                 result.Code = -100;

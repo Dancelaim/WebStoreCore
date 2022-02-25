@@ -34,7 +34,7 @@ namespace Admin.Controllers
         {
             var result = new UsersResponse();
 
-            var users = await _context.Users.Select(p => new User { UserId = p.UserId, Name = p.Name }).ToListAsync();
+            var users = await _context.Users.Select(p => new User { UserId = p.Id, Name = p.Name }).ToListAsync();
             if (users.Count == 0)
             {
                 result.Code = -100;
@@ -52,7 +52,7 @@ namespace Admin.Controllers
         {
             var result = new UsersResponse();
 
-            var users = await _context.Users.Take(Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new User { UserId = p.UserId, Name = p.Name }).ToListAsync();
+            var users = await _context.Users.Take(Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new User { UserId = p.Id, Name = p.Name }).ToListAsync();
             if (users.Count == 0)
             {
                 result.Code = -100;

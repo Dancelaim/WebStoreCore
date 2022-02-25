@@ -32,7 +32,7 @@ namespace Admin.Controllers
         {
             var result = new ProductOptionParamsResponse();
 
-            var OptionParams = await _context.ProductOptionParams.Skip(request.Skip).Take(request.Quantity).Select(p => new ProductOptionParam { ParameterId = p.ParameterId, ParameterName = p.ParameterName }).ToListAsync();
+            var OptionParams = await _context.ProductOptionParams.Skip(request.Skip).Take(request.Quantity).Select(p => new ProductOptionParam { ParameterId = p.Id, ParameterName = p.ParameterName }).ToListAsync();
             if (OptionParams.Count == 0)
             {
                 result.Code = -100;
@@ -50,7 +50,7 @@ namespace Admin.Controllers
         {
             var result = new ProductOptionParamsResponse();
 
-            var OptionParams = await _context.ProductOptionParams.Take(Quantity).Where(c => c.ParameterName.StartsWith(Name) || c.ParameterName.Contains(Name) || c.ParameterName.EndsWith(Name)).Select(p => new ProductOptionParam { ParameterId = p.ParameterId, ParameterName = p.ParameterName }).ToListAsync();
+            var OptionParams = await _context.ProductOptionParams.Take(Quantity).Where(c => c.ParameterName.StartsWith(Name) || c.ParameterName.Contains(Name) || c.ParameterName.EndsWith(Name)).Select(p => new ProductOptionParam { ParameterId = p.Id, ParameterName = p.ParameterName }).ToListAsync();
             if (OptionParams.Count == 0)
             {
                 result.Code = -100;
@@ -68,7 +68,7 @@ namespace Admin.Controllers
         {
             var response = new ProductOptionParamResponse();
 
-            var OptionParam = await _context.ProductOptionParams.Where(p => p.ParameterId == ParamId).Select(p => new ProductOptionParam { ParameterName = p.ParameterName, ParameterPrice = p.ParameterPrice, ParameterSale = p.ParameterSale, ParameterTooltip = p.ParameterTooltip, ParentOptionId = p.ParentOptionId, ParameterParentId = p.ParameterParentId }).FirstOrDefaultAsync();
+            var OptionParam = await _context.ProductOptionParams.Where(p => p.Id == ParamId).Select(p => new ProductOptionParam { ParameterName = p.ParameterName, ParameterPrice = p.ParameterPrice, ParameterSale = p.ParameterSale, ParameterTooltip = p.ParameterTooltip, ParentOptionId = p.ParentOptionId, ParameterParentId = p.ParameterParentId }).FirstOrDefaultAsync();
             if (OptionParam == null)
             {
                 response.Code = -100;

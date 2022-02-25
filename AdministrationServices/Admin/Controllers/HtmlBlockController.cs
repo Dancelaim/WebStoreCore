@@ -32,7 +32,7 @@ namespace Admin.Controllers
         {
             var result = new HtmlBlockResponse();
 
-            var htmlBlock = await _context.HtmlBlocks.Skip(request.Skip).Take(request.Quantity).Select(p => new HtmlBlock { SiteBlockId = p.SiteBlockId, ParentTitle = p.ParentTitle }).ToListAsync();
+            var htmlBlock = await _context.HtmlBlocks.Skip(request.Skip).Take(request.Quantity).Select(p => new HtmlBlock { SiteBlockId = p.Id, ParentTitle = p.ParentTitle }).ToListAsync();
             if (htmlBlock.Count == 0)
             {
                 result.Code = -100;
@@ -50,7 +50,7 @@ namespace Admin.Controllers
         {
             var result = new HtmlBlockResponse();
 
-            var htmlBlock = await _context.HtmlBlocks.Take(request.Quantity).Where(c => c.ParentTitle.StartsWith(Name) || c.ParentTitle.Contains(Name) || c.ParentTitle.EndsWith(Name)).Select(p => new HtmlBlock { SiteBlockId = p.SiteBlockId, ParentTitle = p.ParentTitle }).ToListAsync();
+            var htmlBlock = await _context.HtmlBlocks.Take(request.Quantity).Where(c => c.ParentTitle.StartsWith(Name) || c.ParentTitle.Contains(Name) || c.ParentTitle.EndsWith(Name)).Select(p => new HtmlBlock { SiteBlockId = p.Id, ParentTitle = p.ParentTitle }).ToListAsync();
             if (htmlBlock.Count == 0)
             {
                 result.Code = -100;
