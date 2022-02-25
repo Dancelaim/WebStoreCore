@@ -8,15 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class DbOrderCustomField
+    public partial class DbOrderCustomField : Base.BaseEntity
     {
         public DbOrderCustomField()
         {
             Orders = new HashSet<DbOrder>();
         }
-
-        [Key]
-        public Guid OrderCustomFieldsId { get; set; }
         [StringLength(55)]
         public string ShlCharacterName { get; set; }
         [StringLength(55)]

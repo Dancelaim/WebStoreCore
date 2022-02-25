@@ -8,15 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class DbOrder
+    public partial class DbOrder : Base.BaseEntity
     {
         public DbOrder()
         {
             OrderProducts = new HashSet<DbOrderProduct>();
         }
 
-        [Key]
-        public Guid OrderId { get; set; }
         public Guid? CustomerId { get; set; }
         [StringLength(55)]
         public string Discord { get; set; }
@@ -40,10 +38,6 @@ namespace Admin.Entities
         public string CustomerIp { get; set; }
         [StringLength(255)]
         public string UserAgent { get; set; }
-        [Column(TypeName = "datetime")]
-        public DateTime? OrderCreateTime { get; set; }
-        [Column(TypeName = "datetime")]
-        public DateTime? OrderUpdateTime { get; set; }
         public bool? EmailSended { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? EmailSendTime { get; set; }

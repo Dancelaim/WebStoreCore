@@ -8,15 +8,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Entities
 {
-    public partial class DbCustomer
+    public partial class DbCustomer : Base.BaseEntity
     {
         public DbCustomer()
         {
             Orders = new HashSet<DbOrder>();
         }
 
-        [Key]
-        public Guid CustomerId { get; set; }
+        
         [StringLength(55)]
         public string Name { get; set; }
         [StringLength(55)]

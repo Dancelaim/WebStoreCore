@@ -9,15 +9,14 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("ProductDescription")]
-    public partial class DbProductDescription
+    public partial class DbProductDescription : Base.BaseEntity
     {
         public DbProductDescription()
         {
             Products = new HashSet<DbProduct>();
         }
 
-        [Key]
-        public Guid ProductDescriptionId { get; set; }
+        
         public string Description { get; set; }
         public string SubDescriptionTitle1 { get; set; }
         public string SubDescriptionTitle2 { get; set; }

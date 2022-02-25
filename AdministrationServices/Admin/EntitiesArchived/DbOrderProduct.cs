@@ -9,10 +9,9 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("OrderProduct")]
-    public partial class DbOrderProduct
+    public partial class DbOrderProduct : Base.BaseEntity
     {
-        [Key]
-        public Guid OrderProductId { get; set; }
+       
         public Guid? OrderId { get; set; }
         public Guid? ProductId { get; set; }
         public string ProductOptions { get; set; }
