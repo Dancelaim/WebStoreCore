@@ -32,7 +32,7 @@ namespace Admin.Controllers
         }
 
         [HttpGet("getProductGame")]
-        public async Task<IActionResult> GetProductGame(Guid? ProductGameId)
+        public async Task<IActionResult> GetProductGame(ProductGameRequest request)
         {
             var result = new ProductGameResponse();
 
