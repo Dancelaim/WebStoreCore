@@ -18,10 +18,10 @@ namespace Admin.Controllers
     public class RankController : ControllerBase
     {
         private readonly ILogger<RankController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public RankController(ILogger<RankController> logger, ApplicationContext context, IMapper mapper)
+        public RankController(ILogger<RankController> logger, WowCarryContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;

@@ -27,7 +27,6 @@ namespace Admin.Entities
         public string PaymentMethod { get; set; }
         [StringLength(55)]
         public string PaymentCode { get; set; }
-        [Column(TypeName = "decimal(18, 2)")]
         public decimal? Total { get; set; }
         [StringLength(55)]
         public string OrderStatus { get; set; }
@@ -39,11 +38,8 @@ namespace Admin.Entities
         [StringLength(255)]
         public string UserAgent { get; set; }
         public bool? EmailSended { get; set; }
-        [Column(TypeName = "datetime")]
         public DateTime? EmailSendTime { get; set; }
-        [Column(TypeName = "decimal(18, 2)")]
         public decimal? CarryCoinsSpent { get; set; }
-        [Column(TypeName = "decimal(18, 2)")]
         public decimal? CarryCoinsCollected { get; set; }
         public int OrderNumber { get; set; }
 

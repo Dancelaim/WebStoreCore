@@ -19,10 +19,10 @@ namespace Admin.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ILogger<CategoryController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public CategoryController(ILogger<CategoryController> logger, ApplicationContext context, IMapper mapper)
+        public CategoryController(ILogger<CategoryController> logger, WowCarryContext context, IMapper mapper)
         {
             _mapper = mapper;
             _logger = logger;

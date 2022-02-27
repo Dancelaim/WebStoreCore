@@ -9,10 +9,10 @@ namespace Admin.Base
     public abstract class BaseEntity
     {
         [Key]
-        public Guid Id => Guid.NewGuid();
-        public DateTime CreateDate => DateTime.Now;
-        public DateTime UpdateDate;
-        public bool IsArchive;
+        public Guid Id { get; set; }
+        public DateTime CreateDate { get { return CreateDate; } set { value = DateTime.Now; } }
+        public DateTime UpdateDate { get; set;}
+        public bool IsArchive   {get; set;}
 
         //protected BaseEntity(Guid id)
         //{

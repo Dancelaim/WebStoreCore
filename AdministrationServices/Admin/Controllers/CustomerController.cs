@@ -21,10 +21,10 @@ namespace Admin.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ILogger<CustomerController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public CustomerController(ILogger<CustomerController> logger, ApplicationContext context, IMapper mapper)
+        public CustomerController(ILogger<CustomerController> logger, WowCarryContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;

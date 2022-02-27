@@ -18,10 +18,10 @@ namespace Admin.Controllers
     public class ProductOptionController : ControllerBase
     {
         private readonly ILogger<ProductOptionController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public ProductOptionController(ILogger<ProductOptionController> logger, ApplicationContext context, IMapper mapper)
+        public ProductOptionController(ILogger<ProductOptionController> logger, WowCarryContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;

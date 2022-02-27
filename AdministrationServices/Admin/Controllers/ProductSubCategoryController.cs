@@ -18,10 +18,10 @@ namespace Admin.Controllers
     public class ProductSubCategoryController : ControllerBase
     {
         private readonly ILogger<ProductSubCategoryController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public ProductSubCategoryController(ILogger<ProductSubCategoryController> logger, ApplicationContext context, IMapper mapper)
+        public ProductSubCategoryController(ILogger<ProductSubCategoryController> logger, WowCarryContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;
@@ -32,7 +32,7 @@ namespace Admin.Controllers
         {
             var result = new ProductSubCategoryResponse();
 
-            var ProductSubCategory = await _context.ProductSubCategory.Skip(request.Skip).Take(request.Quantity).Select(p => new ProductSubCategory { ProductSubCategoryId = p.ProductSubCategoryId, ProductCategoryName = p.ProductCategoryName }).ToListAsync();
+            var ProductSubCategory = await _context.ProductSubCategory.Skip(request.Skip).Take(request.Quantity).Select(p => new ProductSubCategory { ProductSubCategoryId = p.Id, ProductCategoryName = p.ProductCategoryName }).ToListAsync();
             if (ProductSubCategory.Count == 0)
             {
                 result.Code = -100;
@@ -50,7 +50,7 @@ namespace Admin.Controllers
         {
             var result = new ProductSubCategoryResponse();
 
-            var ProductSubCategory = await _context.ProductSubCategory.Take(request.Quantity).Where(c => c.ProductCategoryName.StartsWith(Name) || c.ProductCategoryName.Contains(Name) || c.ProductCategoryName.EndsWith(Name)).Select(p => new ProductSubCategory { ProductSubCategoryId = p.ProductSubCategoryId, ProductCategoryName = p.ProductCategoryName }).ToListAsync();
+            var ProductSubCategory = await _context.ProductSubCategory.Take(request.Quantity).Where(c => c.ProductCategoryName.StartsWith(Name) || c.ProductCategoryName.Contains(Name) || c.ProductCategoryName.EndsWith(Name)).Select(p => new ProductSubCategory { ProductSubCategoryId = p.Id, ProductCategoryName = p.ProductCategoryName }).ToListAsync();
             if (ProductSubCategory.Count == 0)
             {
                 result.Code = -100;

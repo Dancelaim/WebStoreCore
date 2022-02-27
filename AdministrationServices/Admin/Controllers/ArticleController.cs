@@ -19,10 +19,10 @@ namespace Admin.Controllers
     public class ArticleController : ControllerBase
     {
         private readonly ILogger<ArticleController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public ArticleController(ILogger<ArticleController> logger, ApplicationContext context, IMapper mapper)
+        public ArticleController(ILogger<ArticleController> logger, WowCarryContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;

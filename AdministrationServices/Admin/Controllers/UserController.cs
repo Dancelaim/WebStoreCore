@@ -19,10 +19,10 @@ namespace Admin.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public UserController(ILogger<UserController> logger, ApplicationContext context, IMapper mapper)
+        public UserController(ILogger<UserController> logger, WowCarryContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;

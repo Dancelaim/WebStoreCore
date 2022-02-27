@@ -21,10 +21,10 @@ namespace Admin.Controllers
     public class SeoController : ControllerBase
     {
         private readonly ILogger<SeoController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public SeoController(ILogger<SeoController> logger, ApplicationContext context, IMapper mapper)
+        public SeoController(ILogger<SeoController> logger, WowCarryContext context, IMapper mapper)
         {
             _mapper = mapper;
             _logger = logger;

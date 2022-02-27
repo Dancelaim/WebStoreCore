@@ -21,10 +21,10 @@ namespace Admin.Controllers
     public class GameController : ControllerBase
     {
         private readonly ILogger<GameController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public GameController(ILogger<GameController> logger, ApplicationContext context, IMapper mapper)
+        public GameController(ILogger<GameController> logger, WowCarryContext context, IMapper mapper)
         {
             _mapper = mapper;
             _logger = logger;

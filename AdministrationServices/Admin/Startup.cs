@@ -30,7 +30,7 @@ namespace Admin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));
-            services.AddDbContext<ApplicationContext>(options =>
+            services.AddDbContext<WowCarryContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
@@ -71,6 +71,10 @@ namespace Admin
             {
                 endpoints.MapControllers();
             });
+
+            using var scope = app.ApplicationServices.CreateScope();
+            var dbContext = scope.ServiceProvider.GetService<WowCarryContext>();
+            dbContext?.Database.Migrate();
         }
     }
 }

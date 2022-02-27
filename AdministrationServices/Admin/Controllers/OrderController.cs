@@ -19,10 +19,10 @@ namespace Admin.Controllers
     public class OrderController : ControllerBase
     {
         private readonly ILogger<OrderController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public OrderController(ILogger<OrderController> logger, ApplicationContext context, IMapper mapper)
+        public OrderController(ILogger<OrderController> logger, WowCarryContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;

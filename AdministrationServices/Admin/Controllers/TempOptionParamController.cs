@@ -18,10 +18,10 @@ namespace Admin.Controllers
     public class TempOptionParamController : ControllerBase
     {
         private readonly ILogger<TempOptionParamController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public TempOptionParamController(ILogger<TempOptionParamController> logger, ApplicationContext context, IMapper mapper)
+        public TempOptionParamController(ILogger<TempOptionParamController> logger, WowCarryContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;

@@ -19,10 +19,10 @@ namespace Admin.Controllers
     public class HtmlBlocksChildController : ControllerBase
     {
         private readonly ILogger<HtmlBlocksChildController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public HtmlBlocksChildController(ILogger<HtmlBlocksChildController> logger, ApplicationContext context, IMapper mapper)
+        public HtmlBlocksChildController(ILogger<HtmlBlocksChildController> logger, WowCarryContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;

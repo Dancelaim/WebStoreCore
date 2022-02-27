@@ -18,10 +18,10 @@ namespace Admin.Controllers
     public class TemplateOptionController : ControllerBase
     {
         private readonly ILogger<TemplateOptionController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public TemplateOptionController(ILogger<TemplateOptionController> logger, ApplicationContext context, IMapper mapper)
+        public TemplateOptionController(ILogger<TemplateOptionController> logger, WowCarryContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;

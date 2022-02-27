@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 using Admin.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Admin.Core
 {
-    public class ApplicationContext : DbContext
+    public partial class WowCarryContext : DbContext
     {
+        public WowCarryContext(DbContextOptions<WowCarryContext> options)
+            : base(options)
+        {
+        }
+
+        #region Generated Properties
         public DbSet<DbProduct> Product { get; set; }
         public DbSet<DbArticle> Article { get; set; }
         public DbSet<DbCustomer> Customers { get; set; }
@@ -31,10 +35,11 @@ namespace Admin.Core
         public DbSet<DbTempOptionParam> TempOptionParams { get; set; }
         public DbSet<DbUser> Users { get; set; }
         public DbSet<DbProductDescription> ProductDescription { get; set; }
-
-        public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
+        #endregion
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Database.EnsureCreated();
+            #region Generated Configuration
+            #endregion
         }
     }
 }

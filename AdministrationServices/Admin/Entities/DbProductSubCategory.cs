@@ -15,9 +15,6 @@ namespace Admin.Entities
         {
             Products = new HashSet<DbProduct>();
         }
-
-        [Key]
-        public Guid ProductSubCategoryId { get; set; }
         [StringLength(50)]
         public string ProductCategoryName { get; set; }
         public Guid? ProductCategoryId { get; set; }
