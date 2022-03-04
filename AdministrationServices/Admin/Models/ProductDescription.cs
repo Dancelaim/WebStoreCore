@@ -11,6 +11,7 @@ namespace Admin.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid ProductDescriptionId { get; set; }
 
+
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string Description { get; set; }
 

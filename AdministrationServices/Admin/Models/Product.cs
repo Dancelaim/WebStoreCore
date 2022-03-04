@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -12,12 +13,15 @@ namespace Admin.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid ProductId { get; set; }
 
+        [Required]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string ProductName { get; set; }
 
+        [Required]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? InStock { get; set; }
 
+        [Required]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool PreOrder { get; set; }
 
@@ -30,6 +34,7 @@ namespace Admin.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int? ProductPriority { get; set; }
 
+        [Required]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool ProductEnabled { get; set; }
 

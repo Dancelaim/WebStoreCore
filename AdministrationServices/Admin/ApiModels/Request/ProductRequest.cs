@@ -7,7 +7,7 @@ using Admin.Models;
 
 namespace Admin.ApiModels.Request
 {
-    public class ProductUpdateRequest : BaseRequest
+    public class ProductRequest : BaseRequest
     {
         public Product Product { get; set; }
         public ProductDescription    Description { get; set; }
