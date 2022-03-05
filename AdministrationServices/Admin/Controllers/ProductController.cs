@@ -114,5 +114,11 @@ namespace Admin.Controllers
 
             return BadRequest();
         }
+        [HttpDelete("deleteProduct")]
+        public async Task<IActionResult> DeleteProduct(Guid ProductId)
+        {
+            await _dbHelper.DeleteProduct(ProductId);
+            return Ok();
+        }
     }
 }
