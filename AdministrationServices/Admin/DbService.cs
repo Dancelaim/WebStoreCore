@@ -45,7 +45,8 @@ namespace Admin
                 isNew= true;
                 dbDescription = new DbProductDescription();
             }
-            _mapper.Map(description, dbDescription);
+            dbDescription =_mapper.Map(description, dbDescription);
+            dbDescription.Id = Guid.NewGuid();
             if (!isNew)
                 _context.ProductDescription.Update(dbDescription);
             _context.ProductDescription.Add(dbDescription);

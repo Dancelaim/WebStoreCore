@@ -68,11 +68,11 @@ namespace Admin
             var products = await _context.Product.Take(Quantity).Where(c => c.ProductName.StartsWith(Name) || c.ProductName.Contains(Name) || c.ProductName.EndsWith(Name)).Select(p => new Product { ProductId = p.Id, ProductName = p.ProductName }).ToListAsync();
             return products;
         }
-        public  async Task<int> DeleteProduct(Guid Id)
+        public  async Task<int> DeleteProduct(Guid ProductId)
         {
-            var result = await _context.Product.Where(p => p.Id == Id).FirstOrDefaultAsync();
-
-            _context.Product.Remove(result);  
+            var dbProduct = await _context.Product.Where(p => p.Id == ProductId).FirstOrDefaultAsync();
+            
+            _context.Product.Remove(dbProduct);  
 
             return await _context.SaveChangesAsync();
         } 

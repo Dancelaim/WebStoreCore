@@ -29,11 +29,13 @@ namespace Admin.Controllers
         [HttpGet("test")]
         public string Test()
         {
+            _logger.Log(LogLevel.Information, "Ocelot Test");
             return "OCELOT test successfull";
         }   
         [HttpPost("getProducts")]
         public async Task<IActionResult> GetProducts(int skip,int qty)
         {
+            _logger.Log(LogLevel.Information, "GetProducts Test");
             var result = new ProductsResponse();
 
             var products = await _dbHelper.GetProducts(skip,qty);

@@ -24,7 +24,7 @@ namespace Admin.Profiles
             CreateMap<DbSeo, Product>();
 
             CreateMap<DbProductDescription, DescriptionResponse>();
-
+            CreateMap<ProductDescription , DbProductDescription>();
 
             CreateMap<DbOrder, Order>();
             CreateMap<DbOrderCustomField, Order>();
@@ -39,7 +39,7 @@ namespace Admin.Profiles
 
             CreateMap<DbTempOptionParam, TempOptionParam>();
 
-          
+            CreateMap<ProductPrice, DbProductPrice>();
             CreateMap<ProductPrice,DbProduct>();
             CreateMap<ProductDescription, DbProduct>();
         }

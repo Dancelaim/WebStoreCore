@@ -29,7 +29,7 @@ namespace Admin
         /// <summary>
         /// The method returns Remove the selected product
         /// </summary>
-        public Task<int> DeleteProduct(Guid Id);
+        public Task<int> DeleteProduct(Guid ProductId);
         /// <summary>
         /// The method returns Remove the selected product
         /// </summary>

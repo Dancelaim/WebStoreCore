@@ -10,7 +10,7 @@ namespace Admin.Base
     {
         [Key]
         public Guid Id { get; set; }
-        public DateTime CreateDate { get { return CreateDate; } set { value = DateTime.Now; } }
+        public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set;}
         public bool IsArchive   {get; set;}
 
