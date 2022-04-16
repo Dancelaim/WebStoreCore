@@ -10,7 +10,7 @@ namespace Admin.Entities
 {
     public partial class DbTemplateOption : Base.BaseEntity
     {
-        public DbTemplateOption()
+        public DbTemplateOption(Guid id) : base(id)
         {
             TempOptionParams = new HashSet<DbTempOptionParam>();
         }

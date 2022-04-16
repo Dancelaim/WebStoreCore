@@ -11,7 +11,7 @@ namespace Admin.Entities
     [Table("ProductDescription")]
     public partial class DbProductDescription : Base.BaseEntity
     {
-        public DbProductDescription()
+        public DbProductDescription(Guid id) : base(id)
         {
             Products = new HashSet<DbProduct>();
         }

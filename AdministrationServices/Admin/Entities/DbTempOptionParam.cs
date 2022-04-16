@@ -10,7 +10,7 @@ namespace Admin.Entities
 {
     public partial class DbTempOptionParam : Base.BaseEntity
     {
-        public DbTempOptionParam()
+        public DbTempOptionParam(Guid id) : base(id)
         {
             InverseDeleteNavigation = new HashSet<DbTempOptionParam>();
         }

@@ -11,7 +11,7 @@ namespace Admin.Entities
     [Table("ProductSubCategory")]
     public partial class DbProductSubCategory : Base.BaseEntity
     {
-        public DbProductSubCategory()
+        public DbProductSubCategory(Guid id) : base(id)
         {
             Products = new HashSet<DbProduct>();
         }

@@ -11,7 +11,7 @@ namespace Admin.Entities
     [Table("Seo")]
     public partial class DbSeo : Base.BaseEntity
     {
-        public DbSeo() 
+        public DbSeo(Guid id) : base(id)
         {
             Articles = new HashSet<DbArticle>();
             ProductCategories = new HashSet<DbProductCategory>();

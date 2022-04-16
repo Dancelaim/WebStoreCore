@@ -28,7 +28,7 @@ namespace Admin
             if(dbProduct == null) 
             { 
                 isNew = true;
-                dbProduct = new DbProduct();
+                dbProduct = new DbProduct(Guid.NewGuid());
             }
             _mapper.Map(product, dbProduct);
             if (!isNew)

@@ -10,7 +10,7 @@ namespace Admin.Entities
 {
     public partial class DbProductOptionParam : Base.BaseEntity
     {
-        public DbProductOptionParam()
+        public DbProductOptionParam(Guid id) : base(id)
         {
             InverseParameterParent = new HashSet<DbProductOptionParam>();
         }

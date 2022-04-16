@@ -31,11 +31,11 @@ namespace Admin.Controllers
         {
             _logger.Log(LogLevel.Information, "Ocelot Test");
             return "OCELOT test successfull";
-        }   
+        }
         [HttpPost("getProducts")]
-        public async Task<IActionResult> GetProducts(int skip,int qty)
+        public async Task<IActionResult> GetProducts(int skip, int qty)
         {
-            _logger.Log(LogLevel.Information, "GetProducts Test");
+            _logger.Log(LogLevel.Information, $"ProductController;GetProducts;Skip:{skip};QTY:{qty};REQUEST");
             var result = new ProductsResponse();
 
             var products = await _dbHelper.GetProducts(skip,qty);
@@ -44,6 +44,7 @@ namespace Admin.Controllers
             {
                 result.Code = -100;
                 result.Message = "Can't get products with given parameters.";
+                _logger.Log(LogLevel.Warning, $"ProductController;GetProducts;RESPONSE;");
                 return Ok(result);
             }
 

@@ -10,6 +10,7 @@ namespace Admin.Entities
 {
     public partial class DbHtmlBlocksChild : Base.BaseEntity
     {
+        public DbHtmlBlocksChild(Guid id) : base(id) { }
         public Guid SiteBlockId { get; set; }
         public string Text { get; set; }
         [StringLength(255)]

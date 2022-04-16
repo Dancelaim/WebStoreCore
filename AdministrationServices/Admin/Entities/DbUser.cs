@@ -10,6 +10,8 @@ namespace Admin.Entities
 {
     public partial class DbUser : Base.BaseEntity
     {
+        public DbUser(Guid id) : base(id) { }
+
         [StringLength(55)]
         public string Name { get; set; }
         [StringLength(55)]

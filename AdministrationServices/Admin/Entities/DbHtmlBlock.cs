@@ -10,7 +10,7 @@ namespace Admin.Entities
 {
     public partial class DbHtmlBlock  :Base.BaseEntity
     {
-        public DbHtmlBlock()
+        public DbHtmlBlock(Guid id) : base(id) 
         {
             HtmlBlocksChildren = new HashSet<DbHtmlBlocksChild>();
         }

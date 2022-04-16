@@ -10,7 +10,7 @@ namespace Admin.Entities
 {
     public partial class DbRank : Base.BaseEntity
     {
-        public DbRank()
+        public DbRank(Guid id) : base(id)
         {
             Customers = new HashSet<DbCustomer>();
         }

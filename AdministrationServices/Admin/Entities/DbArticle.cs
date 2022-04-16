@@ -9,8 +9,10 @@ using Microsoft.EntityFrameworkCore;
 namespace Admin.Entities
 {
     [Table("Article")]
-    public partial class DbArticle : Base.BaseEntity
+    public partial class DbArticle : Base.BaseEntity 
     {
+        public DbArticle(Guid id) : base(id) { }
+
         [StringLength(100)]
         public string Title { get; set; }
         [StringLength(1000)]

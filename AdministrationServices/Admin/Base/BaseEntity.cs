@@ -14,10 +14,10 @@ namespace Admin.Base
         public DateTime UpdateDate { get; set;}
         public bool IsArchive   {get; set;}
 
-        //protected BaseEntity(Guid id)
-        //{
-        //    Id = id;
-        //}
+        protected BaseEntity(Guid id)
+        {
+            Id = id;
+        }
 
     }
 }

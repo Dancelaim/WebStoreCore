@@ -11,7 +11,7 @@ namespace Admin.Entities
     [Table("OrderProduct")]
     public partial class DbOrderProduct : Base.BaseEntity
     {
-       
+       public DbOrderProduct(Guid id) : base(id) { }
         public Guid? OrderId { get; set; }
         public Guid? ProductId { get; set; }
         public string ProductOptions { get; set; }

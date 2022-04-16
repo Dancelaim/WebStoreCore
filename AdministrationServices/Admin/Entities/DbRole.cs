@@ -10,7 +10,7 @@ namespace Admin.Entities
 {
     public partial class DbRole : Base.BaseEntity
     {
-        public DbRole()
+        public DbRole(Guid id) : base(id)
         {
             Users = new HashSet<DbUser>();
         }

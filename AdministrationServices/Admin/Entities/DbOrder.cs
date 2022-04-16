@@ -10,7 +10,7 @@ namespace Admin.Entities
 {
     public partial class DbOrder : Base.BaseEntity
     {
-        public DbOrder()
+        public DbOrder(Guid id) : base(id) 
         {
             OrderProducts = new HashSet<DbOrderProduct>();
         }

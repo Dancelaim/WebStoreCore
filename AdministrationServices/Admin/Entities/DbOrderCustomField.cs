@@ -10,7 +10,7 @@ namespace Admin.Entities
 {
     public partial class DbOrderCustomField : Base.BaseEntity
     {
-        public DbOrderCustomField()
+        public DbOrderCustomField(Guid id) : base(id)
         {
             Orders = new HashSet<DbOrder>();
         }
