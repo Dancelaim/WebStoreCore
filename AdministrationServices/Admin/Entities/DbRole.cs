@@ -15,7 +15,7 @@ namespace Admin.Entities
             Users = new HashSet<DbUser>();
         }
         [StringLength(55)]
-        public string RoleName { get; set; }
+        public string Name { get; set; }
 
         [InverseProperty(nameof(DbUser.Role))]
         public virtual ICollection<DbUser> Users { get; set; }

@@ -14,7 +14,7 @@ namespace Admin.Entities
         public Guid ProductGameId { get; set; }
         [Required]
         [StringLength(55)]
-        public string RealmName { get; set; }
+        public string Name { get; set; }
 
         [ForeignKey(nameof(ProductGameId))]
         [InverseProperty("Realms")]

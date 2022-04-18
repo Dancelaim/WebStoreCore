@@ -11,7 +11,7 @@ namespace Admin.Entities
     [Table("ProductPrice")]
     public partial class DbProductPrice : Base.BaseEntity
     {
-        public DbProductPrice(Guid id) : base(id) { }
+        public DbProductPrice(Guid Id) : base(Id) { }
         public Guid ProductId { get; set; }
         [Column(TypeName = "decimal(18, 1)")]
         public decimal? UsPrice { get; set; }

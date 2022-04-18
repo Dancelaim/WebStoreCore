@@ -16,7 +16,7 @@ namespace Admin.Entities
         }
 
         [StringLength(55)]
-        public string OptionName { get; set; }
+        public string Name { get; set; }
         [StringLength(10)]
         public string OptionType { get; set; }
         public Guid? OptionParentId { get; set; }

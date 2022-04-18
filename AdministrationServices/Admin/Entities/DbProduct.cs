@@ -20,7 +20,7 @@ namespace Admin.Entities
          
         [Required]
         [StringLength(50)]
-        public string ProductName { get; set; }
+        public string Name { get; set; }
         public Guid ProductCategoryId { get; set; }
         [Required]
         public bool? InStock { get; set; }

@@ -15,7 +15,7 @@ namespace Admin.Entities
             InverseParameterParent = new HashSet<DbProductOptionParam>();
         }
         [StringLength(50)]
-        public string ParameterName { get; set; }
+        public string Name { get; set; }
         [Required]
         [StringLength(255)]
         public string ParameterTooltip { get; set; }

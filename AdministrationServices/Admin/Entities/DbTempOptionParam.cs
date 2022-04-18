@@ -15,7 +15,7 @@ namespace Admin.Entities
             InverseDeleteNavigation = new HashSet<DbTempOptionParam>();
         }
         [StringLength(50)]
-        public string ParameterName { get; set; }
+        public string Name { get; set; }
         [Required]
         [StringLength(255)]
         public string ParameterTooltip { get; set; }

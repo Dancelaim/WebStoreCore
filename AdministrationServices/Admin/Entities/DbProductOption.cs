@@ -16,7 +16,7 @@ namespace Admin.Entities
             ProductOptionParams = new HashSet<DbProductOptionParam>();
         }
         [StringLength(55)]
-        public string OptionName { get; set; }
+        public string Name { get; set; }
         public int? OptionType { get; set; }
         public Guid? OptionParentId { get; set; }
         public Guid? OptionProductId { get; set; }

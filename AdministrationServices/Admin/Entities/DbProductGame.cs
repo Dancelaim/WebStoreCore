@@ -20,7 +20,7 @@ namespace Admin.Entities
         }
 
         [StringLength(50)]
-        public string GameName { get; set; }
+        public string Name { get; set; }
         public string GameDescription { get; set; }
         [StringLength(50)]
         public string GameShortUrl { get; set; }

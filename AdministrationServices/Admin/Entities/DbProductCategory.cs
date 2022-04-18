@@ -19,7 +19,7 @@ namespace Admin.Entities
 
         [Required]
         [StringLength(50)]
-        public string ProductCategoryName { get; set; }
+        public string Name { get; set; }
         public Guid? ProductGameId { get; set; }
         [StringLength(255)]
         public string CategoryDescription { get; set; }
