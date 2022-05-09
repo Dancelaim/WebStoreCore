@@ -8,5 +8,6 @@ namespace Admin.ApiModels.Request
 {
     public class ProductGameRequest : BaseRequest
     {
+        public Models.ProductGame ProductGame { get; set; } 
     }
 }

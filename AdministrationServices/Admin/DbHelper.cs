@@ -26,7 +26,7 @@ namespace Admin
         }
         public async Task<List<Product>> GetProducts(int skip, int qty)
         {
-            return await _context.Product.Skip(skip).Take(qty).Select(p => new Product { ProductId = p.Id, ProductName = p.ProductName }).ToListAsync();
+            return await _context.Product.Skip(skip).Take(qty).Select(p => new Product { ProductId = p.Id, ProductName = p.Name }).ToListAsync();
         }
 
         public async Task<Product> GetProduct(Guid Id)
@@ -65,7 +65,7 @@ namespace Admin
         }
         public async Task<List<Product>> GetSearchMethodForProduct(string Name, int Quantity)
         {
-            var products = await _context.Product.Take(Quantity).Where(c => c.ProductName.StartsWith(Name) || c.ProductName.Contains(Name) || c.ProductName.EndsWith(Name)).Select(p => new Product { ProductId = p.Id, ProductName = p.ProductName }).ToListAsync();
+            var products = await _context.Product.Take(Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new Product { ProductId = p.Id, ProductName = p.Name }).ToListAsync();
             return products;
         }
         public  async Task<int> DeleteProduct(Guid ProductId)
@@ -82,6 +82,16 @@ namespace Admin
             var result = _mapper.Map<ProductDescription>(description);
 
             return result;
+        }
+        public async Task<int> CreateSeo(SeoRequest request)
+        {
+            await _dbService.SeoSave(request.Seo);
+            return await _context.SaveChangesAsync();
+        }
+        public async Task<int> CreateGame(ProductGameRequest request)
+        {
+            await _dbService.GameSave(request.ProductGame);
+            return await _context.SaveChangesAsync();
         }
     }
 }

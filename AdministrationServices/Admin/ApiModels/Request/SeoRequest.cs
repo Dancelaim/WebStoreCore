@@ -9,10 +9,6 @@ namespace Admin.ApiModels.Request
 {
     public class SeoRequest : BaseRequest
     {
-        [IsPositiveValueOrZero(ErrorMessage = "Skip can't be less than 0")]
-        public int Skip { get; set; }
-
-        [RequiredGreaterThanZero(ErrorMessage = "Quantity is required and should be more than 0")]
-        public int Quantity { get; set; }
+        public Models.Seo Seo { get; set; }
     }
 }

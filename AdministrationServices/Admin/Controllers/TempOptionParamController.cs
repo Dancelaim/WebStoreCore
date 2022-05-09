@@ -32,7 +32,7 @@ namespace Admin.Controllers
         {
             var result = new TempOptionParamsResponse();
 
-            var tempOptionParams = await _context.TempOptionParams.Skip(request.Skip).Take(request.Quantity).Select(p => new TempOptionParam { ParameterId = p.Id, ParameterName = p.ParameterName }).ToListAsync();
+            var tempOptionParams = await _context.TempOptionParams.Skip(request.Skip).Take(request.Quantity).Select(p => new TempOptionParam { ParameterId = p.Id, ParameterName = p.Name }).ToListAsync();
             if (tempOptionParams.Count == 0)
             {
                 result.Code = -100;
@@ -50,7 +50,7 @@ namespace Admin.Controllers
         {
             var result = new TempOptionParamsResponse();
 
-            var tempOptionParams = await _context.TempOptionParams.Take(Quantity).Where(c => c.ParameterName.StartsWith(Name) || c.ParameterName.Contains(Name) || c.ParameterName.EndsWith(Name)).Select(p => new TempOptionParam { ParameterId = p.Id, ParameterName = p.ParameterName }).ToListAsync();
+            var tempOptionParams = await _context.TempOptionParams.Take(Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new TempOptionParam { ParameterId = p.Id, ParameterName = p.Name }).ToListAsync();
             if (tempOptionParams.Count == 0)
             {
                 result.Code = -100;
@@ -68,7 +68,7 @@ namespace Admin.Controllers
         {
             var response = new TempOptionParamResponse();
 
-            var tempOptionParams = await _context.TempOptionParams.Where(p => p.Id == ParamId).Select(p => new TempOptionParam {ParameterName = p.ParameterName , ParameterPrice = p.ParameterPrice, ParameterSale = p.ParameterSale , Delete = p.Delete, ParameterTooltip = p.ParameterTooltip , ParentOptionId = p.ParentOptionId}).FirstOrDefaultAsync();
+            var tempOptionParams = await _context.TempOptionParams.Where(p => p.Id == ParamId).Select(p => new TempOptionParam {ParameterName = p.Name , ParameterPrice = p.ParameterPrice, ParameterSale = p.ParameterSale , Delete = p.Delete, ParameterTooltip = p.ParameterTooltip , ParentOptionId = p.ParentOptionId}).FirstOrDefaultAsync();
             if (tempOptionParams == null)
             {
                 response.Code = -100;

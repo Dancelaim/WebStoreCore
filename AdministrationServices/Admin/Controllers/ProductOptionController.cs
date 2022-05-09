@@ -32,7 +32,7 @@ namespace Admin.Controllers
         {
             var result = new ProductOptionsResponse();
 
-            var productOptions = await _context.ProductOptions.Where(c=> c.OptionProductId == request.ProductId).Select(p => new ProductOption { OptionId = p.Id, OptionName = p.OptionName }).ToListAsync();
+            var productOptions = await _context.ProductOptions.Where(c=> c.OptionProductId == request.ProductId).Select(p => new ProductOption { OptionId = p.Id, OptionName = p.Name }).ToListAsync();
             if (productOptions.Count == 0)
             {
                 result.Code = -100;
@@ -50,7 +50,7 @@ namespace Admin.Controllers
         {
             var response = new ProductOptionResponse();
 
-            var productOption = await _context.ProductOptions.Where(p => p.Id == OptionId).Select(p => new ProductOption { OptionName = p.OptionName, OptionParentId = p.OptionParentId }).FirstOrDefaultAsync();
+            var productOption = await _context.ProductOptions.Where(p => p.Id == OptionId).Select(p => new ProductOption { OptionName = p.Name, OptionParentId = p.OptionParentId }).FirstOrDefaultAsync();
             if (productOption == null)
             {
                 response.Code = -100;
@@ -69,7 +69,7 @@ namespace Admin.Controllers
         {
             var response = new ProductOptionParamsResponse();
 
-            var productOptionParams = await _context.ProductOptionParams.Where(p => p.ParentOptionId == OptionId).Select(p => new ProductOptionParam {ParameterId = p.Id,ParameterName = p.ParameterName,ParameterTooltip = p.ParameterTooltip, ParameterPrice = p.ParameterPrice,ParameterSale = p.ParameterSale,ParameterParentId = p.ParameterParentId }).ToListAsync();
+            var productOptionParams = await _context.ProductOptionParams.Where(p => p.ParentOptionId == OptionId).Select(p => new ProductOptionParam {ParameterId = p.Id,ParameterName = p.Name, ParameterTooltip = p.ParameterTooltip, ParameterPrice = p.ParameterPrice,ParameterSale = p.ParameterSale,ParameterParentId = p.ParameterParentId }).ToListAsync();
             if (productOptionParams == null)
             {
                 response.Code = -100;

@@ -20,23 +20,25 @@ namespace Admin.Controllers
     [Route("admin/[controller]")]
     public class SeoController : ControllerBase
     {
+        private readonly IDbHelper _dbHelper;
         private readonly ILogger<SeoController> _logger;
         private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public SeoController(ILogger<SeoController> logger, WowCarryContext context, IMapper mapper)
+        public SeoController(ILogger<SeoController> logger, WowCarryContext context, IMapper mapper , IDbHelper dbHelper)
         {
+            _dbHelper = dbHelper;   
             _mapper = mapper;
             _logger = logger;
             _context = context;
         }
 
         [HttpPost("getSeo")]
-        public async Task<IActionResult> GetSeo(SeoRequest request)
+        public async Task<IActionResult> GetSeo(int Skip, int Quantity)
         {
             var result = new SeoResponse();
 
-            var seo = await _context.Seo.Skip(request.Skip).Take(request.Quantity).Select(s => new Seo { SeoId = s.Id, MetaTagTitle = s.MetaTagTitle }).ToListAsync();
+            var seo = await _context.Seo.Skip(Skip).Take(Quantity).Select(s => new Seo { SeoId = s.Id, MetaTagTitle = s.MetaTagTitle }).ToListAsync();
             if (seo.Count == 0)
             {
                 result.Code = -100;
@@ -67,6 +69,15 @@ namespace Admin.Controllers
             result.Message = "Success";
             result.Seo = seo;
             return Ok(result);
+        }
+        [HttpPost("createSeo")]
+        public async Task<IActionResult> CreateSeo(SeoRequest request)
+        {
+            if (ModelState.IsValid)
+                if (await _dbHelper.CreateSeo(request) == 1)
+                    return Ok();
+             
+            return BadRequest();
         }
     }
 }

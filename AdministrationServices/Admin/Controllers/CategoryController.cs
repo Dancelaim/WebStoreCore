@@ -34,7 +34,7 @@ namespace Admin.Controllers
         {
             var result = new ProductCategoryResponse();
 
-            var productCategory = await _context.ProductCategory.Where(p => ProductGameId == null || p.Id == ProductGameId).Select(pc => new ProductCategory { ProductCategoryId = pc.Id, ProductCategoryName = pc.ProductCategoryName }).ToListAsync();
+            var productCategory = await _context.ProductCategory.Where(p => ProductGameId == null || p.Id == ProductGameId).Select(pc => new ProductCategory { ProductCategoryId = pc.Id, ProductCategoryName = pc.Name }).ToListAsync();
             if (productCategory.Count == 0)
             {
                 result.Code = -100;

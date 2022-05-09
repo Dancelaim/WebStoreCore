@@ -26,6 +26,17 @@ namespace Admin
         /// <param name="price"></param>
         /// <returns></returns>
         public Task PriceSave(ProductPrice price);
-
+        /// <summary>
+        /// The method saves the changed Seo
+        /// </summary>
+        /// <param name="seo"></param>
+        /// <returns></returns>
+        public Task SeoSave(Seo seo);
+        /// <summary>
+        /// The method saves the changed ProductGame
+        /// </summary>
+        /// <param name="productgame"></param>
+        /// <returns></returns>
+        public Task GameSave(ProductGame productgame);
     }
 }

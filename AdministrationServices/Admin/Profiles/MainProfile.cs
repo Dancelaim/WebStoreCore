@@ -42,6 +42,12 @@ namespace Admin.Profiles
             CreateMap<ProductPrice, DbProductPrice>();
             CreateMap<ProductPrice,DbProduct>();
             CreateMap<ProductDescription, DbProduct>();
+
+            CreateMap<Seo, DbSeo>();
+            CreateMap<DbSeo, Seo>();    
+
+            CreateMap<ProductGame ,DbProductGame>();
+            CreateMap<DbProductGame , ProductGame>();  
         }
     }
 }

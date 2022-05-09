@@ -48,6 +48,13 @@ namespace Admin
         /// <param name="Name"></param>
         /// <param name="Quantity"></param>
         public Task<List<Product>> GetSearchMethodForProduct(string Name, int Quantity);
+        /// <summary>
+        /// The method returns Seo Update and Create
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public  Task<int> CreateSeo(SeoRequest request);
+        public Task<int> CreateGame(ProductGameRequest request);
 
     }
 }

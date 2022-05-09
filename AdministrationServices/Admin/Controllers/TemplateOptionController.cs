@@ -32,7 +32,7 @@ namespace Admin.Controllers
         {
             var result = new TemplateOptionsResponse();
 
-            var templateOption = await _context.TemplateOptions.Skip(request.Skip).Take(request.Quantity).Select(p => new TemplateOption { OptionId = p.Id, OptionName = p.OptionName }).ToListAsync();
+            var templateOption = await _context.TemplateOptions.Skip(request.Skip).Take(request.Quantity).Select(p => new TemplateOption { OptionId = p.Id, OptionName = p.Name }).ToListAsync();
             if (templateOption.Count == 0)
             {
                 result.Code = -100;
@@ -50,7 +50,7 @@ namespace Admin.Controllers
         {
             var result = new TemplateOptionsResponse();
 
-            var templateOption = await _context.TemplateOptions.Take(Quantity).Where(c => c.OptionName.StartsWith(Name) || c.OptionName.Contains(Name) || c.OptionName.EndsWith(Name)).Select(p => new TemplateOption { OptionId = p.Id, OptionName = p.OptionName }).ToListAsync();
+            var templateOption = await _context.TemplateOptions.Take(Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new TemplateOption { OptionId = p.Id, OptionName = p.Name }).ToListAsync();
 
             if (templateOption.Count == 0)
             {
@@ -69,7 +69,7 @@ namespace Admin.Controllers
         {
             var response = new TemplateOptionResponse();
 
-            var templateOption = await _context.TemplateOptions.Where(p => p.Id == TempOptionId).Select(p => new TemplateOption { OptionName = p.OptionName, OptionParentId = p.OptionParentId }).FirstOrDefaultAsync();
+            var templateOption = await _context.TemplateOptions.Where(p => p.Id == TempOptionId).Select(p => new TemplateOption { OptionName = p.Name, OptionParentId = p.OptionParentId }).FirstOrDefaultAsync();
             if (templateOption == null)
             {
                 response.Code = -100;
