@@ -53,7 +53,7 @@ namespace Admin
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public  Task<int> CreateSeo(SeoRequest request);
+        public  Task<int> SaveSeo(SeoRequest request);
         public Task<int> CreateGame(ProductGameRequest request);
 
     }

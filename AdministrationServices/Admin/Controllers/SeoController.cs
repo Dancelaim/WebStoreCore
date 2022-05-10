@@ -70,11 +70,11 @@ namespace Admin.Controllers
             result.Seo = seo;
             return Ok(result);
         }
-        [HttpPost("createSeo")]
-        public async Task<IActionResult> CreateSeo(SeoRequest request)
+        [HttpPost("saveSeo")]
+        public async Task<IActionResult> SaveSeo(SeoRequest request)
         {
             if (ModelState.IsValid)
-                if (await _dbHelper.CreateSeo(request) == 1)
+                if (await _dbHelper.SaveSeo(request) == 1)
                     return Ok();
              
             return BadRequest();

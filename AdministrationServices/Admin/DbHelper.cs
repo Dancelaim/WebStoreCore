@@ -83,7 +83,7 @@ namespace Admin
 
             return result;
         }
-        public async Task<int> CreateSeo(SeoRequest request)
+        public async Task<int> SaveSeo(SeoRequest request)
         {
             await _dbService.SeoSave(request.Seo);
             return await _context.SaveChangesAsync();
