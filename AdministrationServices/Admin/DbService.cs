@@ -88,7 +88,7 @@ namespace Admin
         public async Task GameSave(ProductGame productgame)
         {
             bool isNew = false;
-            DbProductGame dbproduct
+            DbProductGame dbproductGame
                 = await _context.ProductGame.Where(p => p.Id == productgame.ProductGameId).FirstOrDefaultAsync();
             if (dbproductGame == null)
             {
