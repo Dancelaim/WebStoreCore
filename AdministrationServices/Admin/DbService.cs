@@ -104,6 +104,10 @@ namespace Admin
             _context.ProductGame.Update(dbproductGame);
 
         }
+        public async Task CategorySave(ProductCategory category)
+        {
+
+        }
 
     }
 }

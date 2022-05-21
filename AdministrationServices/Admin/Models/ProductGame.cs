@@ -9,9 +9,18 @@ namespace Admin.Models
     public class ProductGame
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public string ProductGameName { get; set; }
+        public string Name { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid ProductGameId { get; set; }
+       
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string GameDescription { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string GameShortUrl { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public Guid? GameSeoId { get; set; }
     }
 }
