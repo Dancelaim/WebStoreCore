@@ -38,5 +38,11 @@ namespace Admin
         /// <param name="productgame"></param>
         /// <returns></returns>
         public Task GameSave(ProductGame productgame);
+        /// <summary>
+        /// The method saves the changed ProductCategory
+        /// </summary>
+        /// <param name="productCategory"></param>
+        /// <returns></returns>
+        public Task CategorySave(ProductCategory productCategory);
     }
 }

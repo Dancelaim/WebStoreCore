@@ -54,7 +54,18 @@ namespace Admin
         /// <param name="request"></param>
         /// <returns></returns>
         public  Task<int> SaveSeo(SeoRequest request);
+        /// <summary>
+        /// The method returns Game Update and Create
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public Task<int> CreateGame(ProductGameRequest request);
+        /// <summary>
+        /// The method returns Category Update and Create
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task<int> CreateCategory(ProductCategoryRequest request);
 
     }
 }

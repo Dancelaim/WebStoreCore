@@ -9,6 +9,6 @@ namespace Admin.ApiModels.Request
 {
     public class ProductCategoryRequest : BaseRequest
     {
-        public Guid? ProductGameId { get; set; }
+        public Models.ProductCategory ProductCategory { get; set; }
     }
 }
