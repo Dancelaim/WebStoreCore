@@ -1,8 +1,0 @@
-﻿@model IEnumerable<string>
-
-@foreach (string game in Model)
-{
-    <li>
-       @Html.ActionLink(game, "GameDetails", "GamePage", new { currentGame = game}, new { @class = String.Format(game + "_ico navMenu") })
-    </li>
-}

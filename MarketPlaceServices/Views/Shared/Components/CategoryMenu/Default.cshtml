@@ -1,9 +1,0 @@
-﻿@model  List<string>
-@using HtmlHelpers
-
-    @foreach (var cat in Model)
-    {
-        <li>
-            @Html.ActionLink(cat, "List","Products", new { selectedGame = ViewData["SelectedGame"], categoryName = cat },new {@class = Html.IsSelected(cat)})        
-        </li>
-    }
