@@ -93,5 +93,10 @@ namespace Admin
             await _dbService.GameSave(request.ProductGame);
             return await _context.SaveChangesAsync();
         }
+
+        public Task<int> CreateCategory(ProductCategoryRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

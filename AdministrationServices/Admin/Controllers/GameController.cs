@@ -57,7 +57,7 @@ namespace Admin.Controllers
         {
             var result = new ProductGameResponse();
 
-            var games = await _context.ProductGame.Take(Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new ProductGame { ProductGameId = p.Id, ProductGameName = p.Name }).ToListAsync();
+            var games = await _context.ProductGame.Take(Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new ProductGame { ProductGameId = p.Id, Name = p.Name }).ToListAsync();
             if (games.Count == 0)
             {
                 result.Code = -100;
