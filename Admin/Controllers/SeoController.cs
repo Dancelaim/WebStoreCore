@@ -33,7 +33,7 @@ namespace Admin.Controllers
             _context = context;
         }
 
-        [HttpPost("getSeo")]
+        [HttpGet("getSeo")]
         public async Task<IActionResult> GetSeo(int Skip, int Quantity)
         {
             var result = new SeoResponse();
