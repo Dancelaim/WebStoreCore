@@ -33,7 +33,7 @@ namespace Admin.Controllers
             _context = context;
         }
 
-        [HttpPost("getSeo")]
+        [HttpPost("getSeoList")]
         public async Task<IActionResult> GetSeo(int Skip, int Quantity)
         {
             var result = new SeoResponse();
@@ -50,6 +50,19 @@ namespace Admin.Controllers
             result.Message = "Success";
             result.Seo = seo;
             return Ok(result);
+        }
+
+        [HttpPost("getSeo")]
+        public async Task<IActionResult> GetSeo(Guid seoId)
+        {
+            var result = new SeoResponse();
+
+            var seo = await _context.Seo.FirstOrDefaultAsync(s=>s.Id == seoId);
+            if (seo is null)
+            {
+                return BadRequest("No seo with provided Id");
+            }
+            return Ok(seo);
         }
 
         [HttpPost("getSearchMethodForSeo")]
