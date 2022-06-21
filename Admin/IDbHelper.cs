@@ -9,63 +9,37 @@ namespace Admin
     public interface IDbHelper
     {
         /// <summary>
-        /// The method returns one product by ID
+        /// The method returns entity by Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public Task<Product> GetProduct(Guid Id);
+        public Task<T> Get<T>(Guid Id);
+
         /// <summary>
-        /// The method returns Create a new product
+        /// The method returns Create or save a new entity
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task<int> CreateProduct(ProductRequest request);
+        public Task<bool> Save<T>(T request);
+
         /// <summary>
-        /// The method returns Product Update
+        /// The method returns Remove the entity by Id
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public Task<int> UpdateProduct(ProductRequest request);
+        public Task<bool> Delete(Guid Id);
+
         /// <summary>
-        /// The method returns Remove the selected product
-        /// </summary>
-        public Task<int> DeleteProduct(Guid ProductId);
-        /// <summary>
-        /// The method returns Remove the selected product
+        /// The method returns a list of required entities
         /// </summary>
         /// <param name="skip"></param>
         /// <param name="qty"></param>
         /// <returns></returns>
-        public Task<List<Product>> GetProducts(int skip, int qty);
+        public Task<List<T>> GetList<T>(int skip, int qty);
+
         /// <summary>
-        /// The method returns a list of descriptions for the selected product
-        /// </summary>
-        /// <param name="Id"></param>
-        public Task<ProductDescription> GetDescriptionByProduct(Guid Id);
-        /// <summary>
-        /// The method returns products by searching by name
+        /// The method returns all found entities by name
         /// </summary>
         /// <param name="Name"></param>
         /// <param name="Quantity"></param>
-        public Task<List<Product>> GetSearchMethodForProduct(string Name, int Quantity);
-        /// <summary>
-        /// The method returns Seo Update and Create
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public  Task<int> SaveSeo(SeoRequest request);
-        /// <summary>
-        /// The method returns Game Update and Create
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public Task<int> CreateGame(ProductGameRequest request);
-        /// <summary>
-        /// The method returns Category Update and Create
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public Task<int> CreateCategory(ProductCategoryRequest request);
-
+        public Task<List<T>> SearchFor<T>(string Name);
     }
 }

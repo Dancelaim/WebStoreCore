@@ -3,22 +3,25 @@ using Admin.ApiModels.Response;
 using Admin.Core;
 using Admin.Entities;
 using Admin.Models;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Admin
+namespace Admin.DbHelpers
 {
-    public class DbHelper : IDbHelper
+    public class SeoDbHelper : IDbHelper
     {
         private readonly IDbService _dbService;
         private readonly WowCarryContext _context;
         private IMapper _mapper;
-        public DbHelper(WowCarryContext context, IMapper mapper, IDbService dbService)
+        public SeoDbHelper(WowCarryContext context, IMapper mapper, IDbService dbService)
         {
             _dbService = dbService;
             _mapper = mapper;
@@ -68,14 +71,14 @@ namespace Admin
             var products = await _context.Product.Take(Quantity).Where(c => c.Name.StartsWith(Name) || c.Name.Contains(Name) || c.Name.EndsWith(Name)).Select(p => new Product { ProductId = p.Id, ProductName = p.Name }).ToListAsync();
             return products;
         }
-        public  async Task<int> DeleteProduct(Guid ProductId)
+        public async Task<int> DeleteProduct(Guid ProductId)
         {
             var dbProduct = await _context.Product.Where(p => p.Id == ProductId).FirstOrDefaultAsync();
-            
-            _context.Product.Remove(dbProduct);  
+
+            _context.Product.Remove(dbProduct);
 
             return await _context.SaveChangesAsync();
-        } 
+        }
         public async Task<ProductDescription> GetDescriptionByProduct(Guid Id)
         {
             var description = await _context.Product.Where(p => p.Id == Id).Select(p => p.ProductDescription).FirstOrDefaultAsync();

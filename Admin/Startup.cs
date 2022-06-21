@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Serilog;
+using Admin.DbHelpers;
+
 namespace Admin
 {
     public class Startup
@@ -41,7 +43,7 @@ namespace Admin
 
             services.AddTransient<IDbService,DbService>();
 
-            services.AddTransient<IDbHelper, DbHelper>();
+            services.AddTransient<IDbHelper, ProductDbHelper>();
 
             services.AddControllers();
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>

@@ -55,8 +55,6 @@ namespace Admin.Controllers
         [HttpPost("getSeo")]
         public async Task<IActionResult> GetSeo(Guid seoId)
         {
-            var result = new SeoResponse();
-
             var seo = await _context.Seo.FirstOrDefaultAsync(s=>s.Id == seoId);
             if (seo is null)
             {
