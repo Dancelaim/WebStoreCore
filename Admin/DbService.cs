@@ -1,4 +1,5 @@
 ﻿using Admin.ApiModels.Request;
+using Admin.Base;
 using Admin.Core;
 using Admin.Entities;
 using Admin.Models;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Admin
@@ -21,93 +23,50 @@ namespace Admin
             _mapper = mapper;
             _context = context;
         }
-        public async Task ProductSave(Product product)
+
+        public async Task<bool> Delete<T>(Guid id) where T : class, IBaseEntity, new()
         {
-            bool isNew = false;
-            DbProduct dbProduct = await _context.Product.Where(p => p.Id == product.ProductId).FirstOrDefaultAsync();
-            if(dbProduct == null) 
+            var entity = await _context.Set<T>().FirstOrDefaultAsync(e=>e.Id==id);
+            if(entity is null)
+                return false;
+            _context.Remove(entity);
+            return true;
+        }
+
+        public async Task<List<T>> Find<T>(Expression<Func<T, bool>> selector) where T : class, IBaseEntity, new()
+        {
+            return await _context.Set<T>().Where(selector).ToListAsync();
+        }
+
+        public async Task<T> Get<T>(Guid id) where T : class, IBaseEntity, new()
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<List<T>> GetList<T>() where T : class, IBaseEntity, new()
+        {
+            return await _context.Set<T>().ToListAsync();
+        }
+
+        public async Task<T> Save<T>(T entity) where T : class, IBaseEntity,new()
+        {
+            var isNew = false;
+            var dbEntity  =  await _context.Set<T>().FindAsync(entity);
+            if (dbEntity == null) 
             { 
                 isNew = true;
-                dbProduct = new DbProduct(Guid.NewGuid());
+                dbEntity = new T();
             }
-            _mapper.Map(product, dbProduct);
+            _mapper.Map(entity, dbEntity);
             if (!isNew)
-                _context.Product.Update(dbProduct);
-            _context.Product.Add(dbProduct);
-            
-        }
-        public async Task DescriptionSave (ProductDescription description)
-        {
-            bool isNew = false;
-            DbProductDescription dbDescription = await _context.ProductDescription.Where(d => d.Id == description.ProductDescriptionId).FirstOrDefaultAsync();
-            if(dbDescription == null)
-            {
-                isNew= true;
-                dbDescription = new DbProductDescription(Guid.NewGuid());
-            }
-            dbDescription =_mapper.Map(description, dbDescription);
-            dbDescription.Id = Guid.NewGuid();
-            if (!isNew)
-                _context.ProductDescription.Update(dbDescription);
-            _context.ProductDescription.Add(dbDescription);
+                _context.Set<T>().Update(dbEntity);
+            _context.Set<T>().Add(dbEntity);
+            return dbEntity;
         }
 
-        public async Task PriceSave(ProductPrice price)
+        public async Task Submit()
         {
-            bool isNew = false;
-            DbProductPrice dbProductPrice = await _context.ProductPrice.Where(p => p.ProductId == price.ProductId).FirstOrDefaultAsync();
-            if(dbProductPrice == null)
-            {
-                isNew =true;
-                dbProductPrice = new DbProductPrice(Guid.NewGuid());
-            }
-            _mapper.Map(price, dbProductPrice);
-            if(!isNew) 
-                _context.ProductPrice.Update(dbProductPrice);
-            _context.ProductPrice.Add(dbProductPrice);
-
+            await _context.SaveChangesAsync();
         }
-        public async Task SeoSave(Seo seo)
-        {
-            bool isNew = false;
-            DbSeo dbSeo = await _context.Seo.Where(p => p.Id == seo.SeoId).FirstOrDefaultAsync();
-            if (dbSeo == null)
-            {
-                isNew=true;
-                dbSeo = new DbSeo(Guid.NewGuid());
-            }
-            _mapper.Map(seo, dbSeo);
-            if (isNew)
-            {
-                _context.Seo.Add(dbSeo);
-                return;
-            }  
-            _context.Seo.Update(dbSeo);
-            
-        }
-        public async Task GameSave(ProductGame productgame)
-        {
-            bool isNew = false;
-            DbProductGame dbproductGame
-                = await _context.ProductGame.Where(p => p.Id == productgame.ProductGameId).FirstOrDefaultAsync();
-            if (dbproductGame == null)
-            {
-                isNew = true;
-                dbproductGame = new DbProductGame(Guid.NewGuid());
-            }
-            _mapper.Map(productgame, dbproductGame);
-            if (isNew)
-            {
-                _context.ProductGame.Add(dbproductGame);
-                return;
-            }
-            _context.ProductGame.Update(dbproductGame);
-
-        }
-        public async Task CategorySave(ProductCategory category)
-        {
-
-        }
-
     }
 }
