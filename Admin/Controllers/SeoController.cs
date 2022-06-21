@@ -33,7 +33,7 @@ namespace Admin.Controllers
             _context = context;
         }
 
-        [HttpPost("getSeoList")]
+        [HttpGet("getSeoList")]
         public async Task<IActionResult> GetSeo(int Skip, int Quantity)
         {
             var result = new SeoResponse();
@@ -52,7 +52,7 @@ namespace Admin.Controllers
             return Ok(result);
         }
 
-        [HttpPost("getSeo")]
+        [HttpGet("getSeo")]
         public async Task<IActionResult> GetSeo(Guid seoId)
         {
             var result = new SeoResponse();
