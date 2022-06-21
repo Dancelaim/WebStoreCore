@@ -57,7 +57,8 @@ namespace Admin.Controllers
         {
             var result = new SeoResponse();
 
-            var seo = await _context.Seo.FirstOrDefaultAsync(s=>s.Id == seoId);
+            var dbSeo = await _context.Seo.FirstOrDefaultAsync(s=>s.Id == seoId);
+            var seo = _mapper.Map<Seo>(dbSeo);
             if (seo is null)
             {
                 return BadRequest("No seo with provided Id");
