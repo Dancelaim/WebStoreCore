@@ -70,7 +70,7 @@ namespace Admin
         public async Task SeoSave(Seo seo)
         {
             bool isNew = false;
-            DbSeo dbSeo = await _context.Seo.Where(p => p.Id == seo.SeoId).FirstOrDefaultAsync();
+            DbSeo dbSeo = await _context.Seo.Where(p => p.Id == seo.Id).FirstOrDefaultAsync();
             if (dbSeo == null)
             {
                 isNew=true;

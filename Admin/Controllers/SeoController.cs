@@ -38,7 +38,7 @@ namespace Admin.Controllers
         {
             var result = new SeoResponse();
 
-            var seo = await _context.Seo.Skip(Skip).Take(Quantity).Select(s => new Seo { SeoId = s.Id, MetaTagTitle = s.MetaTagTitle }).ToListAsync();
+            var seo = await _context.Seo.Skip(Skip).Take(Quantity).Select(s => new Seo { Id = s.Id, MetaTagTitle = s.MetaTagTitle }).ToListAsync();
             if (seo.Count == 0)
             {
                 result.Code = -100;
@@ -55,8 +55,6 @@ namespace Admin.Controllers
         [HttpGet("getSeo")]
         public async Task<IActionResult> GetSeo(Guid seoId)
         {
-            var result = new SeoResponse();
-
             var dbSeo = await _context.Seo.FirstOrDefaultAsync(s=>s.Id == seoId);
             var seo = _mapper.Map<Seo>(dbSeo);
             if (seo is null)
@@ -71,7 +69,7 @@ namespace Admin.Controllers
         {
             var result = new SeoResponse();
 
-            var seo = await _context.Seo.Take(Quantity).Where(c => c.MetaTagTitle.StartsWith(Name) || c.MetaTagTitle.Contains(Name) || c.MetaTagTitle.EndsWith(Name)).Select(p => new Seo { SeoId = p.Id, MetaTagTitle = p.MetaTagTitle }).ToListAsync();
+            var seo = await _context.Seo.Take(Quantity).Where(c => c.MetaTagTitle.StartsWith(Name) || c.MetaTagTitle.Contains(Name) || c.MetaTagTitle.EndsWith(Name)).Select(p => new Seo { Id = p.Id, MetaTagTitle = p.MetaTagTitle }).ToListAsync();
             if (seo.Count == 0)
             {
                 result.Code = -100;
@@ -84,13 +82,13 @@ namespace Admin.Controllers
             result.Seo = seo;
             return Ok(result);
         }
+
         [HttpPost("saveSeo")]
         public async Task<IActionResult> SaveSeo(SeoRequest request)
         {
             if (ModelState.IsValid)
                 if (await _dbHelper.SaveSeo(request) == 1)
                     return Ok();
-             
             return BadRequest();
         }
     }
