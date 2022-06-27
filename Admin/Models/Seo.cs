@@ -12,7 +12,7 @@ namespace Admin.Models
         public string MetaTagTitle { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public Guid SeoId { get; set; }
+        public Guid Id { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string MetaTagDescription { get; set; }

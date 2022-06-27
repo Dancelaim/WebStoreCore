@@ -16,7 +16,6 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Serilog;
-using Admin.DbHelpers;
 
 namespace Admin
 {
@@ -42,8 +41,6 @@ namespace Admin
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IDbService,DbService>();
-
-            services.AddTransient<IDbHelper, ProductDbHelper>();
 
             services.AddControllers();
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>

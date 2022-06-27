@@ -6,7 +6,7 @@ namespace Admin.Base
     {
         Guid Id { get; set; }
         DateTime CreateDate { get; set; }
-        DateTime UpdateDate { get; set; }
+        DateTime UpdateDate { get; }
         bool IsArchive { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Admin.ApiModels.Request;
 using Admin.ApiModels.Response;
 using Admin.Core;
+using Admin.Entities;
 using Admin.Models;
 
 using AutoMapper;
@@ -20,74 +21,84 @@ namespace Admin.Controllers
     [Route("admin/[controller]")]
     public class SeoController : ControllerBase
     {
-        private readonly IDbHelper _dbHelper;
         private readonly ILogger<SeoController> _logger;
-        private readonly WowCarryContext _context;
-        private IMapper _mapper;
+        private readonly IDbService _dbService;
+        private readonly IMapper _mapper;
 
-        public SeoController(ILogger<SeoController> logger, WowCarryContext context, IMapper mapper , IDbHelper dbHelper)
-        {
-            _dbHelper = dbHelper;   
-            _mapper = mapper;
+        public SeoController(ILogger<SeoController> logger, IDbService dbService, IMapper mapper)
+        {  
             _logger = logger;
-            _context = context;
+            _dbService = dbService;
+            _mapper = mapper;
         }
 
-        [HttpPost("getSeoList")]
-        public async Task<IActionResult> GetSeo(int Skip, int Quantity)
+        [HttpGet("getList")]
+        public async Task<IActionResult> GetSeoList(int skip, int qty)
         {
-            var result = new SeoResponse();
-
-            var seo = await _context.Seo.Skip(Skip).Take(Quantity).Select(s => new Seo { SeoId = s.Id, MetaTagTitle = s.MetaTagTitle }).ToListAsync();
+            var seo = await _dbService.GetList<DbSeo>(skip, qty);
             if (seo.Count == 0)
             {
-                result.Code = -100;
-                result.Message = "Can't get products with given parameters.";
-                return Ok(result);
+                return BadRequest("No data with provided parameters");
             }
+            var result = seo.Select(s => new Seo { Id = s.Id, MetaTagTitle = s.MetaTagTitle });
 
-            result.Code = 100;
-            result.Message = "Success";
-            result.Seo = seo;
             return Ok(result);
         }
 
-        [HttpPost("getSeo")]
+        [HttpGet]
         public async Task<IActionResult> GetSeo(Guid seoId)
         {
-            var seo = await _context.Seo.FirstOrDefaultAsync(s=>s.Id == seoId);
+            var seo = await _dbService.Get<DbSeo>(seoId);
             if (seo is null)
             {
                 return BadRequest("No seo with provided Id");
             }
-            return Ok(seo);
+            var result = _mapper.Map<Seo>(seo);
+            return Ok(result);
         }
 
-        [HttpPost("getSearchMethodForSeo")]
+        [HttpGet("getSearchMethodForSeo")]
         public async Task<IActionResult> GetSearchMethodForSeo(string Name, int Quantity)
         {
-            var result = new SeoResponse();
+            //var result = new SeoResponse();
 
-            var seo = await _context.Seo.Take(Quantity).Where(c => c.MetaTagTitle.StartsWith(Name) || c.MetaTagTitle.Contains(Name) || c.MetaTagTitle.EndsWith(Name)).Select(p => new Seo { SeoId = p.Id, MetaTagTitle = p.MetaTagTitle }).ToListAsync();
-            if (seo.Count == 0)
+            //var seo = await _context.Seo.Take(Quantity).Where(c => c.MetaTagTitle.StartsWith(Name) || c.MetaTagTitle.Contains(Name) || c.MetaTagTitle.EndsWith(Name)).Select(p => new Seo { SeoId = p.Id, MetaTagTitle = p.MetaTagTitle }).ToListAsync();
+            //if (seo.Count == 0)
+            //{
+            //    result.Code = -100;
+            //    result.Message = "Can't get products with given parameters.";
+            //    return Ok(result);
+            //}
+
+            //result.Code = 100;
+            //result.Message = "Success";
+            //result.Seo = seo;
+            return Ok("Not yet implemented");
+        }
+
+        [HttpPut()]
+        public async Task<IActionResult> UpdateSeo(Seo seo)
+        {
+            if (ModelState.IsValid)
             {
-                result.Code = -100;
-                result.Message = "Can't get products with given parameters.";
+                var dbSeo = _mapper.Map<DbSeo>(seo);
+                var result = await _dbService.Save<DbSeo>(dbSeo);
                 return Ok(result);
             }
 
-            result.Code = 100;
-            result.Message = "Success";
-            result.Seo = seo;
-            return Ok(result);
+            return BadRequest();
         }
-        [HttpPost("saveSeo")]
-        public async Task<IActionResult> SaveSeo(SeoRequest request)
+
+        [HttpPost()]
+        public async Task<IActionResult> CreateSeo(Seo seo)
         {
             if (ModelState.IsValid)
-                if (await _dbHelper.SaveSeo(request) == 1)
-                    return Ok();
-             
+            {
+                var dbSeo = _mapper.Map<DbSeo>(seo);
+                var result = await _dbService.Save<DbSeo>(dbSeo);
+                return Ok(result);
+            }
+
             return BadRequest();
         }
     }

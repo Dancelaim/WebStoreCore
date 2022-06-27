@@ -20,14 +20,12 @@ namespace Admin.Controllers
     [Route("admin/[controller]")]
     public class GameController : ControllerBase
     {
-        private readonly IDbHelper _dbHelper;
         private readonly ILogger<GameController> _logger;
         private readonly WowCarryContext _context;
         private IMapper _mapper;
 
-        public GameController(ILogger<GameController> logger, WowCarryContext context, IMapper mapper, IDbHelper dbHelper)
+        public GameController(ILogger<GameController> logger, WowCarryContext context, IMapper mapper)
         {
-            _dbHelper = dbHelper;
             _mapper = mapper;
             _logger = logger;
             _context = context;
@@ -69,15 +67,6 @@ namespace Admin.Controllers
             result.Message = "Success";
             result.ProductGames = games;
             return Ok(result);
-        }
-        [HttpPost("createGame")]
-        public async Task<IActionResult> createGame(ProductGameRequest request)
-        {
-            if (ModelState.IsValid)
-                if (await _dbHelper.CreateGame(request) == 1)
-                    return Ok();
-
-            return BadRequest();
         }
     }
 }

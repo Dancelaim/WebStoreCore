@@ -19,7 +19,7 @@ namespace Admin.Entities
             ProductSubCategories = new HashSet<DbProductSubCategory>();
             Products = new HashSet<DbProduct>();
         }
-
+        public DbSeo() { }
         //[Key]
         //[Column("SeoId")]
         //public Guid SeoId { get; set; }

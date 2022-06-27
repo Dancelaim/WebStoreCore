@@ -43,24 +43,25 @@ namespace Admin
             return await _context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<List<T>> GetList<T>() where T : class, IBaseEntity, new()
+        public async Task<List<T>> GetList<T>(int skip, int qty) where T : class, IBaseEntity, new()
         {
-            return await _context.Set<T>().ToListAsync();
+            return await _context.Set<T>().Skip(skip).Take(qty).ToListAsync();
         }
 
         public async Task<T> Save<T>(T entity) where T : class, IBaseEntity,new()
         {
             var isNew = false;
-            var dbEntity  =  await _context.Set<T>().FindAsync(entity);
+            var dbEntity  =  await _context.Set<T>().FindAsync(entity.Id);
             if (dbEntity == null) 
             { 
                 isNew = true;
                 dbEntity = new T();
             }
-            _mapper.Map(entity, dbEntity);
+            dbEntity = _mapper.Map(entity, dbEntity);
             if (!isNew)
                 _context.Set<T>().Update(dbEntity);
             _context.Set<T>().Add(dbEntity);
+            await _context.SaveChangesAsync();
             return dbEntity;
         }
 
