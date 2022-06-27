@@ -21,8 +21,8 @@ namespace Admin.Entities
         }
         public DbSeo() { }
         //[Key]
-        //[Column("SeoId")]
-        //public Guid SeoId { get; set; }
+        //[Column("Id")]
+        //public Guid Id { get; set; }
         [StringLength(255)]
         public string MetaTagTitle { get; set; }
         public string MetaTagDescription { get; set; }
