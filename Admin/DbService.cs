@@ -23,7 +23,7 @@ namespace Admin
             _mapper = mapper;
             _context = context;
         }
-
+        //Use only for Uber Admin
         public async Task<bool> Delete<T>(Guid id) where T : class, IBaseEntity, new()
         {
             var entity = await _context.Set<T>().FirstOrDefaultAsync(e=>e.Id==id);
@@ -32,42 +32,30 @@ namespace Admin
             _context.Remove(entity);
             return true;
         }
-
         public async Task<List<T>> Find<T>(Expression<Func<T, bool>> selector) where T : class, IBaseEntity, new()
         {
             return await _context.Set<T>().Where(selector).ToListAsync();
         }
-
         public async Task<T> Get<T>(Guid id) where T : class, IBaseEntity, new()
         {
             return await _context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
         }
-
         public async Task<List<T>> GetList<T>(int skip, int qty) where T : class, IBaseEntity, new()
         {
-            return await _context.Set<T>().Skip(skip).Take(qty).ToListAsync();
+            return await _context.Set<T>().Where(e=>!e.IsArchive).Skip(skip).Take(qty).ToListAsync();
         }
-
-        public async Task<T> Save<T>(T entity) where T : class, IBaseEntity,new()
+        public async Task<Guid> Save<T>(T entity) where T : class, IBaseEntity, new()
         {
-            var isNew = false;
-            var dbEntity  =  await _context.Set<T>().FindAsync(entity.Id);
-            if (dbEntity == null) 
-            { 
-                isNew = true;
-                dbEntity = new T();
-            }
-            dbEntity = _mapper.Map(entity, dbEntity);
-            if (!isNew)
-                _context.Set<T>().Update(dbEntity);
-            _context.Set<T>().Add(dbEntity);
+            _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();
-            return dbEntity;
+            return entity.Id;
         }
-
-        public async Task Submit()
+        async Task<bool> IDbService.Archive<T>(Guid id)
         {
-            await _context.SaveChangesAsync();
+            var dbEntity = await _context.Set<T>().FindAsync(id);
+            dbEntity.IsArchive = true;
+            _context.Set<T>().Update(dbEntity);
+            return await _context.SaveChangesAsync() is 1;
         }
     }
 }

@@ -15,11 +15,11 @@ namespace Admin
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        public Task<T> Save<T>(T entity) where T : class, IBaseEntity, new();
+        public Task<Guid> Save<T>(T entity) where T : class, IBaseEntity, new();
         public Task<T> Get<T>(Guid id) where T : class, IBaseEntity, new();
         public Task<List<T>> GetList<T>(int skip, int qty) where T : class, IBaseEntity, new();
         public Task<bool> Delete<T>(Guid id) where T : class, IBaseEntity, new();
+        public Task<bool> Archive<T>(Guid id) where T : class, IBaseEntity, new();
         public Task<List<T>> Find<T>(Expression<Func<T, bool>> selector) where T : class, IBaseEntity, new();
-        public Task Submit();
     }
 }
