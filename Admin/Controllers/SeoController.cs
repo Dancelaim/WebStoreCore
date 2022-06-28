@@ -1,10 +1,12 @@
 ﻿using Admin.ApiModels.Request;
 using Admin.ApiModels.Response;
 using Admin.Core;
+using Admin.Entities;
 using Admin.Models;
 
 using AutoMapper;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -20,76 +22,123 @@ namespace Admin.Controllers
     [Route("admin/[controller]")]
     public class SeoController : ControllerBase
     {
-        private readonly IDbHelper _dbHelper;
         private readonly ILogger<SeoController> _logger;
-        private readonly WowCarryContext _context;
-        private IMapper _mapper;
+        private readonly IDbService _dbService;
+        private readonly IMapper _mapper;
 
-        public SeoController(ILogger<SeoController> logger, WowCarryContext context, IMapper mapper , IDbHelper dbHelper)
+        public SeoController(ILogger<SeoController> logger, IDbService dbService, IMapper mapper)
         {
-            _dbHelper = dbHelper;   
-            _mapper = mapper;
             _logger = logger;
-            _context = context;
+            _dbService = dbService;
+            _mapper = mapper;
         }
 
-        [HttpGet("getSeoList")]
-        public async Task<IActionResult> GetSeo(int Skip, int Quantity)
+        [HttpGet("getList")]
+        public async Task<IActionResult> GetList(int skip, int qty)
         {
-            var result = new SeoResponse();
-
-            var seo = await _context.Seo.Skip(Skip).Take(Quantity).Select(s => new Seo { Id = s.Id, MetaTagTitle = s.MetaTagTitle }).ToListAsync();
-            if (seo.Count == 0)
+            try
             {
-                result.Code = -100;
-                result.Message = "Can't get products with given parameters.";
+                var seo = await _dbService.GetList<DbSeo>(skip, qty);
+                if (seo.Count == 0)
+                {
+                    return BadRequest("No data with provided parameters");
+                }
+                var result = seo.OrderBy(s => s.UpdateDate).Select(s => new Seo { Id = s.Id, MetaTagTitle = s.MetaTagTitle });
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(Guid seoId)
+        {
+            try
+            {
+                var seo = await _dbService.Get<DbSeo>(seoId);
+                if (seo is null)
+                {
+                    return BadRequest("No seo with provided Id");
+                }
+                var result = _mapper.Map<Seo>(seo);
                 return Ok(result);
             }
-
-            result.Code = 100;
-            result.Message = "Success";
-            result.Seo = seo;
-            return Ok(result);
-        }
-
-        [HttpGet("getSeo")]
-        public async Task<IActionResult> GetSeo(Guid seoId)
-        {
-            var dbSeo = await _context.Seo.FirstOrDefaultAsync(s=>s.Id == seoId);
-            var seo = _mapper.Map<Seo>(dbSeo);
-            if (seo is null)
+            catch (Exception ex)
             {
-                return BadRequest("No seo with provided Id");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+
             }
-            return Ok(seo);
         }
 
-        [HttpPost("getSearchMethodForSeo")]
-        public async Task<IActionResult> GetSearchMethodForSeo(string Name, int Quantity)
+        [HttpGet("SearchFor")]
+        public async Task<IActionResult> SearchFor(string Name)
         {
-            var result = new SeoResponse();
-
-            var seo = await _context.Seo.Take(Quantity).Where(c => c.MetaTagTitle.StartsWith(Name) || c.MetaTagTitle.Contains(Name) || c.MetaTagTitle.EndsWith(Name)).Select(p => new Seo { Id = p.Id, MetaTagTitle = p.MetaTagTitle }).ToListAsync();
-            if (seo.Count == 0)
+            try
             {
-                result.Code = -100;
-                result.Message = "Can't get products with given parameters.";
+                var seo = await _dbService.Find<DbSeo>(c => c.MetaTagTitle.StartsWith(Name) || c.MetaTagTitle.Contains(Name) || c.MetaTagTitle.EndsWith(Name));
+                var result = seo.OrderBy(s => s.UpdateDate).Select(s => new Seo { Id = s.Id, MetaTagTitle = s.MetaTagTitle });
+                if (result.Any())
+                {
+                    return Ok("Can't get products with given parameters.");
+                }
                 return Ok(result);
             }
-
-            result.Code = 100;
-            result.Message = "Success";
-            result.Seo = seo;
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
-        [HttpPost("saveSeo")]
-        public async Task<IActionResult> SaveSeo(SeoRequest request)
+        [HttpPut()]
+        public async Task<IActionResult> Update(Seo seo)
         {
-            if (ModelState.IsValid)
-                if (await _dbHelper.SaveSeo(request) == 1)
-                    return Ok();
-            return BadRequest();
+            try
+            {
+                var dbSeo = _mapper.Map<DbSeo>(seo);
+                var result = await _dbService.Save<DbSeo>(dbSeo);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+
+            }
         }
+
+        [HttpPost()]
+        public async Task<IActionResult> Create(Seo seo)
+        {
+            try
+            {
+                var dbSeo = _mapper.Map<DbSeo>(seo);
+                var result = await _dbService.Save<DbSeo>(dbSeo);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+
+            }
+        }
+
+        [HttpDelete()]
+        public async Task<IActionResult> Delete(Guid seoId)
+        {
+            try
+            {
+                var result = await _dbService.Archive<DbSeo>(seoId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
     }
 }
