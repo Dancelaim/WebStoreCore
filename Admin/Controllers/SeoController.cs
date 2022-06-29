@@ -80,9 +80,9 @@ namespace Admin.Controllers
         {
             try
             {
-                var seo = await _dbService.Find<DbSeo>(c => c.MetaTagTitle.StartsWith(Name) || c.MetaTagTitle.Contains(Name) || c.MetaTagTitle.EndsWith(Name));
+                var seo = await _dbService.Find<DbSeo>(c => c.MetaTagTitle.ToLower().StartsWith(Name.ToLower()) || c.MetaTagTitle.ToLower().Contains(Name.ToLower()) || c.MetaTagTitle.ToLower().EndsWith(Name.ToLower()));
                 var result = seo.OrderBy(s => s.UpdateDate).Select(s => new Seo { Id = s.Id, MetaTagTitle = s.MetaTagTitle });
-                if (result.Any())
+                if (!result.Any())
                 {
                     return Ok("Can't get products with given parameters.");
                 }
