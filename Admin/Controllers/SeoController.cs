@@ -56,11 +56,11 @@ namespace Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(Guid seoId)
+        public async Task<IActionResult> Get(Guid id)
         {
             try
             {
-                var seo = await _dbService.Get<DbSeo>(seoId);
+                var seo = await _dbService.Get<DbSeo>(id);
                 if (seo is null)
                 {
                     return BadRequest("No seo with provided Id");
@@ -127,11 +127,11 @@ namespace Admin.Controllers
         }
 
         [HttpDelete()]
-        public async Task<IActionResult> Delete(Guid seoId)
+        public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
-                var result = await _dbService.Archive<DbSeo>(seoId);
+                var result = await _dbService.Archive<DbSeo>(id);
                 return Ok(result);
             }
             catch (Exception ex)

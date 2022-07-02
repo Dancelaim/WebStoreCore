@@ -12,7 +12,7 @@ namespace Admin.Models
         public string Name { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public Guid ProductGameId { get; set; }
+        public Guid Id { get; set; }
        
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string GameDescription { get; set; }

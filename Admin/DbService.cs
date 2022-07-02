@@ -34,7 +34,7 @@ namespace Admin
         }
         public async Task<List<T>> Find<T>(Expression<Func<T, bool>> selector) where T : class, IBaseEntity, new()
         {
-            return await _context.Set<T>().Where(selector).ToListAsync();
+            return await _context.Set<T>().Where(selector).Where(e => !e.IsArchive).ToListAsync();
         }
         public async Task<T> Get<T>(Guid id) where T : class, IBaseEntity, new()
         {

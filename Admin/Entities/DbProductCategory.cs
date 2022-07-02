@@ -16,7 +16,7 @@ namespace Admin.Entities
             ProductSubCategories = new HashSet<DbProductSubCategory>();
             Products = new HashSet<DbProduct>();
         }
-
+        public DbProductCategory(){}
         [Required]
         [StringLength(50)]
         public string Name { get; set; }

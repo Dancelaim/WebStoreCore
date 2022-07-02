@@ -18,6 +18,7 @@ namespace Admin.Entities
             Products = new HashSet<DbProduct>();
             Realms = new HashSet<DbRealm>();
         }
+        public DbProductGame(){ }
 
         [StringLength(50)]
         public string Name { get; set; }
