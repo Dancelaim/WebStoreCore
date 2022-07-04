@@ -3,15 +3,17 @@ using System;
 using Admin.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Admin.Migrations
 {
     [DbContext(typeof(WowCarryContext))]
-    partial class WowCarryContextModelSnapshot : ModelSnapshot
+    [Migration("20220704175046_Rename_IsArchive_to_IsArchived")]
+    partial class Rename_IsArchive_to_IsArchived
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

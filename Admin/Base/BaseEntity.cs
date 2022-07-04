@@ -16,6 +16,6 @@ namespace Admin.Base
         public Guid Id { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime UpdateDate { get; set; } = DateTime.Now;
-        public bool IsArchive  {get; set;}
+        public bool IsArchived { get; set;}
     }
 }

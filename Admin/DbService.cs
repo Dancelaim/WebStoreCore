@@ -34,7 +34,7 @@ namespace Admin
         }
         public async Task<List<T>> Find<T>(Expression<Func<T, bool>> selector) where T : class, IBaseEntity, new()
         {
-            return await _context.Set<T>().Where(selector).Where(e => !e.IsArchive).ToListAsync();
+            return await _context.Set<T>().Where(selector).Where(e => !e.IsArchived).ToListAsync();
         }
         public async Task<T> Get<T>(Guid id) where T : class, IBaseEntity, new()
         {
@@ -42,7 +42,7 @@ namespace Admin
         }
         public async Task<List<T>> GetList<T>(int skip, int qty) where T : class, IBaseEntity, new()
         {
-            return await _context.Set<T>().Where(e=>!e.IsArchive).Skip(skip).Take(qty).ToListAsync();
+            return await _context.Set<T>().Where(e=>!e.IsArchived).Skip(skip).Take(qty).ToListAsync();
         }
         public async Task<Guid> Save<T>(T entity) where T : class, IBaseEntity, new()
         {
@@ -53,7 +53,7 @@ namespace Admin
         async Task<bool> IDbService.Archive<T>(Guid id)
         {
             var dbEntity = await _context.Set<T>().FindAsync(id);
-            dbEntity.IsArchive = true;
+            dbEntity.IsArchived = true;
             _context.Set<T>().Update(dbEntity);
             return await _context.SaveChangesAsync() is 1;
         }
